@@ -15,3 +15,4 @@ Hosted on Cloudflare
 - blog about rebuild
 - descriptions on blogs https://jonheslop.com/posts/2025/10-week-notes
 - coverimages on posts
+- RSS

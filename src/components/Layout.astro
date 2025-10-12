@@ -7,6 +7,12 @@ import NowPlaying from "../components/NowPlaying.astro";
 import Logo from "../components/Logo.astro";
 
 import "../styles/global.css";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
 ---
 
 <html lang="en">
@@ -16,7 +22,7 @@ import "../styles/global.css";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#f09e0f" />
-    <title>Hello | Jon Heslop</title>
+    <title>{title} | Jon Heslop</title>
     <Font cssVariable="--font-soehne" preload />
   </head>
   <body
