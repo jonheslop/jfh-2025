@@ -24,11 +24,18 @@ const dateOptions: object = {
     posts.map((post) => (
       <li class="text-lg border-b border-b-white/20">
         <a
-          class="flex justify-between py-2 group hover:bg-white/10 transition-colors"
+          class="flex justify-start items-center gap-x-4 py-2 group hover:bg-white/10 transition-colors"
           href={`/${type}/${post.id}`}
         >
+          {!recent && post.data.coverImage && (
+            <img
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.coverImage}/small`}
+              alt={post.data.title}
+              class="h-32 border-2 rounded-xs mix-blend-luminosity group-hover:mix-blend-normal"
+            />
+          )}
           <span class="group-hover:underline">{post.data.title}</span>
-          <span class="text-white/60">
+          <span class="text-white/60 ml-auto">
             {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
           </span>
         </a>
