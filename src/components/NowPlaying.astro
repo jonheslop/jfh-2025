@@ -7,13 +7,15 @@ const data = await response.json();
 const { image, name, artist, album, url } = data.recenttracks.track[0];
 ---
 
-<div class="text-sm col-span-2 col-start-11 mt-32">
+<div
+  class="text-sm lg:col-span-2 lg:col-start-11 mt-32 flex gap-4 lg:flex-col lg:gap-2"
+>
   <Image
     src={image[3]["#text"]}
     alt={name}
     width={200}
     height={200}
-    class="border-2 rounded-xs mb-2 mix-blend-luminosity hover:mix-blend-normal"
+    class="border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
     layout="constrained"
   />
   <div>

@@ -26,6 +26,10 @@ body {
   text-underline-offset: 4px;
 }
 
+.prose p {
+  @apply max-w-prose leading-snug;
+}
+
 .prose p + p {
   @apply mt-4;
 }
@@ -62,5 +66,5 @@ body {
 }
 
 .prose img {
-  @apply border-2 rounded-xs my-8;
+  @apply border-2 rounded-xs my-8 bg-white/80;
 }
