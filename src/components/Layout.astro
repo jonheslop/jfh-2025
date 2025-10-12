@@ -17,7 +17,6 @@ import "../styles/global.css";
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#f09e0f" />
     <title>Hello | Jon Heslop</title>
-    <!-- <Font cssVariable="--font-soehne" preload /> -->
     <Font cssVariable="--font-soehne" preload />
   </head>
   <body
@@ -33,7 +32,7 @@ import "../styles/global.css";
       </div>
       <slot />
       <About />
-      <NowPlaying />
+      <NowPlaying server:defer />
     </div>
     <Footer />
   </body>
