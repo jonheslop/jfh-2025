@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+const response = await fetch(
+  "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=jonheslop&api_key=6908805d396f2a48dcac5ac045452754&format=json",
+);
+const data = await response.json();
+const { image, name, artist, album, url } = data.recenttracks.track[0];
+---
+
+<div class="text-sm col-span-4 col-start-9 grid grid-cols-2 gap-8 items-start">
+  <Image
+    src={image[3]["#text"]}
+    alt={name}
+    width={200}
+    height={200}
+    class="border-2 rounded-xs mb-2 mix-blend-luminosity hover:mix-blend-normal"
+    layout="constrained"
+  />
+  <div>
+    <h5 class="uppercase font-bold mb-2">Last played track</h5>
+    {artist["#text"]}
+    <span class="block">{album["#text"]}</span>
+    <a href={url} class="block italic">{name}</a>
+  </div>
+</div>

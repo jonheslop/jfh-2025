@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-soehne);
+  --font-serif: var(--font-martina-plantijn);
+  --color-fenix-red: #9d492d;
+  --color-fenix-green: #5e7664;
+}
+
+body {
+  font-feature-settings: "ss02" 1;
+}
+
+.prose a {
+  text-underline-offset: 2px;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: var(--color-white);
+  text-underline-offset: 4px;
+}
+
+.prose p + p {
+  margin-top: 1rem;
+}

@@ -1,0 +1,34 @@
+---
+import { Font } from "astro:assets";
+import About from "../components/About.astro";
+
+import Logo from "../components/Logo.astro";
+
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#f09e0f" />
+    <title>Hello | Jon Heslop</title>
+    <!-- <Font cssVariable="--font-soehne" preload /> -->
+    <Font cssVariable="--font-soehne" preload />
+    <Font cssVariable="--font-die-grotesk" preload />
+    <Font cssVariable="--font-american-grotesk" preload />
+    <Font cssVariable="--font-martina-plantijn" preload />
+  </head>
+  <body
+    class="font-die-grotesk antialiased
+ bg-fenix-green dark:bg-neutral-950 text-white/90 dark:text-neutral-200 relative p-8 font-medium grid grid-cols-12 gap-x-8 gap-y-24 mb-8 bg-fixed"
+    style={`background-image: url(/noise.svg); background-size:200px`}
+  >
+    <div class="row-span-full sticky top-8">
+      <Logo />
+    </div>
+    <slot />
+  </body>
+</html>

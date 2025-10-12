@@ -1,16 +1,27 @@
 ---
-
+import Layout from "../components/Layout.astro";
+import About from "../components/About.astro";
+import NowPlaying from "../components/NowPlaying.astro";
+import PostList from "../components/PostList.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <section class="col-span-6 col-start-3 self-center">
+    <p class="text-2xl prose">
+      Welcome to <a href="https://jonheslop.com">jonheslop.com</a>, my digital
+      garden. I build websites for fun and a salary. I also made <a
+        href="http://gif.land">gif.land</a
+      >.
+    </p>
+  </section>
+  <section class="col-span-4 col-start-3">
+    <h1 class="uppercase font-bold mb-2">Posts</h1>
+    <PostList type="posts" recent={true} />
+  </section>
+  <section class="col-span-4 col-start-9">
+    <h1 class="uppercase font-bold mb-2">Photos</h1>
+    <PostList type="photos" recent={true} />
+  </section>
+  <About />
+  <NowPlaying />
+</Layout>

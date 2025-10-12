@@ -1,0 +1,30 @@
+---
+title: My own personal GIF library
+date: '2025-02-04T20:01:22.322Z'
+---
+
+![Algebraic](https://gif.land/algebraic.gif)
+
+There’s this incredible website called [bukk.it](https://bukk.it/) that I’ve been sporadically visiting for years. It’s a directory of images and I love the surprise of scrolling through the filenames looking for things that pop out at me and then laughing out loud at what appears.
+
+![conduit-nonsense.jpg](https://gif.land/conduit-nonsense.jpg)
+
+[bukk.it](https://bukk.it/) is maintained by internet legend [Ethan Marcotte](https://ethanmarcotte.com) he’s [blogged about it before](https://ethanmarcotte.com/wrote/bukkit/). Over the years I’ve had some of the gifs saved to my desktop, synced in Dropbox and pinned in [GimmieBar](https://markfletcher.co/a-eulogy-for-gimmebar/) (RIP).
+
+Some are ingrained in my memory, like [bukk.it/deploy.gif](https://bukk.it/deploy.gif). I drop them in my work slack from time-to-time. But sometimes my memory fails me and I cannot remember the filename for the ones I’m looking for.
+
+So I’ve thrown something together using [Cloudflare’s R2 object storage](https://www.cloudflare.com/en-gb/developer-platform/products/r2/) for the images and a [Turso SQLite DB](https://turso.tech/) so I can add a little more metadata and query them.
+
+![Furiously typing](https://gif.land/rudd-work.gif)
+
+I’ve cobbled together a CLI script that uploads them to Cloudflare and inserts a DB row, so I can easily add new ones from my computer.
+
+Then I’ve made a little [index page](https://gif.land) of them all so I can see them in a nice big grid. Every website needs a nice url and I was surpised to see that [gif.land](https://gif.land) was available (and cheap) so of course I bought it. Here’s how it looks
+
+[![A screenshot of home.gif.land](https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/90deafb3-388e-4ba4-8664-d3356f757e00/medium)](https://home.gif.land)
+
+It’s silly but I love it.
+
+Thanks again to [Ethan](https://ethanmarcotte.com) for [bukk.it](https://bukk.it/), without which I’d never have thought _what if..._ and enjoyed hacking this together.
+
+![Every day I turn on my silly little computer and case my silly little spells](https://gif.land/computer-spells.png)

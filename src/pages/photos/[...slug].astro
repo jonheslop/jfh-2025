@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../components/Layout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("photos");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateOptions: object = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+---
+
+<Layout>
+  <article class="col-span-10 col-start-3">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold">{post.data.title}</h1>
+      <span class="text-white/60">
+        {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
+      </span>
+    </header>
+    <div class="prose text-lg max-w-xl mb-8">
+      <Content />
+    </div>
+    {
+      post.data.photos !== undefined && (
+        <div class="md:col-start-2 md:col-span-3 w-full relative grid gap-8 md:gap-16 bg-white">
+          {post.data.photos.map((cloudflareId) => (
+            <img
+              alt=""
+              id={`image-${cloudflareId}`}
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/small`}
+              srcset={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/small 400w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/medium 1024w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/large 2048w`}
+              loading="lazy"
+            />
+          ))}
+        </div>
+      )
+    }
+  </article>
+</Layout>

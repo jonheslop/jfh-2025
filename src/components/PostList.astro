@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  type: "posts" | "photos";
+  recent?: boolean;
+}
+
+const { type, recent = false } = Astro.props;
+
+const posts = (await getCollection(type))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, recent ? 10 : undefined);
+
+const dateOptions: object = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+---
+
+<ul>
+  {
+    posts.map((post) => (
+      <li class="text-lg py-2 border-b border-b-white/20">
+        <a class="flex justify-between group" href={`/${type}/${post.id}`}>
+          <span class="group-hover:underline">{post.data.title}</span>
+          <span class="text-white/60">
+            {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+{
+  recent && (
+    <a href={`/${type}`} class="block text-white/60 mt-2">
+      See all {type} &raquo;
+    </a>
+  )
+}

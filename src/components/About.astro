@@ -1,0 +1,72 @@
+---
+import { Image } from "astro:assets";
+
+import me from "../assets/jon-heslop-2024.jpg";
+---
+
+<div class="col-span-4 col-start-3">
+  <figure class="border-2 rounded-xs">
+    <Image
+      src={me}
+      alt="Jon Heslop in his house"
+      class="mix-blend-luminosity hover:mix-blend-normal"
+      layout="constrained"
+    />
+    <figcaption class="text-xs text-amber-800 py-2 px-1 bg-white/90">
+      Self-portrait, Fujifilm X-Pro3, Leica Summilux-M 50 ƒ/1.4{" "}
+      <span class="tracking-wider"> ASPH </span>
+    </figcaption>
+  </figure>
+
+  <header class="flex items-end gap-4 mt-8">
+    <h1 class="text-4xl font-extrabold">Jon Heslop</h1>
+    <h2 class="text-2xl text-white/60">he/him</h2>
+  </header>
+  <p class="text-lg leading-snug mt-4 max-w-xl">
+    Jon Heslop is a web developer based in Walthamstow, he lives with his wife
+    <a href="https://www.instagram.com/becgoss/">Rebecca</a>
+    and their dog,
+    <a href="https://www.instagram.com/maudethebord/">Maude</a>. He enjoys
+    cycling, cooking and hanging out with&nbsp;friends.
+  </p>
+  <ul class="text-sm flex flex-wrap gap-4 mt-8">
+    <h5 class="uppercase font-bold">Social</h5>
+    <li>
+      <a href="https://github.com/jonheslop">Github</a>
+    </li>
+    <li>
+      <a href="https://instagram.com/jonheslop">Instagram</a>
+    </li>
+    <li>
+      <a href="https://last.fm/user/jonheslop">Last.fm</a>
+    </li>
+    <li>
+      <a href="https://letterboxd.com/jonheslop/">Letterboxd</a>
+    </li>
+    <!-- <li>
+        <a href="https://record.club/jonheslop">Record Club</a>
+      </li> -->
+    <li>
+      <a href="https://bsky.app/profile/jonheslop.com">Bluesky</a>
+    </li>
+  </ul>
+
+  <ul class="text-sm flex gap-4 mt-2" role="navigation">
+    <h5 class="uppercase font-bold">Site meta</h5>
+    <li>
+      <a href="/stream"> Stream </a>
+    </li>
+    <li>
+      <a href="/colophon"> Colophon </a>
+    </li>
+    <li>
+      <a href="mailto:jon@jonheslop.com"> Email </a>
+    </li>
+    <li>
+      <a href="/feed.xml"> Posts RSS </a>
+    </li>
+    <li>
+      <a href="/stream/feed.xml"> Stream RSS </a>
+    </li>
+  </ul>
+</div>
