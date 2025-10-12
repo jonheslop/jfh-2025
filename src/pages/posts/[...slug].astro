@@ -24,7 +24,8 @@ const dateOptions: object = {
   <article class="lg:col-span-6 lg:col-start-3 self-center mb-64">
     <header class="mb-8">
       <h1 class="text-6xl font-semibold text-balance">{post.data.title}</h1>
-      <span class="text-white/60">
+      <h2 class="text-xl text-white/60 mb-8">{post.data.description}</h2>
+      <span class="text-xl text-white/60">
         {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
       </span>
     </header>

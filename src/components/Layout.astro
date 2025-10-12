@@ -21,13 +21,13 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#f09e0f" />
+    <meta name="theme-color" content="#637666" />
     <title>{title} | Jon Heslop</title>
     <Font cssVariable="--font-soehne" preload />
   </head>
   <body
-    class="bg-fixed bg-fenix-green"
-    style={`background-image: url(/noise.svg); background-size:200px`}
+    class="bg-fixed bg-fenix-green bg-size-[140px] lg:bg-size-[200px]"
+    style={`background-image: url(/noise.svg);`}
   >
     <div
       class="font-sans antialiased
