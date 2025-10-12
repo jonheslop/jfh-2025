@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import me from "../assets/jon-heslop-2024.jpg";
 ---
 
-<div class="col-span-6 col-start-3 mt-32 prose">
+<div class="col-span-6 col-start-3 mt-32">
   <figure class="border-2 rounded-xs">
     <Image
       src={me}
@@ -22,11 +22,13 @@ import me from "../assets/jon-heslop-2024.jpg";
     <h1 class="text-4xl font-extrabold">Jon Heslop</h1>
     <h2 class="text-2xl text-white/60">he/him</h2>
   </header>
-  <p class="text-lg leading-snug mt-4 max-w-xl">
-    Jon Heslop is a web developer based in Walthamstow, he lives with his wife
-    <a href="https://www.instagram.com/becgoss/">Rebecca</a>
-    and their dog,
-    <a href="https://www.instagram.com/maudethebord/">Maude</a>. He enjoys
-    cycling, cooking and hanging out with&nbsp;friends.
-  </p>
+  <div class="prose">
+    <p class="text-lg leading-snug mt-4 max-w-xl">
+      Jon Heslop is a web developer based in Walthamstow, he lives with his wife
+      <a href="https://www.instagram.com/becgoss/">Rebecca</a>
+      and their dog,
+      <a href="https://www.instagram.com/maudethebord/">Maude</a>. He enjoys
+      cycling, cooking and hanging out with&nbsp;friends.
+    </p>
+  </div>
 </div>

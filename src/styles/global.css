@@ -27,14 +27,14 @@ body {
 }
 
 .prose p + p {
-  margin-top: 1rem;
+  @apply mt-4;
 }
 
 .prose p + ul,
 .prose p + ol,
 .prose ul + p,
 .prose ol + p {
-  margin-top: 2rem;
+  @apply mt-8;
 }
 
 .prose ul {
@@ -46,10 +46,21 @@ body {
 }
 
 .prose li + li {
-  margin-top: 0.75rem;
+  @apply mt-3;
 }
 
 .prose ul,
 .prose ol {
-  margin-left: 2rem;
+  @apply ml-8;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h2 {
+  @apply text-2xl font-semibold mt-8 mb-4;
+}
+
+.prose img {
+  @apply border-2 rounded-xs my-8;
 }

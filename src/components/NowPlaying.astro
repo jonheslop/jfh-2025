@@ -7,7 +7,7 @@ const data = await response.json();
 const { image, name, artist, album, url } = data.recenttracks.track[0];
 ---
 
-<div class="text-sm col-span-2 col-start-11 mt-32 prose">
+<div class="text-sm col-span-2 col-start-11 mt-32">
   <Image
     src={image[3]["#text"]}
     alt={name}
@@ -17,9 +17,9 @@ const { image, name, artist, album, url } = data.recenttracks.track[0];
     layout="constrained"
   />
   <div>
-    <h5 class="uppercase font-bold mb-2">Last played track</h5>
+    <h5 class="uppercase font-semibold mb-2">Last played track</h5>
     {artist["#text"]}
     <span class="block">{album["#text"]}</span>
-    <a href={url} class="block italic">{name}</a>
+    <a href={url} class="block italic link">{name}</a>
   </div>
 </div>
