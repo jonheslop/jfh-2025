@@ -11,16 +11,45 @@ body {
   font-feature-settings: "ss02" 1;
 }
 
-.prose a {
+.prose a,
+.link {
   text-underline-offset: 2px;
   text-decoration: underline;
 }
 
-.prose a:hover {
+.prose a:hover,
+.footer a:hover,
+.hover:hover,
+.link:hover {
+  text-decoration: underline;
   color: var(--color-white);
   text-underline-offset: 4px;
 }
 
 .prose p + p {
   margin-top: 1rem;
+}
+
+.prose p + ul,
+.prose p + ol,
+.prose ul + p,
+.prose ol + p {
+  margin-top: 2rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li + li {
+  margin-top: 0.75rem;
+}
+
+.prose ul,
+.prose ol {
+  margin-left: 2rem;
 }

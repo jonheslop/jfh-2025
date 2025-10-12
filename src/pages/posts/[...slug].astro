@@ -21,14 +21,14 @@ const dateOptions: object = {
 ---
 
 <Layout>
-  <article class="col-span-6 col-start-6">
+  <article class="col-span-6 col-start-3 self-center mb-64">
     <header class="mb-8">
       <h1 class="text-4xl font-bold">{post.data.title}</h1>
       <span class="text-white/60">
         {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
       </span>
     </header>
-    <div class="prose text-lg">
+    <div class="prose text-xl md:text-lg lg:text-xl">
       <Content />
     </div>
   </article>
