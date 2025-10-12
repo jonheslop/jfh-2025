@@ -12,9 +12,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  adapter: cloudflare({
-    imageService: "compile",
-  }),
+
+  adapter: cloudflare(),
+
   experimental: {
     fonts: [
       {
@@ -41,5 +41,6 @@ export default defineConfig({
       },
     ],
   },
+
   integrations: [mdx()],
 });
