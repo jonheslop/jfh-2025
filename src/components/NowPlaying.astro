@@ -7,7 +7,7 @@ const data = await response.json();
 const { image, name, artist, album, url } = data.recenttracks.track[0];
 ---
 
-<div class="text-sm col-span-4 col-start-9 grid grid-cols-2 gap-8 items-start">
+<div class="text-sm col-span-2 col-start-11 mt-32 prose">
   <Image
     src={image[3]["#text"]}
     alt={name}

@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import me from "../assets/jon-heslop-2024.jpg";
 ---
 
-<div class="col-span-4 col-start-3">
+<div class="col-span-6 col-start-3 mt-32 prose">
   <figure class="border-2 rounded-xs">
     <Image
       src={me}
@@ -29,44 +29,4 @@ import me from "../assets/jon-heslop-2024.jpg";
     <a href="https://www.instagram.com/maudethebord/">Maude</a>. He enjoys
     cycling, cooking and hanging out with&nbsp;friends.
   </p>
-  <ul class="text-sm flex flex-wrap gap-4 mt-8">
-    <h5 class="uppercase font-bold">Social</h5>
-    <li>
-      <a href="https://github.com/jonheslop">Github</a>
-    </li>
-    <li>
-      <a href="https://instagram.com/jonheslop">Instagram</a>
-    </li>
-    <li>
-      <a href="https://last.fm/user/jonheslop">Last.fm</a>
-    </li>
-    <li>
-      <a href="https://letterboxd.com/jonheslop/">Letterboxd</a>
-    </li>
-    <!-- <li>
-        <a href="https://record.club/jonheslop">Record Club</a>
-      </li> -->
-    <li>
-      <a href="https://bsky.app/profile/jonheslop.com">Bluesky</a>
-    </li>
-  </ul>
-
-  <ul class="text-sm flex gap-4 mt-2" role="navigation">
-    <h5 class="uppercase font-bold">Site meta</h5>
-    <li>
-      <a href="/stream"> Stream </a>
-    </li>
-    <li>
-      <a href="/colophon"> Colophon </a>
-    </li>
-    <li>
-      <a href="mailto:jon@jonheslop.com"> Email </a>
-    </li>
-    <li>
-      <a href="/feed.xml"> Posts RSS </a>
-    </li>
-    <li>
-      <a href="/stream/feed.xml"> Stream RSS </a>
-    </li>
-  </ul>
 </div>

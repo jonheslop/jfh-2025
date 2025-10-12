@@ -33,9 +33,10 @@ const dateOptions: object = {
     </div>
     {
       post.data.photos !== undefined && (
-        <div class="md:col-start-2 md:col-span-3 w-full relative grid gap-8 md:gap-16 bg-white">
+        <div class="md:col-start-2 md:col-span-3 w-full relative grid gap-8 md:gap-16">
           {post.data.photos.map((cloudflareId) => (
             <img
+              class="border-4 rounded-xs"
               alt=""
               id={`image-${cloudflareId}`}
               src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/small`}
