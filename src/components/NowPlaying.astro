@@ -19,7 +19,7 @@ const { image, name, artist, album, url } = data.recenttracks.track[0];
     class="border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
     layout="constrained"
   />
-  <div class="text-balance">
+  <div class="text-balance flex flex-col gap-1">
     <h5 class="uppercase font-semibold mb-2">Last played track</h5>
     {artist["#text"]}
     <span class="block">{album["#text"]}</span>
