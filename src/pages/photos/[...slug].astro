@@ -21,7 +21,7 @@ const dateOptions: object = {
 ---
 
 <Layout title={post.data.title}>
-  <article class="lg:col-span-10 lg:col-start-3 mb-64">
+  <article class="mb-64">
     <header class="mb-8">
       <h1 class="text-6xl font-semibold">{post.data.title}</h1>
       <span class="text-white/60">
@@ -33,7 +33,7 @@ const dateOptions: object = {
     </div>
     {
       post.data.photos !== undefined && (
-        <div class="md:col-start-2 md:col-span-3 w-full relative grid gap-8 md:gap-16">
+        <div class="w-full relative grid gap-8 md:gap-16">
           {post.data.photos.map((cloudflareId) => (
             <img
               class="border-4 rounded-xs"

@@ -4,7 +4,7 @@ import PostList from "../components/PostList.astro";
 ---
 
 <Layout title="Hello">
-  <section class="lg:col-span-6 lg:col-start-3 self-center">
+  <section class="self-start col-start-1 mt-44">
     <p class="text-2xl prose text-balance">
       Welcome to <a href="https://jonheslop.com">jonheslop.com</a>, my digital
       garden. I build websites for fun and a <a href="https://crezco.com"
@@ -12,11 +12,11 @@ import PostList from "../components/PostList.astro";
       >. I also made <a href="http://gif.land">gif.land</a>.
     </p>
   </section>
-  <section class="lg:col-span-4 lg:col-start-3">
+  <section>
     <h1 class="text-sm uppercase font-semibold mb-2">Recent posts</h1>
     <PostList type="posts" recent={true} />
   </section>
-  <section class="lg:col-span-4 lg:col-start-9">
+  <section>
     <h1 class="text-sm uppercase font-semibold mb-2">Recent photo posts</h1>
     <PostList type="photos" recent={true} />
   </section>
