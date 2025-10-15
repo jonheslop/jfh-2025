@@ -4,8 +4,8 @@ import { Image } from "astro:assets";
 import me from "../assets/jon-heslop-2024.jpg";
 ---
 
-<div class="lg:col-span-4 lg:col-start-3 mt-32">
-  <figure class="border-2 rounded-xs">
+<section class="lg:col-span-10 lg:col-start-3 grid grid-cols-10 gap-8 py-32">
+  <figure class="border-4 rounded-xs col-span-6">
     <Image
       src={me}
       alt="Jon Heslop in his house"
@@ -18,13 +18,18 @@ import me from "../assets/jon-heslop-2024.jpg";
     </figcaption>
   </figure>
 
-  <div class="prose">
-    <p class="text-lg leading-snug mt-4 max-w-xl">
-      Jon Heslop is a web developer based in Walthamstow, he lives with his wife
-      <a href="https://www.instagram.com/becgoss/">Rebecca</a>
-      and their dog,
-      <a href="https://www.instagram.com/maudethebord/">Maude</a>. He enjoys
-      cycling, cooking and hanging out with&nbsp;friends.
-    </p>
-  </div>
-</div>
+  <article class="col-span-4">
+    <h2 class="font-bold text-2xl mb-8">About me</h2>
+    <div class="prose">
+      <p class="text-lg leading-snug max-w-xl">
+        Jon Heslop is a web developer based in Walthamstow, he lives with his
+        wife
+        <a href="https://www.instagram.com/becgoss/">Rebecca</a>
+        and their dog,
+        <a href="https://www.instagram.com/maudethebord/">Maude</a>. He enjoys
+        cycling, cooking and hanging out with&nbsp;friends.
+      </p>
+      <p></p>
+    </div>
+  </article>
+</section>
