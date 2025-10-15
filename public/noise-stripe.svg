@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="700"><defs><filter id="a" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="linearRGB"><feTurbulence type="fractalNoise" baseFrequency=".1" numOctaves="4" seed="15" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"/><feSpecularLighting surfaceScale="24" specularConstant=".8" specularExponent="20" lighting-color="#9db7a3" x="0%" y="0%" width="100%" height="100%" in="turbulence" result="specularLighting"><feDistantLight azimuth="3" elevation="114"/></feSpecularLighting></filter></defs><path d="M560 0H700V700H560V0Z" fill="#A41623"/>
+<path d="M420 0H560V700H420V0Z" fill="#FBBF24"/>
+<path d="M280 0H420V700H280V0Z" fill="#E3DBDB"/>
+<path d="M140 0H280V700H140V0Z" fill="#03045E"/>
+<path d="M0 0H140V700H0V0Z" fill="#5E7664"/>
+<path fill="#9db7a3" filter="url(#a)" d="M0 0h700v700H0z"/></svg>
