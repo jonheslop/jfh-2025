@@ -23,7 +23,17 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#637666" />
     <title>{title} | Jon Heslop</title>
+    <meta
+      name="description"
+      content="Jon Heslop is a front end developer based in London."
+    />
     <Font cssVariable="--font-soehne" preload />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="jonheslop.com"
+      href={new URL("feed.xml", Astro.site)}
+    />
   </head>
   <body
     class="bg-fixed bg-fenix-green bg-size-[140px] lg:bg-size-[200px]"
