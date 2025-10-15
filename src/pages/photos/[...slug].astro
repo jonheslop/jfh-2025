@@ -24,7 +24,7 @@ const dateOptions: object = {
   <article class="lg:col-span-10 lg:col-start-3 mb-64">
     <header class="mb-8">
       <h1 class="text-6xl font-semibold">{post.data.title}</h1>
-      <span class="text-white/60">
+      <span class="block text-xl text-black/40 mt-8">
         {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
       </span>
     </header>
@@ -36,7 +36,7 @@ const dateOptions: object = {
         <div class="md:col-start-2 md:col-span-3 w-full relative grid gap-8 md:gap-16">
           {post.data.photos.map((cloudflareId) => (
             <img
-              class="border-4 rounded-xs"
+              class="border-4 border-white/80 rounded-xs"
               alt=""
               id={`image-${cloudflareId}`}
               src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/small`}

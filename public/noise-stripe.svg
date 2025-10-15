@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><defs><filter id="a" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="linearRGB"><feTurbulence type="fractalNoise" baseFrequency=".1" numOctaves="4" seed="15" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"/><feSpecularLighting surfaceScale="24" specularConstant=".8" specularExponent="20" lighting-color="#9db7a3" x="0%" y="0%" width="100%" height="100%" in="turbulence" result="specularLighting"><feDistantLight azimuth="3" elevation="114"/></feSpecularLighting></filter></defs><path d="M400 0H600V600H400V0Z" fill="#EDEDED"/>
+<path d="M300 0H400V600H300V0Z" fill="#5E7664"/>
+<path d="M100 0H300V600H100V0Z" fill="#03045E"/>
+<path d="M0 0H100V600H0V0Z" fill="#5E7664"/>
+<path fill="#9db7a3" filter="url(#a)" d="M0 0h600v600H0z"/></svg>

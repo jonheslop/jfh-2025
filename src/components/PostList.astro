@@ -37,7 +37,7 @@ const dateOptions: object = {
           <span class="group-hover:underline flex-1 text-pretty">
             {post.data.title}
           </span>
-          <span class="text-white/60 ml-auto">
+          <span class="text-black/40 ml-auto">
             {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
           </span>
         </a>
@@ -47,7 +47,7 @@ const dateOptions: object = {
 </ul>
 {
   recent && (
-    <a href={`/${type}`} class="block text-white/60 hover mt-2">
+    <a href={`/${type}`} class="block hover:text-black mt-2">
       See all {type} &raquo;
     </a>
   )
