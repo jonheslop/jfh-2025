@@ -34,7 +34,9 @@ const dateOptions: object = {
               class="h-32 border-2 rounded-xs mix-blend-luminosity group-hover:mix-blend-normal"
             />
           )}
-          <span class="group-hover:underline">{post.data.title}</span>
+          <span class="group-hover:underline flex-1 text-pretty">
+            {post.data.title}
+          </span>
           <span class="text-white/60 ml-auto">
             {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
           </span>
