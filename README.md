@@ -11,5 +11,4 @@ Hosted on Cloudflare
 
 - jobs list
 - og image
-- blog about rebuild
 - try amber colour again

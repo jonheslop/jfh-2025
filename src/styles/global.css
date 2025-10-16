@@ -79,3 +79,11 @@ body {
 .prose img {
   @apply border-2 rounded-xs my-8 bg-white/80;
 }
+
+.prose p code {
+  @apply text-base bg-white/80 px-2 py-px text-fenix-red rounded-xs;
+}
+
+.prose pre {
+  @apply text-sm my-8 overflow-auto bg-black/50 p-4 text-white/60 rounded-xs;
+}
