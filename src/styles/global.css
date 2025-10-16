@@ -73,7 +73,7 @@ body {
 .prose h2,
 .prose h3,
 .prose h2 {
-  @apply text-2xl font-semibold mt-8 mb-4;
+  @apply text-2xl font-semibold mt-12 mb-4;
 }
 
 .prose img {

@@ -4,7 +4,9 @@ import { Image } from "astro:assets";
 import me from "../assets/jon-heslop-2024.jpg";
 ---
 
-<section class="lg:col-span-10 lg:col-start-3 grid grid-cols-10 gap-8 py-32">
+<section
+  class="lg:col-span-10 lg:col-start-3 lg:row-start-3 lg:grid grid-cols-10 gap-8 py-32 items-start"
+>
   <figure class="border-4 rounded-xs col-span-6">
     <Image
       src={me}
@@ -19,8 +21,8 @@ import me from "../assets/jon-heslop-2024.jpg";
   </figure>
 
   <article class="col-span-4">
-    <h2 class="text-sm uppercase font-bold mb-4">About me</h2>
-    <div class="prose text-lg leading-snug max-w-xl text-pretty">
+    <h2 class="text-sm uppercase font-bold mt-8 lg:mt-0 mb-4">About me</h2>
+    <div class="prose xl:text-lg leading-snug max-w-xl text-pretty">
       <p>
         Jon Heslop is a web developer based in Walthamstow, he lives with his
         wife

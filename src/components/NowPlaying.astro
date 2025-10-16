@@ -8,16 +8,18 @@ const tracks = await tracksResponse.json();
 const { image, name, artist, album, url } = tracks.recenttracks.track[0];
 ---
 
-<Image
-  src={image[3]["#text"]}
-  alt={name}
-  width={200}
-  height={200}
-  class="border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-  layout="constrained"
-/>
-<div class="text-balance flex flex-col gap-1 text-sm mt-1">
-  <a href={url} class="block italic link">{name}</a>
-  <span class="block">{album["#text"]}</span>
-  {artist["#text"]}
+<div class="grid grid-cols-2 gap-4 lg:grid-cols-1 lg:gap-0">
+  <Image
+    src={image[3]["#text"]}
+    alt={name}
+    width={200}
+    height={200}
+    class="border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+    layout="constrained"
+  />
+  <div class="text-balance flex flex-col gap-1 text-sm mt-1">
+    <a href={url} class="block italic link">{name}</a>
+    <span class="block">{album["#text"]}</span>
+    {artist["#text"]}
+  </div>
 </div>

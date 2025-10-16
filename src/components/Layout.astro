@@ -36,27 +36,25 @@ const { title } = Astro.props;
       href={new URL("feed.xml", Astro.site)}
     />
   </head>
-  <body class="p-1 sm:p-2 md:p-4">
+  <body class="p-1 sm:p-2 md:p-4 dark:bg-black">
     <div
-      class="bg-fixed bg-fenix-green bg-size-[140px] lg:bg-size-[200px] pb-32 rounded-xs"
+      class="bg-fixed bg-fenix-green bg-size-[140px] lg:bg-size-[200px] rounded-xs"
       style="background-image: url(/noise.svg);"
     >
       <div
         class="font-sans antialiased
- dark:bg-neutral-950 text-white/90 dark:text-neutral-200 relative p-2 sm:p-4 lg:p-8 font-medium grid lg:grid-cols-12 gap-x-8 gap-y-24"
+ dark:bg-neutral-950/80 text-white/90 dark:text-white/80 relative p-2 sm:p-4 lg:p-8 font-medium grid lg:grid-cols-12 gap-x-8 gap-y-24 lg:pb-32"
       >
         <div class="row-span-full sticky top-3 lg:top-8 z-50">
           <Logo />
         </div>
-        <nav class="col-span-11 flex items-center justify-end">
-          <ul class="flex gap-8 justify-end items-center">
-            <li><a href="#About">Dark mode</a></li>
-          </ul>
-        </nav>
+
         <slot />
         <About />
-        <div class="lg:col-span-10 lg:col-start-3 grid grid-cols-10 gap-x-8">
-          <div class="col-span-2">
+        <div
+          class="lg:col-span-10 lg:col-start-3 grid lg:grid-cols-10 gap-x-8 lg:row-start-4"
+        >
+          <div class="lg:col-span-2">
             <h5 class="text-sm uppercase font-semibold mb-2">
               Last played track
             </h5>
@@ -70,13 +68,13 @@ const { title } = Astro.props;
               </div>
             </NowPlaying>
           </div>
-          <div class="col-start-5 col-span-7">
+          <div class="lg:col-start-5 lg:col-span-7 my-16 lg:my-0">
             <h5 class="text-sm uppercase font-semibold mb-2 col-span-full">
               Top albums this month
             </h5>
-            <div class="flex gap-x-8">
+            <div class="flex gap-x-4 lg:gap-x-8 lg:mt-0">
               <TopAlbums server:defer>
-                <div slot="fallback" class="flex gap-x-8">
+                <div slot="fallback" class="flex gap-x-4 lg:gap-x-8">
                   <div>
                     <div
                       class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
