@@ -3,6 +3,7 @@ import { Font } from "astro:assets";
 import Footer from "../components/Footer.astro";
 import About from "../components/About.astro";
 import NowPlaying from "../components/NowPlaying.astro";
+import TopAlbums from "../components/TopAlbums.astro";
 
 import Logo from "../components/Logo.astro";
 
@@ -48,8 +49,56 @@ const { title } = Astro.props;
       </div>
       <slot />
       <About />
-      <NowPlaying server:defer />
+      <div class="lg:col-span-10 lg:col-start-3 grid grid-cols-10 gap-x-8">
+        <div class="col-span-2">
+          <h5 class="text-sm uppercase font-semibold mb-2">
+            Last played track
+          </h5>
+          <NowPlaying server:defer>
+            <div slot="fallback">
+              <div
+                class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+              >
+              </div>
+              <p class="text-sm mt-1">Fetching track...</p>
+            </div>
+          </NowPlaying>
+        </div>
+        <div class="col-start-5 col-span-7">
+          <h5 class="text-sm uppercase font-semibold mb-2 col-span-full">
+            Top albums this month
+          </h5>
+          <div class="flex gap-x-8">
+            <TopAlbums server:defer>
+              <div slot="fallback" class="flex gap-x-8">
+                <div>
+                  <div
+                    class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+                  >
+                  </div>
+                  <p class="text-sm mt-1">Fetching album...</p>
+                </div>
+                <div>
+                  <div
+                    class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+                  >
+                  </div>
+                  <p class="text-sm mt-1">Fetching album...</p>
+                </div>
+                <div>
+                  <div
+                    class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+                  >
+                  </div>
+                  <p class="text-sm mt-1">Fetching album...</p>
+                </div>
+              </div>
+            </TopAlbums>
+          </div>
+        </div>
+      </div>
     </div>
+
     <Footer />
   </body>
 </html>
