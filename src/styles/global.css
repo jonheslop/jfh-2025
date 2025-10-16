@@ -12,7 +12,9 @@
 }
 
 body {
-  font-feature-settings: "ss02" 1, "calt";
+  font-feature-settings:
+    "ss02" 1,
+    "calt";
 }
 
 .prose a,
@@ -22,11 +24,16 @@ body {
 }
 
 .prose a:hover,
-.footer a:hover,
 .hover:hover,
 .link:hover {
   text-decoration: underline;
   color: var(--color-white);
+  text-underline-offset: 4px;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  color: var(--color-black);
   text-underline-offset: 4px;
 }
 

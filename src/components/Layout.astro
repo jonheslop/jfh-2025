@@ -36,69 +36,70 @@ const { title } = Astro.props;
       href={new URL("feed.xml", Astro.site)}
     />
   </head>
-  <body
-    class="bg-fixed bg-fenix-green bg-size-[140px] lg:bg-size-[200px]"
-    style={`background-image: url(/noise.svg);`}
-  >
+  <body class="p-4">
     <div
-      class="font-sans antialiased
- dark:bg-neutral-950 text-white/90 dark:text-neutral-200 relative p-2 sm:p-4 lg:p-8 font-medium grid lg:grid-cols-12 gap-x-8 gap-y-24"
+      class="bg-fixed bg-fenix-green bg-size-[140px] lg:bg-size-[200px] pb-32 rounded-xs"
+      style="background-image: url(/noise.svg);"
     >
-      <div class="row-span-full sticky top-2 lg:top-8 z-50">
-        <Logo />
-      </div>
-      <slot />
-      <About />
-      <div class="lg:col-span-10 lg:col-start-3 grid grid-cols-10 gap-x-8">
-        <div class="col-span-2">
-          <h5 class="text-sm uppercase font-semibold mb-2">
-            Last played track
-          </h5>
-          <NowPlaying server:defer>
-            <div slot="fallback">
-              <div
-                class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-              >
-              </div>
-              <p class="text-sm mt-1">Fetching track...</p>
-            </div>
-          </NowPlaying>
+      <div
+        class="font-sans antialiased
+ dark:bg-neutral-950 text-white/90 dark:text-neutral-200 relative p-2 sm:p-4 lg:p-8 font-medium grid lg:grid-cols-12 gap-x-8 gap-y-24"
+      >
+        <div class="row-span-full sticky top-2 lg:top-8 z-50">
+          <Logo />
         </div>
-        <div class="col-start-5 col-span-7">
-          <h5 class="text-sm uppercase font-semibold mb-2 col-span-full">
-            Top albums this month
-          </h5>
-          <div class="flex gap-x-8">
-            <TopAlbums server:defer>
-              <div slot="fallback" class="flex gap-x-8">
-                <div>
-                  <div
-                    class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-                  >
-                  </div>
-                  <p class="text-sm mt-1">Fetching album...</p>
+        <slot />
+        <About />
+        <div class="lg:col-span-10 lg:col-start-3 grid grid-cols-10 gap-x-8">
+          <div class="col-span-2">
+            <h5 class="text-sm uppercase font-semibold mb-2">
+              Last played track
+            </h5>
+            <NowPlaying server:defer>
+              <div slot="fallback">
+                <div
+                  class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+                >
                 </div>
-                <div>
-                  <div
-                    class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-                  >
-                  </div>
-                  <p class="text-sm mt-1">Fetching album...</p>
-                </div>
-                <div>
-                  <div
-                    class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-                  >
-                  </div>
-                  <p class="text-sm mt-1">Fetching album...</p>
-                </div>
+                <p class="text-sm mt-1">Fetching track...</p>
               </div>
-            </TopAlbums>
+            </NowPlaying>
+          </div>
+          <div class="col-start-5 col-span-7">
+            <h5 class="text-sm uppercase font-semibold mb-2 col-span-full">
+              Top albums this month
+            </h5>
+            <div class="flex gap-x-8">
+              <TopAlbums server:defer>
+                <div slot="fallback" class="flex gap-x-8">
+                  <div>
+                    <div
+                      class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+                    >
+                    </div>
+                    <p class="text-sm mt-1">Fetching album...</p>
+                  </div>
+                  <div>
+                    <div
+                      class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+                    >
+                    </div>
+                    <p class="text-sm mt-1">Fetching album...</p>
+                  </div>
+                  <div>
+                    <div
+                      class="size-[200px] bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+                    >
+                    </div>
+                    <p class="text-sm mt-1">Fetching album...</p>
+                  </div>
+                </div>
+              </TopAlbums>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
     <Footer />
   </body>
 </html>
