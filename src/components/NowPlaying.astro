@@ -1,28 +1,61 @@
 ---
 import { Image } from "astro:assets";
 
-const response = await fetch(
-  "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=jonheslop&api_key=6908805d396f2a48dcac5ac045452754&format=json",
+const tracksResponse = await fetch(
+  "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=jonheslop&api_key=6908805d396f2a48dcac5ac045452754&limit=1&format=json",
 );
-const data = await response.json();
-const { image, name, artist, album, url } = data.recenttracks.track[0];
+const tracks = await tracksResponse.json();
+const { image, name, artist, album, url } = tracks.recenttracks.track[0];
+
+const albumsResponse = await fetch(
+  "http://ws.audioscrobbler.com//2.0/?method=user.gettopalbums&user=jonheslop&period=1month&limit=3&api_key=6908805d396f2a48dcac5ac045452754&format=json",
+);
+const albums = await albumsResponse.json();
 ---
 
-<div
-  class="text-sm lg:col-span-4 lg:col-start-9 items-start self-center mt-32 flex gap-4"
->
-  <Image
-    src={image[3]["#text"]}
-    alt={name}
-    width={200}
-    height={200}
-    class="border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-    layout="constrained"
-  />
-  <div class="text-balance flex flex-col gap-1">
-    <h5 class="uppercase font-semibold mb-2">Last played track</h5>
-    {artist["#text"]}
-    <span class="block">{album["#text"]}</span>
-    <a href={url} class="block italic link">{name}</a>
+<div class="lg:col-span-10 lg:col-start-3 grid grid-cols-10 gap-x-8">
+  <div class="col-span-2">
+    <h5 class="text-sm uppercase font-semibold mb-2">Last played track</h5>
+
+    <Image
+      src={image[3]["#text"]}
+      alt={name}
+      width={200}
+      height={200}
+      class="border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+      layout="constrained"
+    />
+    <div class="text-balance flex flex-col gap-1 text-sm mt-1">
+      <a href={url} class="block italic link">{name}</a>
+      <span class="block">{album["#text"]}</span>
+      {artist["#text"]}
+    </div>
+  </div>
+  <div class="col-start-5 col-span-7">
+    <h5 class="text-sm uppercase font-semibold mb-2 col-span-full">
+      Top albums this month
+    </h5>
+    <div class="flex gap-x-8">
+      {
+        albums.topalbums.album.map((album) => (
+          <div>
+            <Image
+              src={album.image[3]["#text"]}
+              alt={name}
+              width={200}
+              height={200}
+              class="border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
+              layout="constrained"
+            />
+            <div class="text-balance flex flex-col gap-1 text-sm mt-1">
+              <a href={album.url} class="block italic link">
+                {album.name}
+              </a>
+              {album.artist.name}
+            </div>
+          </div>
+        ))
+      }
+    </div>
   </div>
 </div>
