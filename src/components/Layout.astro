@@ -43,16 +43,18 @@ const { title } = Astro.props;
     >
       <div
         class="font-sans antialiased
- dark:bg-neutral-950/80 text-white/90 dark:text-white/80 relative p-2 sm:p-4 lg:p-8 font-medium grid lg:grid-cols-12 gap-x-8 gap-y-24 lg:pb-32"
+ dark:bg-neutral-950/80 text-white/90 dark:text-white/80 relative p-2 sm:p-4 lg:p-8 font-medium grid sm:grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-24 lg:pb-32"
       >
-        <div class="row-span-full sticky top-3 lg:top-8 z-50">
+        <div
+          class="col-span-full lg:col-span-1 row-span-full sticky top-3 lg:top-8 z-50"
+        >
           <Logo />
         </div>
 
         <slot />
         <About />
         <div
-          class="lg:col-span-10 lg:col-start-3 grid lg:grid-cols-10 gap-x-8 lg:row-start-4"
+          class="sm:col-span-2 lg:col-span-10 lg:col-start-3 grid sm:grid-cols-2 lg:grid-cols-10 gap-x-8 lg:row-start-4"
         >
           <div class="lg:col-span-2">
             <h5 class="text-sm uppercase font-semibold mb-2">
@@ -68,7 +70,7 @@ const { title } = Astro.props;
               </div>
             </NowPlaying>
           </div>
-          <div class="lg:col-start-5 lg:col-span-7 my-16 lg:my-0">
+          <div class="lg:col-start-5 lg:col-span-7 my-16 sm:mt-0 lg:my-0">
             <h5 class="text-sm uppercase font-semibold mb-2 col-span-full">
               Top albums this month
             </h5>
