@@ -1,17 +1,17 @@
 ---
-title: Replatforming on Astro
+title: Moving to Astro & Cloudflare
 date: '2025-10-18T08:34:00.322Z'
 ---
 
-After giving [Astro](https://astro.build/) a go for the [rebuild of gif.land](/posts/2025/ditching-vercel) I rebuilt this site with it too. I spend my working life working with Next.js (for which I am mostly grateful) but it’s nice to try something different, that’s a little lighterweight and closer to just writing html. The [code for the site is over on github](https://github.com/jonheslop/jfh-2025) and fully public.
+After giving [Astro](https://astro.build/) a go for the [rebuild of gif.land](/posts/2025/ditching-vercel) I’ve done this site too. I spend my working life working with Next.js (for which I am mostly grateful) but it’s nice to try something different, that’s a lot lighterweight and closer to just writing html. The [code for the site is over on github](https://github.com/jonheslop/jfh-2025) and fully public.
 
 It’s basically the same stack, Astro deployed on [Cloudflare Pages](https://pages.cloudflare.com/). All the posts are `.mdx` files, which get converted to html on build. The only fancy bit is the listening stats which are using [server islands](https://docs.astro.build/en/guides/server-islands/) which dial the [last.fm](https://www.last.fm/) API to grab my recent [listening habits](https://www.last.fm/user/jonheslop).
 
-I treated myself to the [halbfett weight of Söhne](https://klim.co.nz/fonts/soehne/) (600) for titles. [The last site](https://2021.jonheslop.com/) only used buch (400). I’m a big of the alternate g.
+I treated myself to the [halbfett weight of Söhne](https://klim.co.nz/fonts/soehne/) (600) for titles. [The last site](https://2021.jonheslop.com/) only used buch (400). I’m a big of the alternate g on Söhne.
 
 The background is a noisy SVG that I [generated here](https://www.fffuel.co/nnnoise/) then tweaked manually. I was inspired by [Fenix](https://www.fenixforinteriors.com/en/materials/fenix) a material I was introduced to by [Billy](https://www.bybill.co.uk/) the other day. He’s making a couple of ply desktops for us that will have it on the top. It’s sorta like Formica but way more matte and it somehow feels soft whilst also being very durable.
 
-I’ve added a [History page](/history) which links to each of the old jonheslop.com’s I still have managed to dig out and host.
+I’ve added a [History page](/history) which links to each of the old jonheslop.com’s. RIP to all the pre 2009 sites I’ve somehow completely lost.
 
 I love using [CSS grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout) I don’t know how we every managed without it (or flexbox). I also dropped in `@view-transition` which is new to me. I like the little cross-fade.
 
