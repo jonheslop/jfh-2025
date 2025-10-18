@@ -13,6 +13,10 @@ body {
     "calt";
 }
 
+.uppercase-forms {
+  font-feature-settings: "case";
+}
+
 .prose a,
 .link {
   text-underline-offset: 2px;
