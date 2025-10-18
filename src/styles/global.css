@@ -7,10 +7,6 @@
   --color-fenix-green: #5e7664;
 }
 
-@view-transition {
-  navigation: auto;
-}
-
 body {
   font-feature-settings:
     "ss02" 1,
