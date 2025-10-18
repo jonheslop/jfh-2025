@@ -6,6 +6,7 @@ import NowPlaying from "../components/NowPlaying.astro";
 import TopAlbums from "../components/TopAlbums.astro";
 
 import Logo from "../components/Logo.astro";
+import me from "../assets/jon-heslop-2024.jpg";
 
 import "../styles/global.css";
 
@@ -28,6 +29,7 @@ const { title } = Astro.props;
       name="description"
       content="Jon Heslop is a front end developer based in London."
     />
+    <meta property="og:image" content={me.src} />
     <Font cssVariable="--font-soehne" preload />
     <link
       rel="alternate"
