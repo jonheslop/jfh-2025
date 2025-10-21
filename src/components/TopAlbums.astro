@@ -18,7 +18,7 @@ const albums = await albumsResponse.json();
         class="border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
         layout="constrained"
       />
-      <div class="text-balance flex flex-col gap-1 text-sm mt-1">
+      <div class="text-balance flex flex-col leading-none gap-1.5 text-sm mt-1.5">
         <a href={album.url} class="block italic link">
           {album.name}
         </a>
