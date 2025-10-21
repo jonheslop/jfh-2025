@@ -76,24 +76,27 @@ const { title } = Astro.props;
             <h5 class="text-sm uppercase font-semibold mb-2 col-span-full">
               Top albums this month
             </h5>
-            <div class="flex gap-x-4 lg:gap-x-8 lg:mt-0">
+            <div class="grid grid-cols-3 gap-x-4 lg:gap-x-8 lg:mt-0">
               <TopAlbums server:defer>
-                <div slot="fallback" class="flex gap-x-4 lg:gap-x-8">
-                  <div>
+                <div
+                  slot="fallback"
+                  class="col-span-3 grid grid-cols-3 gap-x-4 lg:gap-x-8"
+                >
+                  <div class="w-full">
                     <div
                       class="aspect-square bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
                     >
                     </div>
                     <p class="text-sm mt-1">Fetching album...</p>
                   </div>
-                  <div>
+                  <div class="w-full">
                     <div
                       class="aspect-square bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
                     >
                     </div>
                     <p class="text-sm mt-1">Fetching album...</p>
                   </div>
-                  <div>
+                  <div class="w-full">
                     <div
                       class="aspect-square bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
                     >
