@@ -141,3 +141,9 @@ body {
 .colourwheel {
   animation: colourwheel 0.5s linear infinite;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .colourwheel {
+    animation: colourwheel 5s linear infinite;
+  }
+}
