@@ -19,7 +19,8 @@ const dateOptions: object = {
 ---
 
 <a
-  class="flex justify-start items-start gap-x-4 group transition-colors flex-1 mb-4"
+  class="group hover:bg-white/5 transition-colors
+  flex justify-start items-start gap-x-4 group flex-1 pb-4"
   href={`/${type}/${id}`}
 >
   <div>
@@ -27,11 +28,11 @@ const dateOptions: object = {
       {latestPost.title}
     </h1>
     <p>{latestPost.description}</p>
-    <span class="text-sm text-white/70 group-hover:underline"
+    <span class="text-sm text-white/70 group-hover:text-white transition-colors"
       >{type === "posts" ? "Continue reading" : "View photos"} &raquo;</span
     >
   </div>
-  <span class="block text-white/70 ml-auto shrink-0 text-lg">
+  <span class="block text-white/70 hover ml-auto shrink-0 text-lg">
     {new Date(latestPost.date).toLocaleDateString("en-GB", dateOptions)}
   </span>
 </a>
