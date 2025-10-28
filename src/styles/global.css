@@ -95,6 +95,10 @@ body {
   @apply text-sm my-8 overflow-auto bg-black/50 p-4 text-white/60 rounded-xs;
 }
 
+.prose hr {
+  @apply my-16 h-8 border-none text-center before:content-["⁕⁕⁕"] tracking-[1rem] text-white/70;
+}
+
 @keyframes colourwheel {
   0%,
   10% {
