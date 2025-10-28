@@ -29,6 +29,8 @@ export async function GET(context) {
         );
       }
 
+      content = content + `<hr/><p>Thanks for subscribing via RSS ᕕ( ᐛ )ᕗ</p>`;
+
       return {
         title: post.data.title,
         pubDate: post.data.date,
