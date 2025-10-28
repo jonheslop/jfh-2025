@@ -10,7 +10,7 @@ const { type, recent = false } = Astro.props;
 
 const posts = (await getCollection(type))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, recent ? 10 : undefined);
+  .slice(recent ? 1 : 0, recent ? 10 : undefined);
 
 const dateOptions: object = {
   year: "numeric",
@@ -22,7 +22,7 @@ const dateOptions: object = {
 <ul>
   {
     posts.map((post) => (
-      <li class="text-lg border-b border-b-white/20">
+      <li class="text-lg border-t border-white/20 last:border-b">
         <a
           class="flex justify-start items-center gap-x-4 py-2 group hover:bg-white/10 transition-colors"
           href={`/${type}/${post.id}`}
