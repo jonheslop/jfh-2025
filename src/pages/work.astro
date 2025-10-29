@@ -1,0 +1,60 @@
+---
+import Layout from "../components/Layout.astro";
+import { getCollection } from "astro:content";
+
+const jobs = await getCollection("jobs");
+---
+
+<Layout title="Work">
+  <article
+    class="sm:col-span-2 lg:col-span-6 lg:col-start-3 lg:row-start-2 self-center mb-64"
+  >
+    <header class="mb-16">
+      <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Work</h1>
+    </header>
+    {
+      jobs.map((job) => (
+        <article class="mb-20">
+          <header class="flex gap-4 mb-2">
+            <figure class="flex gap-2">
+              {job.data.logos.map((logo, index) => (
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  class={`p-2 rounded-sm size-20 object-contain border ${logo.bgColor === "white" ? "border-black/20" : "border-white/20"}`}
+                  style={`background-color: ${logo.bgColor || "transparent"}`}
+                />
+              ))}
+            </figure>
+            <div>
+              <h2 class="text-2xl lg:text-3xl leading-none font-semibold">
+                {job.data.company}
+              </h2>
+              <h3 class="text-lg">{job.data.role}</h3>
+              <h4 class="text-sm text-white/70">{job.data.period}</h4>
+            </div>
+          </header>
+          <div class="prose prose-sm lg:prose-lg max-w-md">
+            {job.data.description}
+          </div>
+          {job.data.blogPosts?.length && (
+            <div>
+              <h4 class="text-sm uppercase font-semibold mt-4 text-white/70">
+                Blog posts
+              </h4>
+              <ul class="text-sm">
+                {job.data.blogPosts.map((post) => (
+                  <li class="prose mt-1">
+                    <a href={post.href}>{post.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </article>
+      ))
+    }
+  </article>
+</Layout>
