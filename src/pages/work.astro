@@ -16,7 +16,7 @@ const jobs = await getCollection("jobs");
       jobs.map((job) => (
         <article class="mb-20">
           <header class="flex gap-4 mb-2">
-            <figure class="flex gap-2">
+            <figure class="flex shrink-0 gap-2">
               {job.data.logos.map((logo, index) => (
                 <img
                   src={logo.src}
@@ -29,10 +29,12 @@ const jobs = await getCollection("jobs");
               ))}
             </figure>
             <div>
-              <h2 class="text-2xl lg:text-3xl leading-none font-semibold">
+              <h2 class="text-2xl lg:text-3xl leading-none font-semibold text-balance">
                 {job.data.company}
               </h2>
-              <h3 class="text-lg">{job.data.role}</h3>
+              <h3 class="text-lg leading-none text-balance my-1">
+                {job.data.role}
+              </h3>
               <h4 class="text-sm text-white/70">{job.data.period}</h4>
             </div>
           </header>
