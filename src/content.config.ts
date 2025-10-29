@@ -22,4 +22,34 @@ const photos = defineCollection({
   }),
 });
 
-export const collections = { posts, photos };
+const jobs = defineCollection({
+  loader: file("src/jobs.json", {
+    parser: (text) => JSON.parse(text).jobs,
+  }),
+  schema: z.object({
+    id: z.string(),
+    company: z.string(),
+    role: z.string(),
+    period: z.string(),
+    description: z.string(),
+    logos: z.array(
+      z.object({
+        src: z.string(),
+        alt: z.string(),
+        bgColor: z.string(),
+        width: z.number().min(1),
+        height: z.number().min(1),
+      }),
+    ),
+    blogPosts: z
+      .array(
+        z.object({
+          label: z.string(),
+          href: z.string(),
+        }),
+      )
+      .optional(),
+  }),
+});
+
+export const collections = { posts, photos, jobs };

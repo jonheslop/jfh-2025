@@ -8,7 +8,7 @@ const albums = await albumsResponse.json();
 ---
 
 {
-  albums.topalbums.album.map((album) => (
+  albums.topalbums?.album.map((album) => (
     <div>
       <Image
         src={album.image[3]["#text"]}
