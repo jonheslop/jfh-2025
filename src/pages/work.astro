@@ -38,7 +38,7 @@ const jobs = await getCollection("jobs");
               <h4 class="text-sm text-white/70">{job.data.period}</h4>
             </div>
           </header>
-          <div class="prose prose-sm lg:prose-lg max-w-md">
+          <div class="prose prose-sm lg:prose-lg max-w-md text-pretty">
             {job.data.description}
           </div>
           {job.data.blogPosts?.length && (
@@ -48,7 +48,7 @@ const jobs = await getCollection("jobs");
               </h4>
               <ul class="text-sm">
                 {job.data.blogPosts.map((post) => (
-                  <li class="prose mt-1">
+                  <li class="prose mt-1 text-pretty">
                     <a href={post.href}>{post.label}</a>
                   </li>
                 ))}
