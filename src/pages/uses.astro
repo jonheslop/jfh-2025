@@ -1,0 +1,115 @@
+---
+import Layout from "../components/Layout.astro";
+import { Image } from "astro:assets";
+
+import desk from "../assets/JFH09216.jpg";
+---
+
+<Layout title="My setup">
+  <article
+    class="sm:col-span-2 lg:col-span-10 2xl:col-span-8 lg:col-start-3 2xl:col-start-3 lg:row-start-2 self-center mb-64"
+  >
+    <header class="mb-8">
+      <h1 class="text-4xl lg:text-6xl font-semibold text-balance">My setup</h1>
+    </header>
+    <div class="prose text-lg lg:text-xl">
+      <p>The hardware and software I use for work and personal projects.</p>
+    </div>
+
+    <figure class="border-4 rounded-xs mt-8">
+      <Image
+        src={desk}
+        alt="Jon Heslop in his house"
+        class="mix-blend-luminosity hover:mix-blend-normal"
+        layout="constrained"
+      />
+      <figcaption
+        class="text-xs text-neutral-800 pt-2 p-1 bg-white/90 uppercase-forms"
+      >
+        My desk (and Maude), 31/10/25 — Fujifilm X-Pro3, Fujinon XF 16mm ƒ/1.4 R
+        WR
+      </figcaption>
+    </figure>
+
+    <div
+      class="prose prose-no-decimal-list grid grid-cols-4 lg:grid-cols-8 gap-x-8 text-sm xl:text-base"
+    >
+      <div class="col-span-4 row-span-2">
+        <h2 class="uppercase !text-sm !mb-2 text-white/70">Hardware</h2>
+        <ul>
+          <li>MacBook Pro 16" M4 – 48GB RAM, 500GB SSD</li>
+          <li>Viewsonic 27" display (VP2785-4K)</li>
+          <li>
+            <a target="_blank" href="https://olkb.com/collections/planck/EOTW"
+              >OLKB Planck EOTW</a
+            >, keyboard with <a
+              target="_blank"
+              href="https://matrixzj.github.io/docs/sa-keycaps/DreamEater/"
+              >SA DreamEater</a
+            > key caps and Gateron Brown switches
+          </li>
+          <li>Apple Magic Trackpad</li>
+          <li>
+            Visœ <a href="https://www.vitsoe.com/gb/606/components#desk-shelf"
+              >desk shelf</a
+            >
+          </li>
+          <li>
+            Visœ <a
+              href="https://www.vitsoe.com/gb/606/components#mounting-panel"
+              >mounting panel</a
+            > to hang my display
+          </li>
+          <li>Anglepoise 1227 lamp</li>
+          <li>
+            Vitra <a
+              target="_blank"
+              href="https://www.vitra.com/en-gb/product/details/hal-re-armchair-studio"
+              >HAL RE Armchair Studio</a
+            > chair
+          </li>
+          <li>
+            <a href="https://en.wikipedia.org/wiki/Fujifilm_X-Pro3"
+              >Fujifilm X-Pro3</a
+            > camera
+          </li>
+        </ul>
+      </div>
+      <div class="col-span-4 sm:col-span-3">
+        <h2 class="uppercase !text-sm !mb-2 text-white/70">Software</h2>
+        <ul class="columns-2 sm:columns-3 gap-8">
+          <li>Arc browser</li>
+          <li>Zed editor</li>
+          <li>Ghostty</li>
+          <li>Apple Music</li>
+          <li>Slack</li>
+          <li>Figma</li>
+          <li>1Password</li>
+          <li>Raycast</li>
+          <li>OrbStack</li>
+          <li>Airfoil</li>
+          <li>iA Writer</li>
+          <li>xScope</li>
+        </ul>
+      </div>
+      <div class="col-span-1">
+        <h2 class="uppercase !text-sm !mb-2 text-white/70">Services</h2>
+        <ul>
+          <li>HEY email</li>
+          <li>Cloudflare</li>
+          <li>NextDNS</li>
+          <li>Kagi</li>
+        </ul>
+      </div>
+      <div class="col-span-3 sm:col-span-4">
+        <h2 class="uppercase !text-sm !mb-2 text-white/70 lg:!mt-6">Audio</h2>
+        <ul>
+          <li>Marantz PM6005 amplifier</li>
+          <li>Monitor Audio Silver RS-1 bookshelf speakers</li>
+          <li>An old Apple TV to transmit wirelessly to</li>
+          <li>Bose NC 700 headphones</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</Layout>
