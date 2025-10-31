@@ -37,6 +37,17 @@ body {
   text-underline-offset: 4px;
 }
 
+.prose a:focus,
+.hover:focus,
+.link:focus {
+  background-color: var(--color-amber-900);
+  outline: 4px solid var(--color-amber-900);
+  border-radius: var(--radius-xs);
+  outline-offset: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .footer a:hover {
   text-decoration: underline;
   color: var(--color-black);
