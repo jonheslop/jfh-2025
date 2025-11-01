@@ -46,20 +46,25 @@ const dateOptions: object = {
     </div>
     {
       post.data.photos !== undefined && (
-        <div class="md:col-start-2 md:col-span-3 w-full relative grid grid-cols-6 items-start bg-white p-1 lg:p-4 gap-1 lg:gap-4 rounded-xs">
+        <div class="md:col-start-2 md:col-span-3 w-full relative grid grid-cols-6 items-start bg-white p-0.5 sm:p-1 md:p-2 xl:p-4 gap-0.5 sm:gap-1 md:gap-2 xl:gap-4 rounded-xs">
           {arrangedImages.map((imageData) => (
             <img
-              class={clsx("self-stretch object-cover rounded-xs", {
-                "col-span-6 w-full": imageData.colSpan === 6,
-                "col-span-4": imageData.colSpan === 4,
-                "col-span-3": imageData.colSpan === 3,
-                "col-span-2": imageData.colSpan === 2,
-              })}
+              class={clsx(
+                "self-stretch object-cover rounded-xs w-full h-auto",
+                {
+                  "col-span-6": imageData.colSpan === 6,
+                  "col-span-4": imageData.colSpan === 4,
+                  "col-span-3": imageData.colSpan === 3,
+                  "col-span-2": imageData.colSpan === 2,
+                },
+              )}
               alt=""
               id={`image-${imageData.cloudflareId}`}
               src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/small`}
               srcset={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/small 400w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/medium 1024w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/large 2048w`}
               style={`aspect-ratio: ${imageData.aspectRatio}`}
+              width={imageData.width}
+              height={imageData.height}
               loading="lazy"
             />
           ))}
