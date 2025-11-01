@@ -1,6 +1,9 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../components/Layout.astro";
+import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
+import { arrangeImagesInGrid } from "../../utils/gridLayoutArrange";
+import clsx from "clsx";
 
 export async function getStaticPaths() {
   const posts = await getCollection("photos");
@@ -12,6 +15,14 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// Get aspect ratios for images if they exist
+const imageAspectRatios = post.data.photos
+  ? await getImageAspectRatiosArray(post.data.photos)
+  : [];
+
+// Arrange images in grid layout
+const arrangedImages = arrangeImagesInGrid(imageAspectRatios);
 
 const dateOptions: object = {
   year: "numeric",
@@ -35,14 +46,20 @@ const dateOptions: object = {
     </div>
     {
       post.data.photos !== undefined && (
-        <div class="md:col-start-2 md:col-span-3 w-full relative grid gap-8 md:gap-16">
-          {post.data.photos.map((cloudflareId) => (
+        <div class="md:col-start-2 md:col-span-3 w-full relative grid grid-cols-6 items-start bg-white p-4 gap-4 rounded-xs">
+          {arrangedImages.map((imageData) => (
             <img
-              class="border-4 rounded-xs"
+              class={clsx("self-stretch object-cover rounded-xs", {
+                "col-span-6 w-full": imageData.colSpan === 6,
+                "col-span-4": imageData.colSpan === 4,
+                "col-span-3": imageData.colSpan === 3,
+                "col-span-2": imageData.colSpan === 2,
+              })}
               alt=""
-              id={`image-${cloudflareId}`}
-              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/small`}
-              srcset={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/small 400w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/medium 1024w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/large 2048w`}
+              id={`image-${imageData.cloudflareId}`}
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/small`}
+              srcset={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/small 400w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/medium 1024w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/large 2048w`}
+              style={`aspect-ratio: ${imageData.aspectRatio}`}
               loading="lazy"
             />
           ))}
