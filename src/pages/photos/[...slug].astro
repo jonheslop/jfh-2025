@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
 import { arrangeImagesInGrid } from "../../utils/gridLayoutArrange";
+import clsx from "clsx";
 
 export async function getStaticPaths() {
   const posts = await getCollection("photos");
@@ -28,8 +29,6 @@ const dateOptions: object = {
   month: "long",
   day: "numeric",
 };
-
-// col-span-6 col-span-4 col-span-2
 ---
 
 <Layout title={post.data.title}>
@@ -50,7 +49,11 @@ const dateOptions: object = {
         <div class="md:col-start-2 md:col-span-3 w-full relative grid grid-cols-6 items-start bg-white p-1">
           {arrangedImages.map((imageData) => (
             <img
-              class={`border-4 rounded-xs self-stretch object-cover col-span-${imageData.colSpan}`}
+              class={clsx("border-4 rounded-xs self-stretch object-cover", {
+                "col-span-6": imageData.colSpan === 6,
+                "col-span-4": imageData.colSpan === 4,
+                "col-span-2": imageData.colSpan === 2,
+              })}
               alt=""
               id={`image-${imageData.cloudflareId}`}
               src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/small`}
