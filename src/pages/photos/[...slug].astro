@@ -46,10 +46,10 @@ const dateOptions: object = {
     </div>
     {
       post.data.photos !== undefined && (
-        <div class="md:col-start-2 md:col-span-3 w-full relative grid grid-cols-6 items-start bg-white p-1 rounded-xs">
+        <div class="md:col-start-2 md:col-span-3 w-full relative grid grid-cols-6 items-start bg-white p-4 gap-4 rounded-xs">
           {arrangedImages.map((imageData) => (
             <img
-              class={clsx("border-4 rounded-xs self-stretch object-cover", {
+              class={clsx("self-stretch object-cover rounded-xs", {
                 "col-span-6 w-full": imageData.colSpan === 6,
                 "col-span-4": imageData.colSpan === 4,
                 "col-span-3": imageData.colSpan === 3,
