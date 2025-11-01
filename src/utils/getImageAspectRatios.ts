@@ -1,16 +1,12 @@
-import sharp from 'sharp';
-
-export interface ImageAspectRatio {
-  cloudflareId: string;
-  aspectRatio: number;
-  width: number;
-  height: number;
-}
+import sharp from "sharp";
+import type { ImageWithOrientation } from "../utils/types";
 
 /**
  * Fetches a single image and returns its aspect ratio and dimensions
  */
-export async function getImageAspectRatio(cloudflareId: string): Promise<ImageAspectRatio> {
+export async function getImageAspectRatio(
+  cloudflareId: string,
+): Promise<ImageWithOrientation> {
   const imageUrl = `https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/small`;
 
   try {
@@ -25,7 +21,7 @@ export async function getImageAspectRatio(cloudflareId: string): Promise<ImageAs
     const metadata = await sharp(buffer).metadata();
 
     if (!metadata.width || !metadata.height) {
-      throw new Error('Unable to get image dimensions');
+      throw new Error("Unable to get image dimensions");
     }
 
     const aspectRatio = metadata.width / metadata.height;
@@ -45,19 +41,21 @@ export async function getImageAspectRatio(cloudflareId: string): Promise<ImageAs
 /**
  * Fetches multiple images and returns a Map of cloudflareId to aspect ratio data
  */
-export async function getImageAspectRatios(cloudflareIds: string[]): Promise<Map<string, ImageAspectRatio>> {
+export async function getImageAspectRatios(
+  cloudflareIds: string[],
+): Promise<Map<string, ImageWithOrientation>> {
   const results = await Promise.all(
-    cloudflareIds.map(id => getImageAspectRatio(id))
+    cloudflareIds.map((id) => getImageAspectRatio(id)),
   );
 
-  return new Map(results.map(result => [result.cloudflareId, result]));
+  return new Map(results.map((result) => [result.cloudflareId, result]));
 }
 
 /**
  * Fetches multiple images and returns an array of aspect ratio data in the same order
  */
-export async function getImageAspectRatiosArray(cloudflareIds: string[]): Promise<ImageAspectRatio[]> {
-  return Promise.all(
-    cloudflareIds.map(id => getImageAspectRatio(id))
-  );
+export async function getImageAspectRatiosArray(
+  cloudflareIds: string[],
+): Promise<ImageWithOrientation[]> {
+  return Promise.all(cloudflareIds.map((id) => getImageAspectRatio(id)));
 }

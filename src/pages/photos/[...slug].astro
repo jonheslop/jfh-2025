@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
+import { arrangeImagesInGrid } from "../../utils/gridLayoutArrange";
 
 export async function getStaticPaths() {
   const posts = await getCollection("photos");
@@ -19,11 +20,16 @@ const imageAspectRatios = post.data.photos
   ? await getImageAspectRatiosArray(post.data.photos)
   : [];
 
+// Arrange images in grid layout
+const arrangedImages = arrangeImagesInGrid(imageAspectRatios);
+
 const dateOptions: object = {
   year: "numeric",
   month: "long",
   day: "numeric",
 };
+
+// col-span-6 col-span-4 col-span-2
 ---
 
 <Layout title={post.data.title}>
@@ -42,9 +48,9 @@ const dateOptions: object = {
     {
       post.data.photos !== undefined && (
         <div class="md:col-start-2 md:col-span-3 w-full relative grid grid-cols-6 items-start bg-white p-1">
-          {imageAspectRatios.map((imageData) => (
+          {arrangedImages.map((imageData) => (
             <img
-              class={`border-4 rounded-xs self-stretch object-cover ${imageData.aspectRatio > 1 ? "col-span-4" : "col-span-2"}`}
+              class={`border-4 rounded-xs self-stretch object-cover col-span-${imageData.colSpan}`}
               alt=""
               id={`image-${imageData.cloudflareId}`}
               src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/small`}
