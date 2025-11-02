@@ -1,11 +1,49 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
-import PhotoList from "../../components/PhotoList.astro";
+import { dateOptions } from "../../utils/types";
+
+const photos = (await getCollection("photos")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 ---
 
 <Layout title="Photographs">
   <section class="sm:col-span-2 lg:col-span-10 lg:col-start-3 lg:row-start-2">
-    <h1 class="text-[12vw] font-semibold -">Photographs</h1>
-    <PhotoList type="photos" />
+    <h1 class="text-[12vw] font-semibold">Photographs</h1>
+    <ul class="grid md:grid-cols-2 gap-8">
+      {
+        photos.map((post) => (
+          <li class="text-lg">
+            <a
+              class="relative py-2 group hover:bg-white/10 transition-colors"
+              href={`/photos/${post.id}`}
+            >
+              {post.data.coverImage && (
+                <img
+                  src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.coverImage}/medium`}
+                  alt={post.data.title}
+                  class="border-4 rounded-xs mix-blend-luminosity group-hover:mix-blend-normal"
+                  width="1024"
+                  height="683"
+                />
+              )}
+              <div class="absolute inset-1 bg-gradient-to-b via-30% to-neutral-900/30 z-0 from-transparent" />
+              <div class="absolute left-8 bottom-8">
+                <h2 class="text-2xl md:text-4xl text-white font-semibold group-hover:underline text-balance">
+                  {post.data.title}
+                </h2>
+                <h4 class="text-xl text-white/70 ml-auto">
+                  {new Date(post.data.date).toLocaleDateString(
+                    "en-GB",
+                    dateOptions,
+                  )}
+                </h4>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 </Layout>

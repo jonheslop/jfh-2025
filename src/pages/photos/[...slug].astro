@@ -4,6 +4,7 @@ import Layout from "../../components/Layout.astro";
 import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
 import { arrangeImagesInGrid } from "../../utils/gridLayoutArrange";
 import clsx from "clsx";
+import { dateOptions } from "../../utils/types";
 
 export async function getStaticPaths() {
   const posts = await getCollection("photos");
@@ -23,12 +24,6 @@ const imageAspectRatios = post.data.photos
 
 // Arrange images in grid layout
 const arrangedImages = arrangeImagesInGrid(imageAspectRatios);
-
-const dateOptions: object = {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
 ---
 
 <Layout title={post.data.title}>

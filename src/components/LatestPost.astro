@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { dateOptions } from "../utils/types";
 
 interface Props {
   type: "posts" | "photos";
@@ -10,12 +11,6 @@ const { type } = Astro.props;
 const [{ data: latestPost, id }] = (await getCollection(type))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 1);
-
-const dateOptions: object = {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
 ---
 
 <a

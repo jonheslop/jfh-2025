@@ -11,3 +11,9 @@ export interface ImageWithLayout extends ImageWithOrientation {
 }
 
 export type Orientation = "portrait" | "landscape";
+
+export const dateOptions: object = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
