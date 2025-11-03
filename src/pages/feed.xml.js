@@ -24,7 +24,7 @@ export async function GET(context) {
           (cloudflareId) =>
             (content += `<br/><figure><img
           alt=""
-          src="https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/small"
+          src="https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${cloudflareId}/medium"
         /></figure>`),
         );
       }
