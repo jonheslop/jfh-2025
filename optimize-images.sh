@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Image Optimization Script for Web
-# This script optimizes images (JPEG, PNG, WebP) for web use
+# This script optimizes images (JPEG, PNG, WebP, HEIC) for web use
 # Dependencies: imagemagick (convert), jpegoptim (optional), optipng (optional)
+# Note: HEIC support requires imagemagick to be compiled with libheif
 
 # Function to optimize images
 optimize_images() {
@@ -43,7 +44,7 @@ optimize_images() {
     local skipped_files=0
 
     # Process images
-    find "$source_dir" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | while read -r img; do
+    find "$source_dir" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.heic" \) | while read -r img; do
         total_files=$((total_files + 1))
 
         # Get relative path
@@ -55,8 +56,8 @@ optimize_images() {
         file_ext="${dest_path##*.}"
         file_ext_lower=$(echo "$file_ext" | tr '[:upper:]' '[:lower:]')
 
-        # Convert .jpeg to .jpg
-        if [ "$file_ext_lower" = "jpeg" ]; then
+        # Convert .jpeg to .jpg and .heic to .jpg
+        if [ "$file_ext_lower" = "jpeg" ] || [ "$file_ext_lower" = "heic" ]; then
             file_ext_lower="jpg"
         fi
 
@@ -110,6 +111,21 @@ optimize_images() {
                     -resize "${max_width}x${max_width}>" \
                     -define webp:lossless=false \
                     "$dest_path"
+                ;;
+            heic)
+                # Convert HEIC to JPEG with optimization
+                magick "$img" \
+                    -strip \
+                    -interlace Plane \
+                    -sampling-factor 4:2:0 \
+                    -quality "$quality" \
+                    -resize "${max_width}x${max_width}>" \
+                    "$dest_path"
+
+                # Use jpegoptim if available for additional optimization
+                if command -v jpegoptim &> /dev/null; then
+                    jpegoptim --strip-all --max="$quality" "$dest_path" &> /dev/null
+                fi
                 ;;
             *)
                 echo "  Skipped: Unsupported format"
@@ -192,6 +208,94 @@ convert_to_webp() {
     echo "WebP conversion complete!"
 }
 
+# Function to convert HEIC images to JPEG format
+convert_heic_to_jpeg() {
+    local source_dir="$1"
+    local dest_dir="$2"
+    local quality="${3:-90}"  # Higher default quality for HEIC conversion
+
+    if [ ! -d "$source_dir" ]; then
+        echo "Error: Source directory '$source_dir' does not exist."
+        return 1
+    fi
+
+    # Check for ImageMagick
+    if ! command -v magick &> /dev/null; then
+        echo "Error: ImageMagick is not installed."
+        echo "Install with: brew install imagemagick (macOS) or apt-get install imagemagick (Linux)"
+        return 1
+    fi
+
+    mkdir -p "$dest_dir"
+
+    echo "================================================"
+    echo "HEIC to JPEG Conversion Started"
+    echo "================================================"
+    echo "Source:      $source_dir"
+    echo "Destination: $dest_dir"
+    echo "Quality:     ${quality}%"
+    echo "================================================"
+    echo ""
+
+    local total_files=0
+    local processed_files=0
+
+    find "$source_dir" -type f \( -iname "*.heic" -o -iname "*.heif" \) | while read -r img; do
+        total_files=$((total_files + 1))
+
+        rel_path="${img#$source_dir/}"
+        base_name="${rel_path%.*}"
+        dest_path="$dest_dir/${base_name}.jpg"
+
+        dest_subdir=$(dirname "$dest_path")
+        mkdir -p "$dest_subdir"
+
+        echo "Converting: $rel_path → ${base_name}.jpg"
+
+        # Get original file size
+        original_size=$(stat -f%z "$img" 2>/dev/null || stat -c%s "$img" 2>/dev/null)
+
+        # Convert HEIC to JPEG
+        magick "$img" \
+            -strip \
+            -interlace Plane \
+            -sampling-factor 4:2:0 \
+            -quality "$quality" \
+            "$dest_path"
+
+        if [ $? -eq 0 ]; then
+            processed_files=$((processed_files + 1))
+
+            # Get new file size
+            new_size=$(stat -f%z "$dest_path" 2>/dev/null || stat -c%s "$dest_path" 2>/dev/null)
+
+            # Calculate savings
+            if [ -n "$original_size" ] && [ -n "$new_size" ]; then
+                original_kb=$((original_size / 1024))
+                new_kb=$((new_size / 1024))
+
+                echo "  ✓ ${original_kb}KB → ${new_kb}KB"
+            else
+                echo "  ✓ Done"
+            fi
+
+            # Use jpegoptim if available for additional optimization
+            if command -v jpegoptim &> /dev/null; then
+                jpegoptim --strip-all --max="$quality" "$dest_path" &> /dev/null
+            fi
+        else
+            echo "  ✗ Failed to convert"
+        fi
+        echo ""
+    done
+
+    echo "================================================"
+    echo "HEIC to JPEG Conversion Complete!"
+    echo "================================================"
+    echo "Check output in: $dest_dir"
+    echo ""
+}
+
 # Show usage if script is executed directly
 if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     echo "Image Optimization Functions"
@@ -200,11 +304,13 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     echo "  source optimize-images.sh"
     echo "  optimize_images <source_dir> <dest_dir> [max_width] [quality]"
     echo "  convert_to_webp <source_dir> <dest_dir> [quality]"
+    echo "  convert_heic_to_jpeg <source_dir> <dest_dir> [quality]"
     echo ""
     echo "Examples:"
     echo "  optimize_images ./photos ./photos-optimized 1920 85"
     echo "  optimize_images ./images ./web-images"
     echo "  convert_to_webp ./images ./webp-images 85"
+    echo "  convert_heic_to_jpeg ./iphone-photos ./jpeg-photos 90"
     echo ""
     echo "Parameters:"
     echo "  source_dir   - Directory containing original images"
