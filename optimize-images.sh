@@ -50,12 +50,17 @@ optimize_images() {
         rel_path="${img#$source_dir/}"
         dest_path="$dest_dir/$rel_path"
 
-        # Change .jpeg extension to .jpg
-        if [[ "$dest_path" == *.jpeg ]]; then
-            dest_path="${dest_path%.jpeg}.jpg"
-        elif [[ "$dest_path" == *.JPEG ]]; then
-            dest_path="${dest_path%.JPEG}.jpg"
+        # Normalize extension to lowercase and change .jpeg to .jpg
+        file_base="${dest_path%.*}"
+        file_ext="${dest_path##*.}"
+        file_ext_lower=$(echo "$file_ext" | tr '[:upper:]' '[:lower:]')
+
+        # Convert .jpeg to .jpg
+        if [ "$file_ext_lower" = "jpeg" ]; then
+            file_ext_lower="jpg"
         fi
+
+        dest_path="${file_base}.${file_ext_lower}"
 
         # Create subdirectories if needed
         dest_subdir=$(dirname "$dest_path")
