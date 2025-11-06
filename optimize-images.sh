@@ -80,24 +80,34 @@ optimize_images() {
         case "$ext_lower" in
             jpg|jpeg)
                 magick "$img" \
-                    -strip \
+                    -auto-orient \
                     -interlace Plane \
                     -sampling-factor 4:2:0 \
                     -quality "$quality" \
                     -resize "${max_width}x${max_width}>" \
                     "$dest_path"
 
-                # Use jpegoptim if available for additional optimization
+                # Remove GPS/location data while preserving other EXIF
+                if command -v exiftool &> /dev/null; then
+                    exiftool -q -overwrite_original -gps:all= "$dest_path" 2>/dev/null
+                fi
+
+                # Use jpegoptim if available for additional optimization (without stripping EXIF)
                 if command -v jpegoptim &> /dev/null; then
-                    jpegoptim --strip-all --max="$quality" "$dest_path" &> /dev/null
+                    jpegoptim --max="$quality" "$dest_path" &> /dev/null
                 fi
                 ;;
             png)
                 magick "$img" \
-                    -strip \
+                    -auto-orient \
                     -quality "$quality" \
                     -resize "${max_width}x${max_width}>" \
                     "$dest_path"
+
+                # Remove GPS/location data while preserving other EXIF
+                if command -v exiftool &> /dev/null; then
+                    exiftool -q -overwrite_original -gps:all= "$dest_path" 2>/dev/null
+                fi
 
                 # Use optipng if available for additional optimization
                 if command -v optipng &> /dev/null; then
@@ -106,25 +116,35 @@ optimize_images() {
                 ;;
             webp)
                 magick "$img" \
-                    -strip \
+                    -auto-orient \
                     -quality "$quality" \
                     -resize "${max_width}x${max_width}>" \
                     -define webp:lossless=false \
                     "$dest_path"
+
+                # Remove GPS/location data while preserving other EXIF
+                if command -v exiftool &> /dev/null; then
+                    exiftool -q -overwrite_original -gps:all= "$dest_path" 2>/dev/null
+                fi
                 ;;
             heic)
                 # Convert HEIC to JPEG with optimization
                 magick "$img" \
-                    -strip \
+                    -auto-orient \
                     -interlace Plane \
                     -sampling-factor 4:2:0 \
                     -quality "$quality" \
                     -resize "${max_width}x${max_width}>" \
                     "$dest_path"
 
-                # Use jpegoptim if available for additional optimization
+                # Remove GPS/location data while preserving other EXIF
+                if command -v exiftool &> /dev/null; then
+                    exiftool -q -overwrite_original -gps:all= "$dest_path" 2>/dev/null
+                fi
+
+                # Use jpegoptim if available for additional optimization (without stripping EXIF)
                 if command -v jpegoptim &> /dev/null; then
-                    jpegoptim --strip-all --max="$quality" "$dest_path" &> /dev/null
+                    jpegoptim --max="$quality" "$dest_path" &> /dev/null
                 fi
                 ;;
             *)
@@ -195,7 +215,7 @@ convert_to_webp() {
 
         echo "Converting: $rel_path → ${base_name}.webp"
 
-        magick "$img" -quality "$quality" "$dest_path"
+        magick "$img" -auto-orient -quality "$quality" "$dest_path"
 
         if [ $? -eq 0 ]; then
             echo "  ✓ Done"
@@ -257,7 +277,7 @@ convert_heic_to_jpeg() {
 
         # Convert HEIC to JPEG
         magick "$img" \
-            -strip \
+            -auto-orient \
             -interlace Plane \
             -sampling-factor 4:2:0 \
             -quality "$quality" \
@@ -265,6 +285,11 @@ convert_heic_to_jpeg() {
 
         if [ $? -eq 0 ]; then
             processed_files=$((processed_files + 1))
+
+            # Remove GPS/location data while preserving other EXIF
+            if command -v exiftool &> /dev/null; then
+                exiftool -q -overwrite_original -gps:all= "$dest_path" 2>/dev/null
+            fi
 
             # Get new file size
             new_size=$(stat -f%z "$dest_path" 2>/dev/null || stat -c%s "$dest_path" 2>/dev/null)
@@ -279,9 +304,9 @@ convert_heic_to_jpeg() {
                 echo "  ✓ Done"
             fi
 
-            # Use jpegoptim if available for additional optimization
+            # Use jpegoptim if available for additional optimization (without stripping EXIF)
             if command -v jpegoptim &> /dev/null; then
-                jpegoptim --strip-all --max="$quality" "$dest_path" &> /dev/null
+                jpegoptim --max="$quality" "$dest_path" &> /dev/null
             fi
         else
             echo "  ✗ Failed to convert"
