@@ -32,10 +32,10 @@ const arrangedImages = arrangeImagesInGrid(imageAspectRatios);
   >
     <header class="mb-8">
       <h1 class="text-4xl lg:text-6xl font-semibold">{post.data.title}</h1>
-      <h3 class="mt-8 text-lg lg:text-xl text-white/70">
       <h2 class="text-lg lg:text-xl text-white/70 mb-8">
         {post.data.description}
       </h2>
+      <h3 class="mt-8 text-white/70">
         {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
       </h3>
     </header>
