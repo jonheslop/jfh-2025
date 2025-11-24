@@ -1,0 +1,21 @@
+---
+const artistResponse = await fetch(
+  "http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=jonheslop&period=1month&limit=5&api_key=6908805d396f2a48dcac5ac045452754&format=json",
+);
+const artists = await artistResponse.json();
+
+const mostPlayedArtistCount = artists.topartists?.artist[0].playcount;
+
+---
+
+{
+  artists.topartists?.artist.map((artist) => (
+  <div class="text-balance flex justify-between gap-1 leading-tight text-sm">
+      <a href={artist.url} class="italic link">
+        {artist.name}
+      </a>
+      <span class="shrink-0">{artist.playcount} plays</span>
+    </div>
+    <div class="border-t-4 border-white/20 -mt-1 mb-3" style={{width: artist.playcount / mostPlayedArtistCount * 100 + '%'}} />
+  ))
+}
