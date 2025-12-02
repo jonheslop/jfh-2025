@@ -1,8 +1,21 @@
 ---
+type Artists = {
+  topartists: {
+    artist: {
+      image: {
+        "#text": string;
+      }[];
+      name: string;
+      url: string;
+      playcount: number;
+    }[];
+  };
+};
+
 const artistResponse = await fetch(
   "http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=jonheslop&period=1month&limit=5&api_key=6908805d396f2a48dcac5ac045452754&format=json",
 );
-const artists = await artistResponse.json();
+const artists: Artists = await artistResponse.json();
 
 const mostPlayedArtistCount = artists.topartists?.artist[0].playcount;
 

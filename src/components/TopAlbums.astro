@@ -1,10 +1,25 @@
 ---
 import { Image } from "astro:assets";
 
+type Albums = {
+  topalbums: {
+    album: {
+      image: {
+        "#text": string;
+      }[];
+      name: string;
+      url: string;
+      artist: {
+        name: string;
+      };
+    }[];
+  };
+};
+
 const albumsResponse = await fetch(
   "http://ws.audioscrobbler.com//2.0/?method=user.gettopalbums&user=jonheslop&period=1month&limit=3&api_key=6908805d396f2a48dcac5ac045452754&format=json",
 );
-const albums = await albumsResponse.json();
+const albums: Albums = await albumsResponse.json();
 ---
 
 {
