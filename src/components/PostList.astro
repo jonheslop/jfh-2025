@@ -22,7 +22,7 @@ const posts = (await getCollection(type))
           class="flex justify-start items-center gap-x-4 py-2 group hover:bg-white/10 transition-colors"
           href={`/${type}/${post.id}/`}
         >
-          {!recent && post.data.coverImage && (
+          {!recent && post.collection === "photos" && post.data.coverImage && (
             <img
               src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.coverImage}/small`}
               alt={post.data.title}
