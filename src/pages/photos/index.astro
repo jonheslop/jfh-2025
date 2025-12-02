@@ -17,7 +17,7 @@ const photos = (await getCollection("photos")).sort(
           <li class="text-lg">
             <a
               class="relative block group hover:bg-white/10 transition-colors"
-              href={`/photos/${post.id}`}
+              href={`/photos/${post.id}/`}
             >
               {post.data.coverImage && (
                 <img

@@ -20,7 +20,7 @@ const posts = (await getCollection(type))
       <li class="text-lg border-t border-white/20 last:border-b">
         <a
           class="flex justify-start items-center gap-x-4 py-2 group hover:bg-white/10 transition-colors"
-          href={`/${type}/${post.id}`}
+          href={`/${type}/${post.id}/`}
         >
           {!recent && post.data.coverImage && (
             <img
@@ -42,7 +42,7 @@ const posts = (await getCollection(type))
 </ul>
 {
   recent && (
-    <a href={`/${type}`} class="block text-white/70 hover mt-2">
+    <a href={`/${type}/`} class="block text-white/70 hover mt-2">
       See all {type} &raquo;
     </a>
   )
