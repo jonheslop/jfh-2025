@@ -11,6 +11,21 @@ optimize_images() {
     local dest_dir="$2"
     local max_width="${3:-2048}"  # Default max width 2048px
     local quality="${4:-85}"       # Default quality 85%
+    local output_format="${5:-}"   # Optional: force output format (jpg, png, webp)
+
+    # Normalize output format to lowercase
+    if [ -n "$output_format" ]; then
+        output_format=$(echo "$output_format" | tr '[:upper:]' '[:lower:]')
+        # Normalize jpeg to jpg
+        if [ "$output_format" = "jpeg" ]; then
+            output_format="jpg"
+        fi
+        # Validate output format
+        if [[ "$output_format" != "jpg" && "$output_format" != "png" && "$output_format" != "webp" ]]; then
+            echo "Error: Invalid output format '$output_format'. Use: jpg, png, or webp"
+            return 1
+        fi
+    fi
 
     # Check if source directory exists
     if [ ! -d "$source_dir" ]; then
@@ -28,6 +43,11 @@ optimize_images() {
     echo "Destination: $dest_dir"
     echo "Max Width:   ${max_width}px"
     echo "Quality:     ${quality}%"
+    if [ -n "$output_format" ]; then
+        echo "Output Format: $output_format"
+    else
+        echo "Output Format: (keep original)"
+    fi
     echo "================================================"
     echo ""
 
@@ -51,14 +71,17 @@ optimize_images() {
         rel_path="${img#$source_dir/}"
         dest_path="$dest_dir/$rel_path"
 
-        # Normalize extension to lowercase and change .jpeg to .jpg
-        file_base="${dest_path%.*}"
-        file_ext="${dest_path##*.}"
-        file_ext_lower=$(echo "$file_ext" | tr '[:upper:]' '[:lower:]')
-
-        # Convert .jpeg to .jpg and .heic to .jpg
-        if [ "$file_ext_lower" = "jpeg" ] || [ "$file_ext_lower" = "heic" ]; then
-            file_ext_lower="jpg"
+        # Determine output extension
+        if [ -n "$output_format" ]; then
+            # Force output format: remove original extension. add new one
+            dest_path="${dest_path%.*}.$output_format"
+        else
+            # Keep original format, but normalize .jpeg to .jpg
+            if [[ "$dest_path" == *.jpeg ]]; then
+                dest_path="${dest_path%.jpeg}.jpg"
+            elif [[ "$dest_path" == *.JPEG ]]; then
+                dest_path="${dest_path%.JPEG}.jpg"
+            fi
         fi
 
         dest_path="${file_base}.${file_ext_lower}"
@@ -67,17 +90,28 @@ optimize_images() {
         dest_subdir=$(dirname "$dest_path")
         mkdir -p "$dest_subdir"
 
-        # Get file extension
+        # Get file extension (use output_format if specified, otherwise use original)
         ext="${img##*.}"
         ext_lower=$(echo "$ext" | tr '[:upper:]' '[:lower:]')
+
+        # Determine which format to use for processing
+        if [ -n "$output_format" ]; then
+            process_format="$output_format"
+        else
+            process_format="$ext_lower"
+            # Normalize jpeg to jpg
+            if [ "$process_format" = "jpeg" ]; then
+                process_format="jpg"
+            fi
+        fi
 
         echo "Processing: $rel_path"
 
         # Get original file size
         original_size=$(stat -f%z "$img" 2>/dev/null || stat -c%s "$img" 2>/dev/null)
 
-        # Optimize based on file type
-        case "$ext_lower" in
+        # Optimize based on output format
+        case "$process_format" in
             jpg|jpeg)
                 magick "$img" \
                     -auto-orient \
@@ -85,6 +119,7 @@ optimize_images() {
                     -sampling-factor 4:2:0 \
                     -quality "$quality" \
                     -resize "${max_width}x${max_width}>" \
+                    -units PixelsPerInch -density 72 \
                     "$dest_path"
 
                 # Remove GPS/location data while preserving other EXIF
@@ -102,6 +137,7 @@ optimize_images() {
                     -auto-orient \
                     -quality "$quality" \
                     -resize "${max_width}x${max_width}>" \
+                    -units PixelsPerInch -density 72 \
                     "$dest_path"
 
                 # Remove GPS/location data while preserving other EXIF
@@ -119,6 +155,7 @@ optimize_images() {
                     -auto-orient \
                     -quality "$quality" \
                     -resize "${max_width}x${max_width}>" \
+                    -units PixelsPerInch -density 72 \
                     -define webp:lossless=false \
                     "$dest_path"
 
@@ -215,7 +252,7 @@ convert_to_webp() {
 
         echo "Converting: $rel_path → ${base_name}.webp"
 
-        magick "$img" -auto-orient -quality "$quality" "$dest_path"
+        magick "$img" -auto-orient -quality "$quality" -units PixelsPerInch -density 72 "$dest_path"
 
         if [ $? -eq 0 ]; then
             echo "  ✓ Done"
@@ -327,13 +364,15 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     echo ""
     echo "Usage:"
     echo "  source optimize-images.sh"
-    echo "  optimize_images <source_dir> <dest_dir> [max_width] [quality]"
+    echo "  optimize_images <source_dir> <dest_dir> [max_width] [quality] [output_format]"
     echo "  convert_to_webp <source_dir> <dest_dir> [quality]"
     echo "  convert_heic_to_jpeg <source_dir> <dest_dir> [quality]"
     echo ""
     echo "Examples:"
     echo "  optimize_images ./photos ./photos-optimized 1920 85"
     echo "  optimize_images ./images ./web-images"
+    echo "  optimize_images ./images ./web-images 2048 85 webp  # Force WebP output"
+    echo "  optimize_images ./images ./web-images 1920 90 jpg   # Force JPG output"
     echo "  convert_to_webp ./images ./webp-images 85"
     echo "  convert_heic_to_jpeg ./iphone-photos ./jpeg-photos 90"
     echo ""
