@@ -84,8 +84,6 @@ optimize_images() {
             fi
         fi
 
-        dest_path="${file_base}.${file_ext_lower}"
-
         # Create subdirectories if needed
         dest_subdir=$(dirname "$dest_path")
         mkdir -p "$dest_subdir"
