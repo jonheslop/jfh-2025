@@ -49,11 +49,7 @@ const [photo] = await getImageAspectRatiosArray([post.data.photo]);
       <img
         src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.cloudflareId}/large`}
         alt={post.data.description}
-        class="border-4 self-stretch object-cover rounded-xs w-full h-full"
-        ,
-        style={`aspect-ratio: ${photo.aspectRatio}`}
-        width={photo.width}
-        height={photo.height}
+        class="border-4 rounded-xs"
       />
       <div class="mt-32 border-b-2 border-white/60"></div>
     </figure>
