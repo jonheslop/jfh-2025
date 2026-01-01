@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import { dateOptions, parseDateFromId } from "../../utils/types";
+import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
+import clsx from "clsx";
+
+export async function getStaticPaths() {
+  const stream = await getCollection("stream");
+  return stream.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+// Get aspect ratios for images if they exist
+const [photo] = await getImageAspectRatiosArray([post.data.photo]);
+---
+
+<Layout
+  title={`Stream - ${parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}`}
+>
+  <article class="grid grid-cols-subgrid col-span-11 gap-8 row-start-1">
+    <header
+      class={clsx({
+        "order-2 col-span-4": photo.aspectRatio < 1,
+        "col-span-10 col-start-2": photo.aspectRatio > 1,
+      })}
+    >
+      <h1 class="text-4xl font-semibold text-balance">
+        {parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}
+      </h1>
+      {
+        post.data.description && (
+          <p class="text-lg text-pretty max-w-xl leading-normal">
+            {post.data.description}
+          </p>
+        )
+      }
+    </header>
+    <figure
+      class={clsx({
+        "order-1 col-start-2 col-span-5": photo.aspectRatio < 1,
+        "col-span-10 col-start-2": photo.aspectRatio > 1,
+      })}
+    >
+      <img
+        src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.cloudflareId}/large`}
+        alt={post.data.description}
+        class="border-4 rounded-xs"
+      />
+      <div class="mt-32 border-b-2 border-white/60"></div>
+    </figure>
+  </article>
+</Layout>

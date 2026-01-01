@@ -1,0 +1,55 @@
+---
+import clsx from "clsx";
+import Layout from "../../components/Layout.astro";
+import { getCollection } from "astro:content";
+import { dateOptions, parseDateFromId } from "../../utils/types";
+import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
+
+const stream = await getCollection("stream");
+const newestFirst = stream.reverse();
+
+// Get aspect ratios for images if they exist
+const streamIds = stream.map((post) => post.data.photo);
+const photos = await getImageAspectRatiosArray(streamIds);
+---
+
+<Layout title="Stream">
+  <header class="col-span-10 col-start-3">
+    <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Stream</h1>
+    <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">
+      One photo a day, inspired by <a
+        class="underline underline-offset-2"
+        href="https://retro.app/u/jonheslop">retro.app</a
+      >, weekly layout.
+    </p>
+  </header>
+  <ul class="grid grid-cols-subgrid col-span-12">
+    {
+      newestFirst.map((post, index) => (
+        <li
+          class={clsx("relative text-sm col-span-2", {
+            "col-span-4": photos[index].aspectRatio > 1,
+          })}
+        >
+          <a class="group" href={`/stream/${post.id}/`}>
+            <img
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photos[index].cloudflareId}/medium`}
+              alt={post.data.description}
+              class={clsx("rounded-xs border-4", {
+                "self-stretch object-cover w-full h-full":
+                  photos[index].aspectRatio > 1,
+              })}
+            />
+
+            <p class="opacity-0 group-hover:opacity-100 transition-opacity absolute -bottom-6 right-0 text-white/70 mt-2">
+              {parseDateFromId(post.id).toLocaleDateString(
+                "en-GB",
+                dateOptions,
+              )}
+            </p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
