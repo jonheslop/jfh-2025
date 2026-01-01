@@ -1,0 +1,34 @@
+---
+import Layout from "../../components/Layout.astro";
+import { getCollection } from "astro:content";
+import { dateOptions, parseDateFromId } from "../../utils/types";
+
+const stream = await getCollection("stream");
+---
+
+<Layout title="Posts">
+  <section class="sm:col-span-2 lg:col-span-6 lg:col-start-3 lg:row-start-2">
+    <h1 class="text-sm uppercase font-semibold mb-2">All posts</h1>
+
+    <ul>
+      {
+        stream.map((post) => (
+          <li class="text-lg border-t border-white/20 last:border-b">
+            <a
+              class="flex justify-start items-center gap-x-4 py-2 group hover:bg-white/10 transition-colors"
+              href={`/stream/${post.id}/`}
+            >
+              {post.data.photo}
+              <span class="text-white/70 ml-auto">
+                {parseDateFromId(post.id).toLocaleDateString(
+                  "en-GB",
+                  dateOptions,
+                )}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>

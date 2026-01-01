@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import { dateOptions, parseDateFromId } from "../../utils/types";
+
+export async function getStaticPaths() {
+  const stream = await getCollection("stream");
+  return stream.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={post.data.photo}>
+  <article
+    class="sm:col-span-2 lg:col-span-6 lg:col-start-3 lg:row-start-2 self-center mb-32"
+  >
+    <header class="mb-8">
+      <h1 class="text-4xl lg:text-6xl font-semibold text-balance">
+        {post.data.photo}
+      </h1>
+      {
+        post.data.description && (
+          <h2 class="text-lg lg:text-xl text-white/70 mb-8">
+            {post.data.description}
+          </h2>
+        )
+      }
+      <span class="text-white/70">
+        {parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}
+      </span>
+    </header>
+    <div class="prose text-lg lg:text-xl text-pretty">
+      {post.data.photo}
+    </div>
+    <div class="mt-32 border-b-2 border-white/60"></div>
+  </article>
+</Layout>
