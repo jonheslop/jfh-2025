@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import { dateOptions, parseDateFromId } from "../../utils/types";
+import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
+import clsx from "clsx";
 
 export async function getStaticPaths() {
   const stream = await getCollection("stream");
@@ -12,31 +14,48 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+
+// Get aspect ratios for images if they exist
+const [photo] = await getImageAspectRatiosArray([post.data.photo]);
 ---
 
-<Layout title={post.data.photo}>
-  <article
-    class="sm:col-span-2 lg:col-span-6 lg:col-start-3 lg:row-start-2 self-center mb-32"
-  >
-    <header class="mb-8">
-      <h1 class="text-4xl lg:text-6xl font-semibold text-balance">
-        {post.data.photo}
+<Layout
+  title={`Stream - ${parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}`}
+>
+  <article class="grid grid-cols-subgrid col-span-11 gap-8 row-start-1">
+    <header
+      class={clsx({
+        "order-2 col-span-4": photo.aspectRatio < 1,
+        "col-span-10 col-start-2": photo.aspectRatio > 1,
+      })}
+    >
+      <h1 class="text-4xl font-semibold text-balance">
+        {parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}
       </h1>
       {
         post.data.description && (
-          <h2 class="text-lg lg:text-xl text-white/70 mb-8">
+          <p class="text-lg text-pretty max-w-xl leading-normal">
             {post.data.description}
-          </h2>
+          </p>
         )
       }
-      <span class="text-white/70">
-        {parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}
-      </span>
     </header>
-    <div class="prose text-lg lg:text-xl text-pretty">
-      {post.data.photo}
-    </div>
-    <div class="mt-32 border-b-2 border-white/60"></div>
+    <figure
+      class={clsx({
+        "order-1 col-start-2 col-span-5": photo.aspectRatio < 1,
+        "col-span-10 col-start-2": photo.aspectRatio > 1,
+      })}
+    >
+      <img
+        src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.cloudflareId}/large`}
+        alt={post.data.description}
+        class="border-4 self-stretch object-cover rounded-xs w-full h-full"
+        ,
+        style={`aspect-ratio: ${photo.aspectRatio}`}
+        width={photo.width}
+        height={photo.height}
+      />
+      <div class="mt-32 border-b-2 border-white/60"></div>
+    </figure>
   </article>
 </Layout>

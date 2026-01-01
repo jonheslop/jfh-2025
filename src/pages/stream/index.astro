@@ -4,31 +4,45 @@ import { getCollection } from "astro:content";
 import { dateOptions, parseDateFromId } from "../../utils/types";
 
 const stream = await getCollection("stream");
+const newestFirst = stream.reverse();
 ---
 
-<Layout title="Posts">
-  <section class="sm:col-span-2 lg:col-span-6 lg:col-start-3 lg:row-start-2">
-    <h1 class="text-sm uppercase font-semibold mb-2">All posts</h1>
+<Layout title="Stream">
+  <header class="col-span-10 col-start-3">
+    <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Stream</h1>
+    <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">
+      One photo a day all year. Inspired by <a
+        class="underline underline-offset-2"
+        href="https://retro.app/u/jonheslop">retro.app</a
+      > where I’ve been posting photos for a while. I had a version of this before
+      on a previous site but it was a little over engineered.
+    </p>
+  </header>
+  <ul class="grid grid-cols-subgrid col-span-12">
+    {
+      newestFirst.map((post) => (
+        <li class="text-sm col-span-2">
+          <a
+            class="flex flex-col justify-start items-start gap-x-4 py-2 group"
+            href={`/stream/${post.id}/`}
+          >
+            <img
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.photo}/medium`}
+              alt={post.data.description}
+              class="border-4 rounded-xs"
+              width="1024"
+              height="683"
+            />
 
-    <ul>
-      {
-        stream.map((post) => (
-          <li class="text-lg border-t border-white/20 last:border-b">
-            <a
-              class="flex justify-start items-center gap-x-4 py-2 group hover:bg-white/10 transition-colors"
-              href={`/stream/${post.id}/`}
-            >
-              {post.data.photo}
-              <span class="text-white/70 ml-auto">
-                {parseDateFromId(post.id).toLocaleDateString(
-                  "en-GB",
-                  dateOptions,
-                )}
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+            <span class="text-white/70 mt-2">
+              {parseDateFromId(post.id).toLocaleDateString(
+                "en-GB",
+                dateOptions,
+              )}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </Layout>
