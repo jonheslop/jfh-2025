@@ -7,17 +7,23 @@ import LatestPost from "../components/LatestPost.astro";
 import { getImageAspectRatiosArray } from "../utils/getImageAspectRatios";
 import { dateOptions, parseDateFromId } from "../utils/types";
 
-const stream = await getCollection("stream");
-const newestFirst = stream.reverse().slice(0, 6);
+const lastSevenDays = (await getCollection("stream"))
+  .sort((a, b) => {
+    const [yearA, dayA] = a.id.split("/").map(Number);
+    const [yearB, dayB] = b.id.split("/").map(Number);
+    if (yearB !== yearA) return yearB - yearA;
+    return dayB - dayA;
+  })
+  .slice(0, 6);
 
 // Get aspect ratios for images if they exist
-const streamIds = stream.map((post) => post.data.photo);
+const streamIds = lastSevenDays.map((post) => post.data.photo);
 const photos = await getImageAspectRatiosArray(streamIds);
 ---
 
 <Layout title="Hello">
   <ul
-    class="grid grid-cols-subgrid sm:col-span-2 lg:col-span-10 lg:row-start-2 gap-8"
+    class="grid grid-cols-subgrid sm:col-span-2 lg:col-span-12 lg:row-start-2 gap-8"
   >
     <h1
       class="col-span-full col-start-3 text-sm uppercase font-semibold mb-4 text-white/70"
@@ -25,7 +31,7 @@ const photos = await getImageAspectRatiosArray(streamIds);
       Stream
     </h1>
     {
-      newestFirst.map((post, index) => (
+      lastSevenDays.map((post, index) => (
         <li
           class={clsx("relative text-sm lg:col-span-2", {
             "sm:col-span-2 lg:col-span-4": photos[index].aspectRatio > 1,
@@ -53,7 +59,7 @@ const photos = await getImageAspectRatiosArray(streamIds);
     }
     <a
       href="/stream"
-      class="col-span-full col-start-3 block text-white/70 mt-2"
+      class="col-span-full col-start-3 row-start-3 block text-white/70 mt-2"
     >
       See full stream &raquo;
     </a>

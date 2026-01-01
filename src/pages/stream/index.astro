@@ -5,8 +5,12 @@ import { getCollection } from "astro:content";
 import { dateOptions, parseDateFromId } from "../../utils/types";
 import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
 
-const stream = await getCollection("stream");
-const newestFirst = stream.reverse();
+const stream = (await getCollection("stream")).sort((a, b) => {
+  const [yearA, dayA] = a.id.split("/").map(Number);
+  const [yearB, dayB] = b.id.split("/").map(Number);
+  if (yearB !== yearA) return yearB - yearA;
+  return dayB - dayA;
+});
 
 // Get aspect ratios for images if they exist
 const streamIds = stream.map((post) => post.data.photo);
@@ -25,7 +29,7 @@ const photos = await getImageAspectRatiosArray(streamIds);
   </header>
   <ul class="grid grid-cols-subgrid col-span-12">
     {
-      newestFirst.map((post, index) => (
+      stream.map((post, index) => (
         <li
           class={clsx("relative text-sm col-span-2", {
             "col-span-4": photos[index].aspectRatio > 1,
