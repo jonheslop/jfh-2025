@@ -1,9 +1,9 @@
 ---
+import clsx from "clsx";
 import Layout from "../../components/Layout.astro";
 import { getCollection } from "astro:content";
 import { dateOptions, parseDateFromId } from "../../utils/types";
 import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
-import clsx from "clsx";
 
 const stream = await getCollection("stream");
 const newestFirst = stream.reverse();
@@ -17,11 +17,10 @@ const photos = await getImageAspectRatiosArray(streamIds);
   <header class="col-span-10 col-start-3">
     <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Stream</h1>
     <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">
-      One photo a day all year. Inspired by <a
+      One photo a day, inspired by <a
         class="underline underline-offset-2"
         href="https://retro.app/u/jonheslop">retro.app</a
-      > where I’ve been posting photos for a while. I had a version of this before
-      on a previous site but it was a little over engineered.
+      >, weekly layout.
     </p>
   </header>
   <ul class="grid grid-cols-subgrid col-span-12">

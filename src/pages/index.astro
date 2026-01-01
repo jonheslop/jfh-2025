@@ -1,11 +1,65 @@
 ---
+import clsx from "clsx";
+import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import PostList from "../components/PostList.astro";
 import LatestPost from "../components/LatestPost.astro";
+import { getImageAspectRatiosArray } from "../utils/getImageAspectRatios";
+import { dateOptions, parseDateFromId } from "../utils/types";
+
+const stream = await getCollection("stream");
+const newestFirst = stream.reverse().slice(0, 6);
+
+// Get aspect ratios for images if they exist
+const streamIds = stream.map((post) => post.data.photo);
+const photos = await getImageAspectRatiosArray(streamIds);
 ---
 
 <Layout title="Hello">
-  <section class="lg:col-span-6 xl:col-span-4 xl:col-start-3 lg:row-start-2">
+  <ul
+    class="grid grid-cols-subgrid sm:col-span-2 lg:col-span-10 lg:row-start-2 gap-8"
+  >
+    <h1
+      class="col-span-full col-start-3 text-sm uppercase font-semibold mb-4 text-white/70"
+    >
+      Stream
+    </h1>
+    {
+      newestFirst.map((post, index) => (
+        <li
+          class={clsx("relative text-sm lg:col-span-2", {
+            "sm:col-span-2 lg:col-span-4": photos[index].aspectRatio > 1,
+          })}
+        >
+          <a class="group" href={`/stream/${post.id}/`}>
+            <img
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photos[index].cloudflareId}/medium`}
+              alt={post.data.description}
+              class={clsx("rounded-xs border-4", {
+                "self-stretch object-cover w-full h-full":
+                  photos[index].aspectRatio > 1,
+              })}
+            />
+
+            <p class="opacity-0 group-hover:opacity-100 transition-opacity absolute -bottom-6 right-0 text-white/70 mt-2">
+              {parseDateFromId(post.id).toLocaleDateString(
+                "en-GB",
+                dateOptions,
+              )}
+            </p>
+          </a>
+        </li>
+      ))
+    }
+    <a
+      href="/stream"
+      class="col-span-full col-start-3 block text-white/70 mt-2"
+    >
+      See full stream &raquo;
+    </a>
+  </ul>
+
+  <section class="lg:col-span-6 xl:col-span-4 xl:col-start-3 lg:row-start-3">
     <h1 class="text-sm uppercase font-semibold mb-4 text-white/70">
       Recent posts
     </h1>
@@ -13,7 +67,7 @@ import LatestPost from "../components/LatestPost.astro";
     <PostList type="posts" recent={true} />
   </section>
   <section
-    class="lg:col-span-6 xl:col-span-4 xl:col-start-9 lg:row-start-2 flex flex-col"
+    class="lg:col-span-6 xl:col-span-4 xl:col-start-9 lg:row-start-3 flex flex-col"
   >
     <h1 class="text-sm uppercase font-semibold mb-4 text-white/70">
       Recent photo posts
