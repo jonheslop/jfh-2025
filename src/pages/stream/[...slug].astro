@@ -22,11 +22,11 @@ const [photo] = await getImageAspectRatiosArray([post.data.photo]);
 <Layout
   title={`Stream - ${parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}`}
 >
-  <article class="grid grid-cols-subgrid col-span-11 gap-8 row-start-1">
+  <article class="grid grid-cols-subgrid lg:col-span-11 gap-8 lg:row-start-1">
     <header
       class={clsx({
-        "order-2 col-span-4": photo.aspectRatio < 1,
-        "col-span-10 col-start-2": photo.aspectRatio > 1,
+        "lg:order-2 lg:col-span-4": photo.aspectRatio < 1,
+        "lg:col-span-10 lg:col-start-2": photo.aspectRatio > 1,
       })}
     >
       <h1 class="text-4xl font-semibold text-balance">
@@ -42,8 +42,8 @@ const [photo] = await getImageAspectRatiosArray([post.data.photo]);
     </header>
     <figure
       class={clsx({
-        "order-1 col-start-2 col-span-5": photo.aspectRatio < 1,
-        "col-span-10 col-start-2": photo.aspectRatio > 1,
+        "lg:order-1 lg:col-start-2 lg:col-span-5": photo.aspectRatio < 1,
+        "lg:col-span-10 col-start-2": photo.aspectRatio > 1,
       })}
     >
       <img

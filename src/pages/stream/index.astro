@@ -18,7 +18,7 @@ const photos = await getImageAspectRatiosArray(streamIds);
 ---
 
 <Layout title="Stream">
-  <header class="col-span-10 col-start-3">
+  <header class="lg:col-span-10 lg:col-start-3">
     <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Stream</h1>
     <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">
       One photo a day, inspired by <a
@@ -27,7 +27,7 @@ const photos = await getImageAspectRatiosArray(streamIds);
       >’s weekly layout.
     </p>
   </header>
-  <ul class="grid grid-cols-subgrid col-span-12">
+  <ul class="grid grid-cols-subgrid sm:col-span-2 lg:col-span-12">
     {
       stream.map((post, index) => (
         <li
