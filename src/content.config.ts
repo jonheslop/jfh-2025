@@ -4,7 +4,6 @@ import { glob, file } from "astro/loaders";
 const stream = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "./src/stream" }),
   schema: z.object({
-    description: z.string().optional(),
     photo: z.string(),
     camera: z.string(),
   }),

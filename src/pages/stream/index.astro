@@ -38,7 +38,7 @@ const photos = await getImageAspectRatiosArray(streamIds);
           <a class="group" href={`/stream/${post.id}/`}>
             <img
               src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photos[index].cloudflareId}/medium`}
-              alt={post.data.description}
+              alt=""
               class={clsx("rounded-xs border-4", {
                 "self-stretch object-cover w-full h-full":
                   photos[index].aspectRatio > 1,

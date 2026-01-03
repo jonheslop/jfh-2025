@@ -14,6 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const { Content } = await render(post);
 
 // Get aspect ratios for images if they exist
 const [photo] = await getImageAspectRatiosArray([post.data.photo]);
@@ -34,13 +35,9 @@ const [photo] = await getImageAspectRatiosArray([post.data.photo]);
           {parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}
         </h1>
         <h5 class="text-white/70">{post.data.camera}</h5>
-        {
-          post.data.description && (
-            <p class="text-lg text-pretty max-w-xl leading-normal mt-8">
-              {post.data.description}
-            </p>
-          )
-        }
+        <div class="prose text-lg lg:text-xl text-pretty mt-8">
+          <Content />
+        </div>
       </header>
     </div>
     <figure
@@ -51,7 +48,7 @@ const [photo] = await getImageAspectRatiosArray([post.data.photo]);
     >
       <img
         src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.cloudflareId}/large`}
-        alt={post.data.description}
+        alt=""
         class="border-4 rounded-xs"
       />
       <div class="mt-32 border-b-2 border-white/60"></div>
