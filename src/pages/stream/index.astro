@@ -31,7 +31,7 @@ const photos = await getImageAspectRatiosArray(streamIds);
     {
       stream.map((post, index) => (
         <li
-          class={clsx("relative text-sm col-span-2", {
+          class={clsx("relative text-sm col-span-2 self-end", {
             "col-span-4": photos[index].aspectRatio > 1,
           })}
         >

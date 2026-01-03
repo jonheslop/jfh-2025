@@ -33,7 +33,7 @@ const photos = await getImageAspectRatiosArray(streamIds);
     {
       lastSevenDays.map((post, index) => (
         <li
-          class={clsx("relative text-sm lg:col-span-2", {
+          class={clsx("relative text-sm lg:col-span-2 self-end", {
             "sm:col-span-2 lg:col-span-4": photos[index].aspectRatio > 1,
           })}
         >
