@@ -26,9 +26,9 @@ const photos = await getImageAspectRatiosArray(streamIds);
     class="grid grid-cols-subgrid sm:col-span-2 lg:col-span-12 lg:row-start-2 gap-8"
   >
     <h1
-      class="col-span-full col-start-3 text-sm uppercase font-semibold mb-4 text-white/70"
+      class="col-span-full col-start-3 text-sm uppercase font-semibold text-white/70"
     >
-      Stream
+      Photo stream
     </h1>
     {
       lastSevenDays.map((post, index) => (
@@ -61,7 +61,7 @@ const photos = await getImageAspectRatiosArray(streamIds);
       href="/stream"
       class="col-span-full col-start-3 row-start-3 block text-white/70 mt-2"
     >
-      See full stream &raquo;
+      See the full stream &raquo;
     </a>
   </ul>
 
