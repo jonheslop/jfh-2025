@@ -6,6 +6,7 @@ const stream = defineCollection({
   schema: z.object({
     description: z.string().optional(),
     photo: z.string(),
+    camera: z.string(),
   }),
 });
 

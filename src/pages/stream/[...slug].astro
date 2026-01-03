@@ -23,23 +23,26 @@ const [photo] = await getImageAspectRatiosArray([post.data.photo]);
   title={`Stream - ${parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}`}
 >
   <article class="grid grid-cols-subgrid lg:col-span-11 gap-8 lg:row-start-1">
-    <header
+    <div
       class={clsx({
         "lg:order-2 lg:col-span-4": photo.aspectRatio < 1,
         "lg:col-span-10 lg:col-start-2": photo.aspectRatio > 1,
       })}
     >
-      <h1 class="text-4xl font-semibold text-balance">
-        {parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}
-      </h1>
-      {
-        post.data.description && (
-          <p class="text-lg text-pretty max-w-xl leading-normal">
-            {post.data.description}
-          </p>
-        )
-      }
-    </header>
+      <header>
+        <h1 class="text-4xl font-semibold text-balance">
+          {parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}
+        </h1>
+        <h5 class="text-white/70">{post.data.camera}</h5>
+        {
+          post.data.description && (
+            <p class="text-lg text-pretty max-w-xl leading-normal mt-8">
+              {post.data.description}
+            </p>
+          )
+        }
+      </header>
+    </div>
     <figure
       class={clsx({
         "lg:order-1 lg:col-start-2 lg:col-span-5": photo.aspectRatio < 1,
