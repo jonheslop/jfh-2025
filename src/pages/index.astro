@@ -1,11 +1,9 @@
 ---
-import clsx from "clsx";
 import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import PostList from "../components/PostList.astro";
+import StreamList from "../components/StreamList.astro";
 import LatestPost from "../components/LatestPost.astro";
-import { getImageAspectRatiosArray } from "../utils/getImageAspectRatios";
-import { dateOptions, parseDateFromId } from "../utils/types";
 
 const lastSevenDays = (await getCollection("stream"))
   .sort((a, b) => {
@@ -15,51 +13,21 @@ const lastSevenDays = (await getCollection("stream"))
     return dayB - dayA;
   })
   .slice(0, 6);
-
-// Get aspect ratios for images if they exist
-const streamIds = lastSevenDays.map((post) => post.data.photo);
-const photos = await getImageAspectRatiosArray(streamIds);
 ---
 
 <Layout title="Hello">
   <ul
-    class="grid grid-cols-subgrid sm:col-span-2 lg:col-span-12 lg:row-start-2 gap-8"
+    class="grid grid-cols-2 sm:grid-cols-subgrid sm:col-span-2 lg:col-span-12 lg:row-start-2 gap-8"
   >
     <h1
-      class="col-span-full col-start-3 text-sm uppercase font-semibold text-white/70"
+      class="col-span-full lg:col-start-3 text-sm uppercase font-semibold text-white/70"
     >
       Photo stream
     </h1>
-    {
-      lastSevenDays.map((post, index) => (
-        <li
-          class={clsx("relative text-sm lg:col-span-2 self-end", {
-            "sm:col-span-2 lg:col-span-4": photos[index].aspectRatio > 1,
-          })}
-        >
-          <a class="group" href={`/stream/${post.id}/`}>
-            <img
-              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photos[index].cloudflareId}/medium`}
-              alt=""
-              class={clsx("rounded-xs border-4", {
-                "self-stretch object-cover w-full h-full":
-                  photos[index].aspectRatio > 1,
-              })}
-            />
-
-            <p class="opacity-0 group-hover:opacity-100 transition-opacity absolute -bottom-6 right-0 text-white/70 mt-2">
-              {parseDateFromId(post.id).toLocaleDateString(
-                "en-GB",
-                dateOptions,
-              )}
-            </p>
-          </a>
-        </li>
-      ))
-    }
+    <StreamList posts={lastSevenDays} />
     <a
       href="/stream"
-      class="col-span-full col-start-3 row-start-3 block text-white/70 mt-2"
+      class="col-span-full lg:col-start-3 lg:row-start-3 block text-white/70 mt-2"
     >
       See the full stream &raquo;
     </a>
