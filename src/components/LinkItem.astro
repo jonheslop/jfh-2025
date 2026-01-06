@@ -27,10 +27,8 @@ const { link } = Astro.props;
         {new Date(link.date).toLocaleDateString("en-GB", dateOptions)}
       </a>
     </header>
-    <p class="truncate">
-      <span
-        class="text-sm text-white/50 group-hover:text-white transition-colors"
-      >
+    <p class="text-sm leading-snug mt-1">
+      <span class="text-white/50 group-hover:text-white transition-colors">
         {prettifyUrl(link.url)}
       </span>
     </p>
