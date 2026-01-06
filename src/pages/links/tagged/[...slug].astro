@@ -29,7 +29,7 @@ const { rows } = await turso().execute(
 const links = rows as Link[];
 ---
 
-<Layout title="Links">
+<Layout title={`Links tagged “${tag}” | Links`}>
   <header class="lg:col-span-10 lg:col-start-3">
     <h1 class="text-4xl lg:text-6xl font-semibold text-balance">
       Links tagged &ldquo;{tag}&rdquo;
