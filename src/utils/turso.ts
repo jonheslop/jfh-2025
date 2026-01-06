@@ -15,4 +15,5 @@ export type Link = Row & {
   tags: string;
   type: string;
   title: string;
+  comment: string;
 };
