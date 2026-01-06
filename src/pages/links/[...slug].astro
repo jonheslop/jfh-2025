@@ -1,0 +1,37 @@
+---
+import { turso, type Link } from "../../utils/turso";
+import Layout from "../../components/Layout.astro";
+import LinkItem from "../../components/LinkItem.astro";
+
+export async function getStaticPaths() {
+  const { rows } = await turso().execute(
+    "SELECT * FROM links ORDER BY id DESC",
+  );
+  const links = rows as Link[];
+
+  return links.map((link) => ({
+    params: { slug: link.id },
+    props: { link },
+  }));
+}
+
+const { link } = Astro.props;
+---
+
+<Layout title="Links">
+  <header class="lg:col-span-10 lg:col-start-3">
+    <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Links</h1>
+    <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">
+      Links to things I’ve seen and liked around the web
+    </p>
+  </header>
+  <ul class="lg:col-start-3 lg:col-span-6">
+    <LinkItem link={link} />
+  </ul>
+  <a
+    href="/links"
+    class="lg:col-start-3 lg:col-span-6 text-white/70 hover:text-white transition-colors duration-200"
+  >
+    &larr; Back to all links
+  </a>
+</Layout>
