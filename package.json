@@ -12,6 +12,7 @@
     "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/rss": "^4.0.14",
+    "@libsql/client": "^0.15.15",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.6",
     "clsx": "^2.1.1",

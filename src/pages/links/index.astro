@@ -1,0 +1,24 @@
+---
+import { turso, type Link } from "../../utils/turso";
+import Layout from "../../components/Layout.astro";
+import LinkItem from "../../components/LinkItem.astro";
+
+const { rows } = await turso().execute("SELECT * FROM links ORDER BY id DESC");
+const links = rows as Link[];
+---
+
+<Layout title="Links">
+  <header class="sm:col-span-2 lg:col-span-10 lg:col-start-3">
+    <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Links</h1>
+    <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">
+      Links to things I’ve read/watched/seen around the web, saved here for
+      posterity. There is an <a
+        class="underline underline-offset-2 text-white/70 hover:text-white transition-colors duration-200"
+        href="/links/feed.xml">RSS feed</a
+      >.
+    </p>
+  </header>
+  <ul class="sm:col-span-2 lg:col-start-3 lg:col-span-6">
+    {links.map((link) => <LinkItem link={link} />)}
+  </ul>
+</Layout>
