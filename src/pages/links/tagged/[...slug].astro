@@ -30,7 +30,7 @@ const links = rows as Link[];
 ---
 
 <Layout title={`Links tagged “${tag}” | Links`}>
-  <header class="lg:col-span-10 lg:col-start-3">
+  <header class="sm:col-span-2 lg:col-span-10 lg:col-start-3">
     <h1 class="text-4xl lg:text-6xl font-semibold text-balance">
       Links tagged &ldquo;{tag}&rdquo;
     </h1>
@@ -41,7 +41,7 @@ const links = rows as Link[];
       &larr; Back to all links
     </a>
   </header>
-  <ul class="lg:col-start-3 lg:col-span-6">
+  <ul class="sm:col-span-2 lg:col-start-3 lg:col-span-6">
     {links.map((link) => <LinkItem link={link} />)}
   </ul>
 </Layout>
