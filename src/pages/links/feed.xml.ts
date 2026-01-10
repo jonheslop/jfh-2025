@@ -10,7 +10,7 @@ export async function GET(context: { site: string }) {
     title: "Links - Jon Heslop",
     description:
       "Links to things I’ve read/watched/seen around the web, saved here for posterity.",
-    site: context.site,
+    site: `${context.site}/links`,
     items: links.map((link) => {
       return {
         title: link.title,
