@@ -1,10 +1,6 @@
 ---
 import { Font } from "astro:assets";
 import Footer from "../components/Footer.astro";
-import About from "../components/About.astro";
-import NowPlaying from "../components/NowPlaying.astro";
-import TopAlbums from "../components/TopAlbums.astro";
-import TopArtists from "../components/TopArtists.astro";
 
 import Logo from "../components/Logo.astro";
 import me from "../assets/jon-heslop-2024.jpg";
@@ -50,77 +46,20 @@ const { title } = Astro.props;
  dark:bg-neutral-950/80 text-white/90 dark:text-white/80 relative p-2 sm:p-4 lg:p-8 font-medium grid sm:grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-24 lg:pb-32"
       >
         <div
-          class="col-span-full lg:col-span-1 row-span-full sticky top-3 lg:top-8 z-50"
+          class="col-span-full row-span-full sticky top-3 lg:top-8 z-50 flex justify-between items-center"
         >
           <Logo />
+          <ul class="flex flex-wrap gap-x-8 ml-16 justify-end">
+            <li><a href="/stream">Stream</a></li>
+            <li><a href="/links">Links</a></li>
+            <li><a href="/posts">Posts</a></li>
+            <li><a href="/photos">Photos</a></li>
+            <li><a href="/listening">Listening</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
         </div>
 
         <slot />
-        <About />
-        <div
-          class="sm:col-span-2 lg:col-span-10 lg:col-start-3 grid sm:grid-cols-2 lg:grid-cols-10 gap-x-8 lg:row-start-5"
-        >
-          <div class="lg:col-span-2">
-            <h5 class="text-sm uppercase font-semibold mb-2 text-white/70">
-              Last played track
-            </h5>
-            <NowPlaying server:defer>
-              <div slot="fallback">
-                <div
-                  class="aspect-square bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-                >
-                </div>
-                <p class="text-sm mt-1">Fetching track...</p>
-              </div>
-            </NowPlaying>
-          </div>
-          <div class="lg:col-start-3 lg:col-span-6 my-16 sm:mt-0 lg:my-0">
-            <h5
-              class="text-sm uppercase font-semibold mb-2 col-span-full text-white/70"
-            >
-              Top albums this month
-            </h5>
-            <div class="grid grid-cols-3 gap-x-4 lg:gap-x-8 lg:mt-0">
-              <TopAlbums server:defer>
-                <div
-                  slot="fallback"
-                  class="col-span-3 grid grid-cols-3 gap-x-4 lg:gap-x-8"
-                >
-                  <div class="w-full">
-                    <div
-                      class="aspect-square bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-                    >
-                    </div>
-                    <p class="text-sm mt-1">Fetching album...</p>
-                  </div>
-                  <div class="w-full">
-                    <div
-                      class="aspect-square bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-                    >
-                    </div>
-                    <p class="text-sm mt-1">Fetching album...</p>
-                  </div>
-                  <div class="w-full">
-                    <div
-                      class="aspect-square bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
-                    >
-                    </div>
-                    <p class="text-sm mt-1">Fetching album...</p>
-                  </div>
-                </div>
-              </TopAlbums>
-            </div>
-          </div>
-          <div class="my-16 sm:mt-0 lg:my-0 sm:col-span-2">
-            <h5
-              class="text-sm uppercase font-semibold mb-2 col-span-full text-white/70"
-            >
-              Top artists this month
-            </h5>
-
-            <TopArtists />
-          </div>
-        </div>
       </div>
     </div>
     <Footer />
