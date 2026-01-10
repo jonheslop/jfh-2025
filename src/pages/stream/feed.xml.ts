@@ -22,13 +22,14 @@ export async function GET(context: { site: string }) {
     alt=""
     src="https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.photo}/medium"
   /></figure><br/>`;
-      const content = photo + parser.render(post.body);
+      const content = photo + parser.render(post.body ?? "");
 
       return {
         title: parseDateFromId(post.id).toLocaleDateString(
           "en-GB",
           dateOptions,
         ),
+        description: post.data.camera,
         pubDate: parseDateFromId(post.id),
         content: sanitizeHtml(content, {
           allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
