@@ -6,6 +6,15 @@ import TopArtists from "../components/TopArtists.astro";
 ---
 
 <Layout title="Listening">
+  <header class="sm:col-span-2 lg:col-span-10 lg:col-start-3">
+    <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Listening</h1>
+    <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">
+      What I've been listening to recently, all data comes from my <a
+        class="underline underline-offset-2 text-white/70 hover:text-white transition-colors duration-200"
+        href="https://last.fm/user/jonheslop">last.fm</a
+      > profile.
+    </p>
+  </header>
   <div
     class="sm:col-span-2 lg:col-span-10 lg:col-start-3 grid sm:grid-cols-2 lg:grid-cols-10 gap-x-8"
   >
