@@ -23,7 +23,7 @@ const [photo] = await getImageAspectRatiosArray([post.data.photo]);
 <Layout
   title={`Stream - ${parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}`}
 >
-  <article class="grid grid-cols-subgrid lg:col-span-11 gap-8 lg:row-start-1">
+  <article class="grid grid-cols-subgrid lg:col-span-11 gap-8">
     <div
       class={clsx({
         "lg:order-2 lg:col-span-4": photo.aspectRatio < 1,
@@ -51,7 +51,6 @@ const [photo] = await getImageAspectRatiosArray([post.data.photo]);
         alt=""
         class="border-4 rounded-xs"
       />
-      <div class="mt-32 border-b-2 border-white/60"></div>
     </figure>
   </article>
 </Layout>
