@@ -2,6 +2,8 @@
 import { type Link } from "../utils/turso";
 import { dateOptions } from "../utils/types";
 import { prettifyUrl } from "../utils/string";
+import MarkdownIt from "markdown-it";
+const parser = new MarkdownIt();
 
 interface Props {
   link: Link;
@@ -36,16 +38,25 @@ const { link } = Astro.props;
       {link.comment}
     </p>
   </a>
-  <div>
+  <footer class="flex justify-between lg:items-center">
+    <div>
+      {
+        link.tags.split(",").map((tag) => (
+          <a
+            href={`/links/tagged/${encodeURIComponent(tag.trim())}`}
+            class="text-white/70 border px-2 py-0.5 rounded-full text-sm mr-2 mb-2 leading-tight inline-flex items-center hover:bg-white hover:text-fenix-red border-white/70"
+          >
+            {tag}
+          </a>
+        ))
+      }
+    </div>
     {
-      link.tags.split(",").map((tag) => (
-        <a
-          href={`/links/tagged/${encodeURIComponent(tag.trim())}`}
-          class="text-white/70 border px-2 py-0.5 rounded-full text-sm mr-2 mb-2 leading-tight inline-flex items-center hover:bg-white hover:text-fenix-red border-white/70"
-        >
-          {tag}
-        </a>
-      ))
+      link.via && (
+        <div class="text-white/70 flex gap-1 prose mb-2 shrink-0">
+          <p>Via:</p> <div set:html={parser.render(link.via)} />
+        </div>
+      )
     }
-  </div>
+  </footer>
 </li>
