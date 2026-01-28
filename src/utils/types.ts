@@ -18,6 +18,13 @@ export const dateOptions: object = {
   day: "numeric",
 };
 
+// formats the date as dd/mm/yy
+export const shortDateOptions: object = {
+  day: "numeric",
+  month: "numeric",
+  year: "2-digit",
+};
+
 /**
  * Converts a post ID in "YEAR/DAY" format to a Date object
  * e.g., "2026/1" = January 1st 2026, "2026/33" = February 2nd 2026

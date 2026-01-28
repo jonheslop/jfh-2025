@@ -1,6 +1,6 @@
 ---
 import { type Link } from "../utils/turso";
-import { dateOptions } from "../utils/types";
+import { dateOptions, shortDateOptions } from "../utils/types";
 import { prettifyUrl } from "../utils/string";
 import MarkdownIt from "markdown-it";
 const parser = new MarkdownIt();
@@ -26,7 +26,12 @@ const { link } = Astro.props;
         href={`/links/${link.id}`}
         class="text-white/70 ml-auto shrink-0 text-lg leading-snug hover:underline underline-offset-2"
       >
-        {new Date(link.date).toLocaleDateString("en-GB", dateOptions)}
+        <span class="hidden sm:block">
+          {new Date(link.date).toLocaleDateString("en-GB", dateOptions)}
+        </span>
+        <span class="sm:hidden">
+          {new Date(link.date).toLocaleDateString("en-GB", shortDateOptions)}
+        </span>
       </a>
     </header>
     <p class="text-sm leading-snug mt-1">
