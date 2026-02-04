@@ -59,3 +59,18 @@ export async function getImageAspectRatiosArray(
 ): Promise<ImageWithOrientation[]> {
   return Promise.all(cloudflareIds.map((id) => getImageAspectRatio(id)));
 }
+
+/**
+ * Fetches multiple images and returns a keyed object of aspect ratio data in the same order
+ */
+export async function getImageAspectRatiosObject(
+  cloudflareIds: string[],
+): Promise<Record<string, ImageWithOrientation>> {
+  const results = await Promise.all(
+    cloudflareIds.map((id) => getImageAspectRatio(id)),
+  );
+
+  return Object.fromEntries(
+    results.map((result) => [result.cloudflareId, result]),
+  );
+}

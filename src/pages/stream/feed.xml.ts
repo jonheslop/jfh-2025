@@ -18,10 +18,12 @@ export async function GET(context: { site: string }) {
     description: "One photo a day.",
     site: `${context.site}/stream`,
     items: stream.map((post) => {
-      const photo = `<figure><img
+      const photo = post.data.photo
+        ? `<figure><img
     alt=""
     src="https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.photo}/medium"
-  /></figure><br/>`;
+  /></figure><br/>`
+        : "<p>No photo today.</p>";
       const content = photo + parser.render(post.body ?? "");
 
       return {
