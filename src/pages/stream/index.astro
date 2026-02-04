@@ -9,10 +9,21 @@ const stream = (await getCollection("stream")).sort((a, b) => {
   if (yearB !== yearA) return yearB - yearA;
   return dayB - dayA;
 });
+
+// Stats
+const totalPhotos = stream.filter((post) => post.data.photo).length;
+const cameraCounts: Record<string, number> = {};
+
+stream.reduce((acc, post) => {
+  if (post.data.camera) {
+    acc[post.data.camera] = (acc[post.data.camera] || 0) + 1;
+  }
+  return acc;
+}, cameraCounts);
 ---
 
 <Layout title="Stream">
-  <header class="lg:col-span-10 lg:col-start-3">
+  <header class="lg:col-span-4 lg:col-start-3">
     <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Stream</h1>
     <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">
       One photo a day, inspired by <a
@@ -24,6 +35,27 @@ const stream = (await getCollection("stream")).sort((a, b) => {
       >.
     </p>
   </header>
+  <aside class="lg:col-span-6 self-end">
+    <ul class="flex gap-8 sm:justify-end">
+      <li>
+        <strong class="block font-bold text-3xl leading-none">
+          {totalPhotos}
+        </strong>
+        <span class="text-base">photos</span>
+      </li>
+
+      {
+        Object.entries(cameraCounts).map(([camera, count]) => (
+          <li>
+            <strong class="block font-bold text-3xl leading-none">
+              {count}
+            </strong>
+            <span class="text-base">{camera}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </aside>
   <ul
     class="grid grid-cols-2 sm:grid-cols-subgrid sm:col-span-2 lg:col-span-12 gap-2 sm:gap-4 lg:gap-8"
   >
