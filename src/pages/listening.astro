@@ -3,10 +3,21 @@ import Layout from "../components/Layout.astro";
 import NowPlaying from "../components/NowPlaying.astro";
 import TopAlbums from "../components/TopAlbums.astro";
 import TopArtists from "../components/TopArtists.astro";
+import { formatNumber } from "../utils/string";
+import { dateOptions } from "../utils/types";
+
+const userResponse = await fetch(
+  `http://ws.audioscrobbler.com/2.0/?method=user.getInfo&user=jonheslop&api_key=6908805d396f2a48dcac5ac045452754&format=json`,
+);
+const { user } = await userResponse.json();
+const since = new Date(user.registered.unixtime * 1000).toLocaleDateString(
+  "en-GB",
+  dateOptions,
+);
 ---
 
 <Layout title="Listening">
-  <header class="sm:col-span-2 lg:col-span-10 lg:col-start-3">
+  <header class="sm:col-span-2 lg:col-span-4 lg:col-start-3">
     <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Listening</h1>
     <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">
       What I've been listening to recently, all data comes from my <a
@@ -15,6 +26,42 @@ import TopArtists from "../components/TopArtists.astro";
       > profile.
     </p>
   </header>
+  <aside class="sm:col-span-2 lg:col-span-6 self-end">
+    <h5
+      class="text-sm uppercase font-semibold mb-2 text-white/70 lg:text-right"
+    >
+      <abbr
+        class="underline decoration-dotted underline-offset-2"
+        title={`Since ${since}`}>All time stats</abbr
+      >
+    </h5>
+    <ul class="flex gap-8 lg:justify-end">
+      <li>
+        <strong class="block font-bold text-3xl leading-none"
+          >{formatNumber(user.artist_count)}</strong
+        >
+        <span class="text-base">Artists</span>
+      </li>
+      <li>
+        <strong class="block font-bold text-3xl leading-none"
+          >{formatNumber(user.album_count)}</strong
+        >
+        <span class="text-base">Albums</span>
+      </li>
+      <li>
+        <strong class="block font-bold text-3xl leading-none"
+          >{formatNumber(user.track_count)}</strong
+        >
+        <span class="text-base">Tracks</span>
+      </li>
+      <li>
+        <strong class="block font-bold text-3xl leading-none"
+          >{formatNumber(user.playcount)}</strong
+        >
+        <span class="text-base">Plays</span>
+      </li>
+    </ul>
+  </aside>
   <div
     class="sm:col-span-2 lg:col-span-10 lg:col-start-3 grid sm:grid-cols-2 lg:grid-cols-10 gap-x-8"
   >
@@ -78,5 +125,10 @@ import TopArtists from "../components/TopArtists.astro";
 
       <TopArtists />
     </div>
+    <p class="mt-16 sm:col-span-2 md:col-span-3">
+      All data from <a class="underline" href="https://last.fm/user/jonheslop"
+        >Last.fm</a
+      > via their API.
+    </p>
   </div>
 </Layout>

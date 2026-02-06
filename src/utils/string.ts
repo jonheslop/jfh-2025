@@ -13,3 +13,9 @@ export function prettifyUrl(url: string): string {
     .replace(/\?.*/, "")
     .replace(/#.*/, "");
 }
+
+// Helper function to format numbers with commas
+export const formatNumber = (value: string | number): string => {
+  const num = typeof value === "string" ? parseInt(value, 10) : value;
+  return num.toLocaleString("en-GB");
+};
