@@ -35,27 +35,27 @@ const since = new Date(user.registered.unixtime * 1000).toLocaleDateString(
         title={`Since ${since}`}>All time stats</abbr
       >
     </h5>
-    <ul class="flex gap-8 lg:justify-end">
+    <ul class="flex flex-wrap gap-4 lg:gap-x-8 lg:justify-end">
       <li>
-        <strong class="block font-bold text-3xl leading-none"
+        <strong class="block font-bold text-2xl sm:text-3xl leading-none"
           >{formatNumber(user.artist_count)}</strong
         >
         <span class="text-base">Artists</span>
       </li>
       <li>
-        <strong class="block font-bold text-3xl leading-none"
+        <strong class="block font-bold text-2xl sm:text-3xl leading-none"
           >{formatNumber(user.album_count)}</strong
         >
         <span class="text-base">Albums</span>
       </li>
       <li>
-        <strong class="block font-bold text-3xl leading-none"
+        <strong class="block font-bold text-2xl sm:text-3xl leading-none"
           >{formatNumber(user.track_count)}</strong
         >
         <span class="text-base">Tracks</span>
       </li>
       <li>
-        <strong class="block font-bold text-3xl leading-none"
+        <strong class="block font-bold text-2xl sm:text-3xl leading-none"
           >{formatNumber(user.playcount)}</strong
         >
         <span class="text-base">Plays</span>
