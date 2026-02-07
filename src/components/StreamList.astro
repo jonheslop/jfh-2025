@@ -5,17 +5,55 @@ import { dateOptions, parseDateFromId } from "../utils/types";
 import { getImageAspectRatiosObject } from "../utils/getImageAspectRatios";
 interface Props {
   posts: Awaited<ReturnType<typeof getCollection<"stream">>>;
+  preview?: boolean;
 }
 
-const { posts } = Astro.props;
+const { posts, preview = false } = Astro.props;
 const streamIds = posts
   .map((post) => post.data.photo)
   .filter((id) => id !== undefined);
 const photos = await getImageAspectRatiosObject(streamIds);
+
+// Filter posts to one row when preview is true
+let postsToShow = posts;
+if (preview) {
+  postsToShow = [];
+  let columnsUsed = 0;
+  const maxColumns = 6;
+
+  for (const post of posts) {
+    // Skip posts without photos
+    if (!post.data.photo) {
+      continue;
+    }
+
+    const photoData = photos[post.data.photo];
+    if (!photoData) {
+      continue;
+    }
+
+    // Calculate column span: landscape (aspectRatio > 1) takes 2 columns, portrait/square takes 1
+    const columnSpan = photoData.aspectRatio > 1 ? 2 : 1;
+
+    // Check if adding this post would exceed the row
+    if (columnsUsed + columnSpan <= maxColumns) {
+      postsToShow.push(post);
+      columnsUsed += columnSpan;
+
+      // If we've filled the row exactly, stop
+      if (columnsUsed === maxColumns) {
+        break;
+      }
+    } else {
+      // This post would overflow the row, stop here
+      break;
+    }
+  }
+}
 ---
 
 {
-  posts.map((post, index) => (
+  postsToShow.map((post) => (
     <li
       class={clsx("relative text-sm lg:col-span-2 self-end", {
         "sm:col-span-2 lg:col-span-4":

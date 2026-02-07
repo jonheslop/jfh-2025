@@ -31,10 +31,10 @@ const lastSevenDays = (await getCollection("stream"))
     >
       Photo stream
     </h1>
-    <StreamList posts={lastSevenDays} />
+    <StreamList posts={lastSevenDays} preview={true} />
     <a
       href="/stream"
-      class="col-span-full lg:col-start-3 lg:row-start-3 block text-white/70 mt-2"
+      class="col-span-full lg:col-start-3 block text-white/70 mt-2"
     >
       See the full stream &raquo;
     </a>
