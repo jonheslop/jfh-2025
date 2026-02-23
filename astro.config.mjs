@@ -1,5 +1,9 @@
 // @ts-check
-import { defineConfig, passthroughImageService } from "astro/config";
+import {
+  defineConfig,
+  passthroughImageService,
+  fontProviders,
+} from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -20,26 +24,28 @@ export default defineConfig({
   experimental: {
     fonts: [
       {
-        provider: "local",
+        provider: fontProviders.local(),
         name: "soehne",
         cssVariable: "--font-soehne",
-        variants: [
-          {
-            weight: 400,
-            style: "normal",
-            src: ["./src/fonts/soehne-web-buch.woff2"],
-          },
-          {
-            weight: 400,
-            style: "italic",
-            src: ["./src/fonts/soehne-web-buch-kursiv.woff2"],
-          },
-          {
-            weight: 600,
-            style: "normal",
-            src: ["./src/fonts/soehne-halbfett.woff2"],
-          },
-        ],
+        options: {
+          variants: [
+            {
+              weight: 400,
+              style: "normal",
+              src: ["./src/fonts/soehne-web-buch.woff2"],
+            },
+            {
+              weight: 400,
+              style: "italic",
+              src: ["./src/fonts/soehne-web-buch-kursiv.woff2"],
+            },
+            {
+              weight: 600,
+              style: "normal",
+              src: ["./src/fonts/soehne-halbfett.woff2"],
+            },
+          ],
+        },
       },
     ],
   },
