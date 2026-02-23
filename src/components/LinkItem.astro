@@ -39,9 +39,10 @@ const { link } = Astro.props;
         {prettifyUrl(link.url)}
       </span>
     </p>
-    <p class="text-white text-base leading-snug mt-2 max-w-lg text-pretty mb-3">
-      {link.comment}
-    </p>
+    <div
+      class="text-white text-base leading-snug mt-2 max-w-lg text-pretty mb-3 prose"
+      set:html={parser.render(link.comment)}
+    />
   </a>
   <footer class="flex justify-between lg:items-center">
     <div>
@@ -49,7 +50,7 @@ const { link } = Astro.props;
         link.tags.split(",").map((tag) => (
           <a
             href={`/links/tagged/${encodeURIComponent(tag.trim())}`}
-            class="text-white/70 border px-2 py-0.5 rounded-full text-sm mr-2 mb-2 leading-tight inline-flex items-center hover:bg-white hover:text-fenix-red border-white/70"
+            class="text-white/70 border px-2 pt-1 pb-1.5 rounded-full text-sm mr-2 mb-2 leading-none inline-flex items-center hover:bg-white hover:text-fenix-red border-white/70"
           >
             {tag}
           </a>
