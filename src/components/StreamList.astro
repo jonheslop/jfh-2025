@@ -56,7 +56,7 @@ if (preview) {
   postsToShow.map((post) => (
     <li
       class={clsx("relative text-sm lg:col-span-2 self-end", {
-        "sm:col-span-2 lg:col-span-4":
+        "col-span-2 lg:col-span-4":
           photos[post.data.photo || ""]?.aspectRatio > 1,
       })}
     >
