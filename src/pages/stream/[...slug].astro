@@ -49,11 +49,15 @@ const photo = post.data.photo
             "lg:col-span-10 col-start-2": photo.aspectRatio > 1,
           })}
         >
-          <img
-            src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.cloudflareId}/large`}
-            alt=""
-            class="border-4 rounded-xs"
-          />
+          <a
+            href={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.cloudflareId}/large`}
+          >
+            <img
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.cloudflareId}/large`}
+              alt=""
+              class="border-4 rounded-xs"
+            />
+          </a>
         </figure>
       )
     }
