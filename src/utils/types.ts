@@ -18,6 +18,14 @@ export const dateOptions: object = {
   day: "numeric",
 };
 
+export const dateOptionsWithTime: object = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+};
+
 // formats the date as dd/mm/yy
 export const shortDateOptions: object = {
   day: "numeric",

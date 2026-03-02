@@ -1,3 +1,9 @@
+---
+import { dateOptionsWithTime } from "../utils/types";
+
+const lastUpdated = new Date().toLocaleDateString("en-GB", dateOptionsWithTime);
+---
+
 <footer
   class="footer text-black/60 dark:text-white/50 grid lg:grid-cols-12 gap-8 p-2 sm:p-4 lg:py-8 items-center"
 >
@@ -31,7 +37,7 @@
         <a href="https://github.com/jonheslop">Github</a>
       </li>
       <li>
-        <a href="https://instagram.com/jonheslop">Instagram</a>
+        <a href="https://bsky.app/profile/jonheslop.com">Bluesky</a>
       </li>
       <li>
         <a href="https://last.fm/user/jonheslop">Last.fm</a>
@@ -39,16 +45,16 @@
       <li>
         <a href="https://letterboxd.com/jonheslop/">Letterboxd</a>
       </li>
-      <!-- <li>
-      <a href="https://record.club/jonheslop">Record Club</a>
-    </li> -->
       <li>
-        <a href="https://bsky.app/profile/jonheslop.com">Bluesky</a>
+        <a href="https://record.club/jonheslop">Record Club</a>
+      </li>
+      <li>
+        <a href="https://www.are.na/jon-heslop">Are.na</a>
       </li>
     </ul>
   </div>
   <a
-    class="colourwheel text-sm lg:col-start-12 !no-underline hover:!animate-none flex flex-col gap-px items-start lg:items-end"
+    class="colourwheel text-sm lg:col-start-12 no-underline! hover:animate-none! flex flex-col gap-px items-start lg:items-end"
     href="https://gif.land"
   >
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 393 124" class="w-11"
@@ -59,4 +65,6 @@
     >
     <span class="underline underline-offset-2 leading-none">gif.land</span>
   </a>
+  <p class="text-xs lg:col-span-6 text-black/50 dark:text-white/40">&copy; 2006-{new Date().getFullYear()} Jon Heslop</p>
+  <p class="text-xs lg:col-span-6 text-black/50 dark:text-white/40"> Last updated on {lastUpdated}</p>
 </footer>
