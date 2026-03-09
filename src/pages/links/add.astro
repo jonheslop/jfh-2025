@@ -1,0 +1,71 @@
+---
+export const prerender = false;
+
+import { turso } from "../../utils/turso";
+import Layout from "../../components/Layout.astro";
+
+if (!import.meta.env.DEV) {
+  return Astro.redirect("/links");
+}
+
+let message = "";
+
+if (Astro.request.method === "POST") {
+  const data = await Astro.request.formData();
+  const title = data.get("title")?.toString() ?? "";
+  const url = data.get("url")?.toString() ?? "";
+  const tags = data.get("tags")?.toString() ?? "";
+  const type = data.get("type")?.toString() ?? "";
+  const comment = data.get("comment")?.toString() ?? "";
+  const via = data.get("via")?.toString() ?? "";
+  const date = data.get("date")?.toString() ?? new Date().toISOString().split("T")[0];
+
+  if (title && url) {
+    await turso().execute({
+      sql: "INSERT INTO links (date, url, tags, type, title, comment, via) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      args: [date, url, tags, type, title, comment, via],
+    });
+    message = `Added "${title}"`;
+  }
+}
+---
+
+<Layout title="Add Link">
+  <div class="sm:col-span-2 lg:col-span-8 lg:col-start-3">
+    <h1 class="text-4xl font-semibold mb-8">Add Link</h1>
+    {message && <p class="text-green-400 mb-4">{message}</p>}
+    <form method="POST" class="flex flex-col gap-4 max-w-xl">
+      <label class="flex flex-col gap-1">
+        <span class="text-white/70">Title *</span>
+        <input type="text" name="title" required class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-white/70">URL *</span>
+        <input type="url" name="url" required class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-white/70">Date</span>
+        <input type="date" name="date" value={new Date().toISOString().split("T")[0]} class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-white/70">Tags (comma separated)</span>
+        <input type="text" name="tags" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-white/70">Type</span>
+        <input type="text" name="type" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-white/70">Comment (markdown)</span>
+        <textarea name="comment" rows="4" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white"></textarea>
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-white/70">Via (markdown)</span>
+        <input type="text" name="via" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white" />
+      </label>
+      <button type="submit" class="bg-white text-black font-semibold rounded px-4 py-2 mt-2 hover:bg-white/90 cursor-pointer self-start">
+        Add Link
+      </button>
+    </form>
+  </div>
+</Layout>
