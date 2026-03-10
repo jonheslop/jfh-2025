@@ -42,7 +42,7 @@ const existingTypes = [...new Set(typeRows.map(r => (r.type as string).trim()).f
 ---
 
 <Layout title="Add Link">
-  <div class="sm:col-span-2 lg:col-span-8 lg:col-start-3">
+  <div class="sm:col-span-2 lg:col-span-5 lg:col-start-3">
     <h1 class="text-4xl font-semibold mb-8">Add Link</h1>
     {message && <p class="text-green-400 mb-4">{message}</p>}
     <form method="POST" class="flex flex-col gap-4 max-w-xl">
@@ -91,7 +91,34 @@ const existingTypes = [...new Set(typeRows.map(r => (r.type as string).trim()).f
       </button>
     </form>
   </div>
+    <div class="lg:col-span-5">
+    <div class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4 text-white/70">Preview</h2>
+      <ul>
+        <li id="preview" class="border-t border-white/20 last:border-b group hover:bg-white/10 transition-colors py-6 lg:py-3">
+          <a id="preview-link" href="#" class="block">
+            <header class="flex gap-6">
+              <h2 id="preview-title" class="text-lg font-bold leading-snug underline underline-offset-2 text-balance">Title</h2>
+              <span id="preview-date" class="text-white/70 ml-auto shrink-0 text-lg leading-snug"></span>
+            </header>
+            <p class="text-sm leading-snug mt-1">
+              <span id="preview-url" class="text-white/50"></span>
+            </p>
+            <div id="preview-comment" class="text-white text-base leading-snug mt-2 max-w-lg text-pretty mb-3 prose"></div>
+          </a>
+          <footer class="flex justify-between lg:items-center">
+            <div id="preview-tags"></div>
+            <div id="preview-via" class="text-white/70 flex gap-1 prose mb-2 shrink-0 hidden">
+              <p>via</p> <div id="preview-via-content"></div>
+            </div>
+          </footer>
+        </li>
+      </ul>
+    </div>
+  </div>
 </Layout>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/markdown-it@14/dist/markdown-it.min.js"></script>
 
 <script is:inline define:vars={{ existingTags }}>
   const allTags = existingTags;
@@ -103,6 +130,7 @@ const existingTypes = [...new Set(typeRows.map(r => (r.type as string).trim()).f
 
   function syncHidden() {
     hiddenEl.value = selectedTags.join(", ");
+    hiddenEl.dispatchEvent(new Event("input", { bubbles: true }));
   }
 
   function renderChips() {
@@ -203,6 +231,71 @@ const existingTypes = [...new Set(typeRows.map(r => (r.type as string).trim()).f
       removeTag(selectedTags[selectedTags.length - 1]);
     }
   });
+</script>
+
+<script is:inline>
+  var md = window.markdownit();
+
+  function prettifyUrl(url) {
+    return url
+      .replace(/https?:\/\//, "")
+      .replace(/www\./, "")
+      .replace(/\/$/, "")
+      .replace(/\?.*/, "")
+      .replace(/#.*/, "");
+  }
+
+  function updatePreview() {
+    var form = document.querySelector("form");
+    var title = form.querySelector('[name="title"]').value || "Title";
+    var url = form.querySelector('[name="url"]').value || "";
+    var date = form.querySelector('[name="date"]').value || "";
+    var comment = form.querySelector('[name="comment"]').value || "";
+    var via = form.querySelector('[name="via"]').value || "";
+    var tags = document.getElementById("tags-hidden").value;
+
+    document.getElementById("preview-title").textContent = title;
+    document.getElementById("preview-link").href = url || "#";
+    document.getElementById("preview-url").textContent = url ? prettifyUrl(url) : "";
+
+    if (date) {
+      var d = new Date(date + "T00:00:00");
+      document.getElementById("preview-date").textContent = d.toLocaleDateString("en-GB", {
+        year: "numeric", month: "long", day: "numeric"
+      });
+    } else {
+      document.getElementById("preview-date").textContent = "";
+    }
+
+    document.getElementById("preview-comment").innerHTML = comment ? md.render(comment) : "";
+
+    var viaEl = document.getElementById("preview-via");
+    var viaContent = document.getElementById("preview-via-content");
+    if (via) {
+      viaEl.classList.remove("hidden");
+      viaContent.innerHTML = md.render(via);
+    } else {
+      viaEl.classList.add("hidden");
+    }
+
+    var tagsContainer = document.getElementById("preview-tags");
+    tagsContainer.innerHTML = "";
+    if (tags) {
+      tags.split(",").map(function(t) { return t.trim(); }).filter(Boolean).forEach(function(tag) {
+        var a = document.createElement("a");
+        a.href = "/links/tagged/" + encodeURIComponent(tag);
+        a.className = "text-white/70 border px-2 pt-1 pb-1.5 rounded-full text-sm mr-2 mb-2 leading-none inline-flex items-center hover:bg-white hover:text-fenix-red border-white/70";
+        a.textContent = tag;
+        tagsContainer.appendChild(a);
+      });
+    }
+  }
+
+  // Listen to all form inputs
+  document.querySelector("form").addEventListener("input", updatePreview);
+
+  // Initial render
+  updatePreview();
 </script>
 
 <script>
