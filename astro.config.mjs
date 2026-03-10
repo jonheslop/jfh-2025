@@ -4,11 +4,9 @@ import {
   passthroughImageService,
   fontProviders,
 } from "astro/config";
-
+import varlockAstroIntegration from '@varlock/astro-integration';
 import tailwindcss from "@tailwindcss/vite";
-
 import cloudflare from "@astrojs/cloudflare";
-
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
@@ -49,5 +47,5 @@ export default defineConfig({
       },
     ],
   },
-  integrations: [mdx()],
+  integrations: [mdx(), varlockAstroIntegration()],
 });
