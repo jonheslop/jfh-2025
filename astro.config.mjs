@@ -1,7 +1,6 @@
 // @ts-check
 import {
   defineConfig,
-  passthroughImageService,
   fontProviders,
 } from "astro/config";
 import varlockAstroIntegration from '@varlock/astro-integration';
@@ -14,9 +13,6 @@ export default defineConfig({
   site: "https://jonheslop.com",
   vite: {
     plugins: [tailwindcss()],
-  },
-  image: {
-    service: passthroughImageService(),
   },
   adapter: cloudflare(),
   fonts: [
