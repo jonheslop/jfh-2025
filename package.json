@@ -10,13 +10,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/rss": "^4.0.15",
+    "@astrojs/cloudflare": "^13.0.2",
+    "@astrojs/mdx": "^5.0.0",
+    "@astrojs/rss": "^4.0.17",
     "@tailwindcss/vite": "^4.2.1",
     "@varlock/1password-plugin": "^0.2.2",
     "@varlock/astro-integration": "^0.2.3",
-    "astro": "^5.18.0",
+    "astro": "^6.0.2",
     "clsx": "^2.1.1",
     "markdown-it": "^14.1.1",
     "sanitize-html": "^2.17.1",
@@ -27,6 +27,6 @@
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
     "@types/sanitize-html": "^2.16.1",
-    "wrangler": "^4.71.0"
+    "wrangler": "^4.72.0"
   }
 }
