@@ -21,11 +21,11 @@ const photos = (await getCollection("photos")).sort(
             >
               {post.data.coverImage && (
                 <img
-                  src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.coverImage}/medium`}
+                  src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.coverImage.id}/medium`}
                   alt={post.data.title}
                   class="border-4 rounded-xs mix-blend-luminosity group-hover:mix-blend-normal"
-                  width="1024"
-                  height="683"
+                  width={post.data.coverImage.width}
+                  height={post.data.coverImage.height}
                 />
               )}
               <div class="absolute inset-1 bg-linear-to-b via-30% to-neutral-900/30 z-0 from-transparent" />

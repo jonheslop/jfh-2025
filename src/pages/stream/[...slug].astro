@@ -2,7 +2,6 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import { dateOptions, parseDateFromId } from "../../utils/types";
-import { getImageAspectRatio } from "../../utils/getImageAspectRatios";
 import clsx from "clsx";
 
 export async function getStaticPaths() {
@@ -16,9 +15,8 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const photo = post.data.photo
-  ? await getImageAspectRatio(post.data.photo)
-  : null;
+const photo = post.data.photo ?? null;
+const aspectRatio = photo ? photo.width / photo.height : null;
 ---
 
 <Layout
@@ -27,8 +25,8 @@ const photo = post.data.photo
   <article class="grid grid-cols-subgrid lg:col-span-11 gap-8">
     <div
       class={clsx({
-        "lg:order-2 lg:col-span-4": !photo || photo.aspectRatio < 1,
-        "lg:col-span-10 lg:col-start-2": photo && photo.aspectRatio > 1,
+        "lg:order-2 lg:col-span-4": !aspectRatio || aspectRatio < 1,
+        "lg:col-span-10 lg:col-start-2": aspectRatio && aspectRatio > 1,
       })}
     >
       <header>
@@ -45,15 +43,15 @@ const photo = post.data.photo
       photo && (
         <figure
           class={clsx({
-            "lg:order-1 lg:col-start-2 lg:col-span-5": photo.aspectRatio < 1,
-            "lg:col-span-10 col-start-2": photo.aspectRatio > 1,
+            "lg:order-1 lg:col-start-2 lg:col-span-5": aspectRatio && aspectRatio < 1,
+            "lg:col-span-10 col-start-2": aspectRatio && aspectRatio > 1,
           })}
         >
           <a
-            href={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.cloudflareId}/large`}
+            href={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.id}/large`}
           >
             <img
-              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.cloudflareId}/large`}
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.id}/large`}
               alt=""
               class="border-4 rounded-xs"
             />

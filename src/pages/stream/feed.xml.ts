@@ -21,7 +21,7 @@ export async function GET(context: { site: string }) {
       const photo = post.data.photo
         ? `<figure><img
     alt=""
-    src="https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.photo}/medium"
+    src="https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.photo.id}/medium"
   /></figure><br/>`
         : "<p>No photo today.</p>";
       const content = photo + parser.render(post.body ?? "");

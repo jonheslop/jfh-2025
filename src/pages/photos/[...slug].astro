@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../components/Layout.astro";
-import { getImageAspectRatiosArray } from "../../utils/getImageAspectRatios";
 import { arrangeImagesInGrid } from "../../utils/gridLayoutArrange";
 import clsx from "clsx";
 import { dateOptions } from "../../utils/types";
@@ -17,13 +16,15 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-// Get aspect ratios for images if they exist
-const imageAspectRatios = post.data.photos
-  ? await getImageAspectRatiosArray(post.data.photos)
-  : [];
+// Convert photo objects to the format gridLayoutArrange expects
+const imageData = (post.data.photos ?? []).map((photo) => ({
+  cloudflareId: photo.id,
+  width: photo.width,
+  height: photo.height,
+  aspectRatio: photo.width / photo.height,
+}));
 
-// Arrange images in grid layout
-const arrangedImages = arrangeImagesInGrid(imageAspectRatios);
+const arrangedImages = arrangeImagesInGrid(imageData);
 ---
 
 <Layout title={post.data.title}>

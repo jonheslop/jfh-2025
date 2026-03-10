@@ -1,10 +1,16 @@
 import { defineCollection, z } from "astro:content";
 import { glob, file } from "astro/loaders";
 
+const imageObject = z.object({
+  id: z.string(),
+  width: z.number(),
+  height: z.number(),
+});
+
 const stream = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "./src/stream" }),
   schema: z.object({
-    photo: z.string().optional(),
+    photo: imageObject.optional(),
     camera: z.string().optional(),
   }),
 });
@@ -25,8 +31,8 @@ const photos = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     description: z.string().optional(),
-    coverImage: z.string(),
-    photos: z.array(z.string()).optional(),
+    coverImage: imageObject,
+    photos: z.array(imageObject).optional(),
   }),
 });
 
