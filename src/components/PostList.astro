@@ -24,7 +24,7 @@ const posts = (await getCollection(type))
         >
           {!recent && post.collection === "photos" && post.data.coverImage && (
             <img
-              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.coverImage}/small`}
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.coverImage.id}/small`}
               alt={post.data.title}
               class="h-16 md:h-32 border-2 rounded-xs mix-blend-luminosity group-hover:mix-blend-normal"
             />
