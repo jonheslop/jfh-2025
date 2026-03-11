@@ -13,7 +13,6 @@
     "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/rss": "^4.0.15",
-    "@libsql/client": "^0.17.0",
     "@tailwindcss/vite": "^4.2.1",
     "@varlock/1password-plugin": "^0.2.2",
     "@varlock/astro-integration": "^0.2.3",

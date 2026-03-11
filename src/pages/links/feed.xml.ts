@@ -1,11 +1,11 @@
 import rss from "@astrojs/rss";
-import { turso, type Link } from "../../utils/turso";
+import { getCollection } from "astro:content";
 
 export async function GET(context: { site: string }) {
-  const { rows } = await turso().execute(
-    "SELECT * FROM links ORDER BY id DESC",
+  const allLinks = await getCollection("links");
+  const links = allLinks.sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
   );
-  const links = rows as Link[];
   return rss({
     title: "Links - Jon Heslop",
     description:
@@ -13,9 +13,9 @@ export async function GET(context: { site: string }) {
     site: `${context.site}/links`,
     items: links.map((link) => {
       return {
-        title: link.title,
-        pubDate: new Date(link.date),
-        content: link.comment || "",
+        title: link.data.title,
+        pubDate: link.data.date,
+        content: link.body || "",
         link: `/links/${link.id}/`,
       };
     }),
