@@ -1,53 +1,58 @@
 ---
-import { type Link } from "../utils/turso";
+import type { CollectionEntry } from "astro:content";
 import { dateOptions, shortDateOptions } from "../utils/types";
 import { prettifyUrl } from "../utils/string";
 import MarkdownIt from "markdown-it";
 const parser = new MarkdownIt();
 
 interface Props {
-  link: Link;
+  link: CollectionEntry<"links">;
 }
 
 const { link } = Astro.props;
+const { data, id, body } = link;
 ---
 
 <li
   class="border-t border-white/20 last:border-b group hover:bg-white/10 transition-colors py-6 lg:py-3 only:border-t-none"
 >
-  <a href={link.url} class="block">
+  <a href={data.url} class="block">
     <header class="flex gap-6">
       <h2
         class="text-lg font-bold leading-snug underline underline-offset-2 text-balance"
       >
-        {link.title}
+        {data.title}
       </h2>
       <a
-        href={`/links/${link.id}`}
+        href={`/links/${id}`}
         class="text-white/70 ml-auto shrink-0 text-lg leading-snug hover:underline underline-offset-2"
       >
         <span class="hidden sm:block">
-          {new Date(link.date).toLocaleDateString("en-GB", dateOptions)}
+          {data.date.toLocaleDateString("en-GB", dateOptions)}
         </span>
         <span class="sm:hidden">
-          {new Date(link.date).toLocaleDateString("en-GB", shortDateOptions)}
+          {data.date.toLocaleDateString("en-GB", shortDateOptions)}
         </span>
       </a>
     </header>
     <p class="text-sm leading-snug mt-1">
       <span class="text-white/50 group-hover:text-white transition-colors">
-        {prettifyUrl(link.url)}
+        {prettifyUrl(data.url)}
       </span>
     </p>
-    <div
-      class="text-white text-base leading-snug mt-2 max-w-lg text-pretty mb-3 prose"
-      set:html={parser.render(link.comment)}
-    />
+    {
+      body && (
+        <div
+          class="text-white text-base leading-snug mt-2 max-w-lg text-pretty mb-3 prose"
+          set:html={parser.render(body)}
+        />
+      )
+    }
   </a>
   <footer class="flex justify-between lg:items-center">
     <div>
       {
-        link.tags.split(",").map((tag) => (
+        data.tags.map((tag) => (
           <a
             href={`/links/tagged/${encodeURIComponent(tag.trim())}`}
             class="text-white/70 border px-2 pt-1 pb-1.5 rounded-full text-sm mr-2 mb-2 leading-none inline-flex items-center hover:bg-white hover:text-fenix-red border-white/70"
@@ -58,9 +63,9 @@ const { link } = Astro.props;
       }
     </div>
     {
-      link.via && (
+      data.via && (
         <div class="text-white/70 flex gap-1 prose mb-2 shrink-0">
-          <p>via</p> <div set:html={parser.render(link.via)} />
+          <p>via</p> <div set:html={parser.render(data.via)} />
         </div>
       )
     }

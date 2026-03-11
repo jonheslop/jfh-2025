@@ -1,17 +1,14 @@
 ---
-import { turso, type Link } from "../../../utils/turso";
+import { getCollection } from "astro:content";
 import Layout from "../../../components/Layout.astro";
 import LinkItem from "../../../components/LinkItem.astro";
 
 export async function getStaticPaths() {
-  const { rows } = await turso().execute(
-    "SELECT tags FROM links WHERE tags IS NOT NULL",
-  );
+  const allLinks = await getCollection("links");
 
   const uniqueTags = new Set<string>();
-  for (const row of rows) {
-    const tags = (row.tags as string).split(", ");
-    tags.forEach((tag) => uniqueTags.add(tag));
+  for (const link of allLinks) {
+    link.data.tags.forEach((tag) => uniqueTags.add(tag));
   }
 
   return Array.from(uniqueTags).map((tag) => ({
@@ -22,14 +19,13 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.props;
 
-const { rows } = await turso().execute(
-  "SELECT * FROM links WHERE tags LIKE '%' || ? || '%'",
-  [tag],
-);
-const links = rows as Link[];
+const allLinks = await getCollection("links");
+const links = allLinks
+  .filter((link) => link.data.tags.includes(tag))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<Layout title={`Links tagged “${tag}” | Links`}>
+<Layout title={`Links tagged "${tag}" | Links`}>
   <header class="sm:col-span-2 lg:col-span-10 lg:col-start-3">
     <h1 class="text-4xl lg:text-6xl font-semibold text-balance">
       Links tagged &ldquo;{tag}&rdquo;

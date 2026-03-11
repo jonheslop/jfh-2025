@@ -36,6 +36,18 @@ const photos = defineCollection({
   }),
 });
 
+const links = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "./src/links" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    url: z.string(),
+    tags: z.array(z.string()),
+    type: z.string().optional(),
+    via: z.string().optional(),
+  }),
+});
+
 const jobs = defineCollection({
   loader: file("src/jobs.json", {
     parser: (text) => JSON.parse(text).jobs,
@@ -66,4 +78,4 @@ const jobs = defineCollection({
   }),
 });
 
-export const collections = { posts, photos, jobs, stream };
+export const collections = { posts, photos, jobs, stream, links };

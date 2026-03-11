@@ -1,14 +1,10 @@
 ---
-import { turso, type Link } from "../../utils/turso";
+import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import LinkItem from "../../components/LinkItem.astro";
 
 export async function getStaticPaths() {
-  const { rows } = await turso().execute(
-    "SELECT * FROM links ORDER BY id DESC",
-  );
-  const links = rows as Link[];
-
+  const links = await getCollection("links");
   return links.map((link) => ({
     params: { slug: link.id },
     props: { link },
@@ -18,7 +14,7 @@ export async function getStaticPaths() {
 const { link } = Astro.props;
 ---
 
-<Layout title={`${link.title} | Links`}>
+<Layout title={`${link.data.title} | Links`}>
   <header class="sm:col-span-2 lg:col-span-10 lg:col-start-3">
     <h1 class="text-4xl lg:text-6xl font-semibold text-balance">Links</h1>
     <p class="text-lg text-white/70 max-w-xl mt-4 leading-snug text-pretty">

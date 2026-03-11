@@ -1,10 +1,10 @@
 ---
-import { turso, type Link } from "../../utils/turso";
+import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import LinkItem from "../../components/LinkItem.astro";
 
-const { rows } = await turso().execute("SELECT * FROM links ORDER BY id DESC");
-const links = rows as Link[];
+const allLinks = await getCollection("links");
+const links = allLinks.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout title="Links">
