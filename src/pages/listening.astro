@@ -69,7 +69,7 @@ const since = new Date(user.registered.unixtime * 1000).toLocaleDateString(
       <h5 class="text-sm uppercase font-semibold mb-2 text-white/70">
         Last played track
       </h5>
-      <NowPlaying server:defer>
+      <NowPlaying client:load>
         <div slot="fallback">
           <div
             class="aspect-square bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
@@ -86,7 +86,7 @@ const since = new Date(user.registered.unixtime * 1000).toLocaleDateString(
         Top albums this month
       </h5>
       <div class="grid grid-cols-3 gap-x-4 lg:gap-x-8 lg:mt-0">
-        <TopAlbums server:defer>
+        <TopAlbums client:load>
           <div
             slot="fallback"
             class="col-span-3 grid grid-cols-3 gap-x-4 lg:gap-x-8"
