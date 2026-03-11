@@ -96,7 +96,7 @@ export function arrangeImagesInGrid(
     const match = tryMatchPattern(images, currentIndex);
 
     if (!match) {
-      // Fallback: if no pattern matches (shouldn't happen), give it full width
+      // Fallback: if no pattern matches (shouldn’t happen), give it full width
       result.push({
         ...images[currentIndex],
         colSpan: 6,
