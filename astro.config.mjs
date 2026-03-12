@@ -14,9 +14,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  adapter: cloudflare({
-    imageService: "compile",
-  }),
+  adapter: cloudflare({ imageService: 'cloudflare-binding' }),
   fonts: [
     {
       provider: fontProviders.local(),
