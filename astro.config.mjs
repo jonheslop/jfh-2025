@@ -2,6 +2,7 @@
 import {
   defineConfig,
   fontProviders,
+  passthroughImageService,
 } from "astro/config";
 import varlockAstroIntegration from '@varlock/astro-integration';
 import tailwindcss from "@tailwindcss/vite";
@@ -14,7 +15,12 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  adapter: cloudflare(),
+  image: {
+    service: passthroughImageService(),
+  },
+  adapter: cloudflare({
+    imageService: "passthrough",
+  }),
   fonts: [
     {
       provider: fontProviders.local(),
