@@ -7,6 +7,6 @@
   ],
   "assets": {
     "binding": "ASSETS",
-    "directory": "./dist/client"
+    "directory": "./dist"
   }
 }
