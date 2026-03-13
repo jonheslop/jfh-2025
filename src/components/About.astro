@@ -10,8 +10,11 @@ import me from "../assets/jon-heslop-2024.jpg";
   <figure class="border-4 rounded-xs lg:col-span-6">
     <Image
       src={me}
+      loading='eager'
       alt="Jon Heslop in his house"
       class="mix-blend-luminosity hover:mix-blend-normal"
+      widths={[400, 640, 1200, me.width]}
+      sizes={`(max-width: 320px) 400px, (max-width: 640px) 640px, (max-width: 1600px) 1200px, ${me.width}px`}
     />
     <figcaption
       class="text-xs text-black/70 pt-2 p-1 bg-white/90 uppercase-forms text-balance"
