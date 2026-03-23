@@ -70,7 +70,7 @@ const since = new Date(user.registered.unixtime * 1000).toLocaleDateString(
         Last played track
       </h5>
       <!-- Change back to server:defer when https://github.com/withastro/astro/pull/15767 is merged -->
-      <NowPlaying client:load>
+      <NowPlaying server:defer>
         <div slot="fallback">
           <div
             class="aspect-square bg-white/20 border-2 rounded-xs mix-blend-luminosity hover:mix-blend-normal"
@@ -88,7 +88,7 @@ const since = new Date(user.registered.unixtime * 1000).toLocaleDateString(
       </h5>
       <div class="grid grid-cols-3 gap-x-4 lg:gap-x-8 lg:mt-0">
         <!-- Change back to server:defer when https://github.com/withastro/astro/pull/15767 is merged -->
-        <TopAlbums client:load>
+        <TopAlbums server:defer>
           <div
             slot="fallback"
             class="col-span-3 grid grid-cols-3 gap-x-4 lg:gap-x-8"
