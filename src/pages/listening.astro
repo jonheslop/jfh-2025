@@ -69,7 +69,6 @@ const since = new Date(user.registered.unixtime * 1000).toLocaleDateString(
       <h5 class="text-sm uppercase font-semibold mb-2 text-white/70">
         Last played track
       </h5>
-      <!-- Change back to server:defer when https://github.com/withastro/astro/pull/15767 is merged -->
       <NowPlaying server:defer>
         <div slot="fallback">
           <div
@@ -87,7 +86,6 @@ const since = new Date(user.registered.unixtime * 1000).toLocaleDateString(
         Top albums this month
       </h5>
       <div class="grid grid-cols-3 gap-x-4 lg:gap-x-8 lg:mt-0">
-        <!-- Change back to server:defer when https://github.com/withastro/astro/pull/15767 is merged -->
         <TopAlbums server:defer>
           <div
             slot="fallback"
