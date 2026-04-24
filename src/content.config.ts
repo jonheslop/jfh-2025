@@ -58,6 +58,7 @@ const jobs = defineCollection({
     company: z.string(),
     role: z.string(),
     period: z.string(),
+    order: z.number(),
     description: z.string(),
     logos: z.array(
       z.object({

@@ -2,7 +2,8 @@
 import Layout from "../components/Layout.astro";
 import { getCollection } from "astro:content";
 
-const jobs = await getCollection("jobs");
+const allJobs = await getCollection("jobs");
+const jobs = allJobs.sort((a, b) => b.data.order - a.data.order);
 ---
 
 <Layout title="Work">
