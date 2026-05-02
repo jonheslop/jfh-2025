@@ -1,10 +1,10 @@
 ---
 import { getCollection } from "astro:content";
+import LatestPost from "../components/LatestPost.astro";
 import Layout from "../components/Layout.astro";
+import LinkItem from "../components/LinkItem.astro";
 import PostList from "../components/PostList.astro";
 import StreamList from "../components/StreamList.astro";
-import LatestPost from "../components/LatestPost.astro";
-import LinkItem from "../components/LinkItem.astro";
 
 const allLinks = await getCollection("links");
 const links = allLinks

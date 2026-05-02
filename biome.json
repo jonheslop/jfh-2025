@@ -1,9 +1,19 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.14/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
+  "assist": {
+    "actions": {
+      "source": {
+        "noDuplicateClasses": "on",
+        "organizeImports": "on",
+        "useSortedAttributes": "on"
+      }
+    },
+    "enabled": true
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
   },
   "files": {
     "includes": ["**", "!!**/dist"]
@@ -12,28 +22,40 @@
     "enabled": true,
     "indentStyle": "space"
   },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
-    }
+  "html": {
+    "experimentalFullSupportEnabled": true
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "double"
     }
   },
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
     }
   },
-  "assist": {
-    "enabled": true,
-    "actions": {
-      "source": {
-        "organizeImports": "on"
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          },
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
       }
     }
+  ],
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
   }
 }
