@@ -25,7 +25,9 @@ async function getImageDimensions(cloudflareId) {
 
   const response = await fetch(imageUrl);
   if (!response.ok) {
-    throw new Error(`Failed to fetch ${cloudflareId}: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `Failed to fetch ${cloudflareId}: ${response.status} ${response.statusText}`,
+    );
   }
 
   const arrayBuffer = await response.arrayBuffer();
@@ -47,7 +49,7 @@ async function findMdxFiles(dir) {
   for (const entry of entries) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      files.push(...await findMdxFiles(full));
+      files.push(...(await findMdxFiles(full)));
     } else if (entry.name.endsWith(".mdx")) {
       files.push(full);
     }
@@ -93,14 +95,19 @@ async function handleScalarField(content, fieldName) {
  */
 async function handlePhotosArray(content) {
   // Already migrated: objects with id/width/height
-  const migratedRegex = /^photos:\n((?:  - id: .+\n    width: \d+\n    height: \d+\n?)+)/m;
+  const migratedRegex =
+    /^photos:\n((?:  - id: .+\n    width: \d+\n    height: \d+\n?)+)/m;
   const migratedMatch = content.match(migratedRegex);
   if (migratedMatch) {
-    const ids = [...migratedMatch[1].matchAll(/  - id: (.+)/g)].map((m) => m[1].trim());
+    const ids = [...migratedMatch[1].matchAll(/  - id: (.+)/g)].map((m) =>
+      m[1].trim(),
+    );
     const entries = [];
     for (const id of ids) {
       const dims = await getImageDimensions(id);
-      entries.push(`  - id: ${id}\n    width: ${dims.width}\n    height: ${dims.height}`);
+      entries.push(
+        `  - id: ${id}\n    width: ${dims.width}\n    height: ${dims.height}`,
+      );
     }
     return content.replace(
       migratedMatch[0],
@@ -119,13 +126,12 @@ async function handlePhotosArray(content) {
   const entries = [];
   for (const id of ids) {
     const dims = await getImageDimensions(id);
-    entries.push(`  - id: ${id}\n    width: ${dims.width}\n    height: ${dims.height}`);
+    entries.push(
+      `  - id: ${id}\n    width: ${dims.width}\n    height: ${dims.height}`,
+    );
   }
 
-  return content.replace(
-    bareMatch[0],
-    `photos:\n${entries.join("\n")}\n`,
-  );
+  return content.replace(bareMatch[0], `photos:\n${entries.join("\n")}\n`);
 }
 
 async function migrateFile(filePath) {
@@ -152,7 +158,7 @@ async function main() {
 
   for (const dir of dirs) {
     try {
-      allFiles.push(...await findMdxFiles(dir));
+      allFiles.push(...(await findMdxFiles(dir)));
     } catch {
       // dir may not exist
     }
@@ -171,7 +177,9 @@ async function main() {
         console.log(`  ✓ ${path.relative(process.cwd(), file)}`);
       }
     } catch (err) {
-      console.error(`  ✗ ${path.relative(process.cwd(), file)}: ${err.message}`);
+      console.error(
+        `  ✗ ${path.relative(process.cwd(), file)}: ${err.message}`,
+      );
       errors++;
     }
   }

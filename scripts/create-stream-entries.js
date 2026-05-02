@@ -68,9 +68,7 @@ function getExif(filePath) {
     const dateMatch = output.match(
       /kMDItemContentCreationDate\s*=\s*(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2}):(\d{2})\s+([+-]\d{4})/,
     );
-    const cameraMatch = output.match(
-      /kMDItemAcquisitionModel\s*=\s*"(.+)"/,
-    );
+    const cameraMatch = output.match(/kMDItemAcquisitionModel\s*=\s*"(.+)"/);
 
     let date = null;
     if (dateMatch) {
