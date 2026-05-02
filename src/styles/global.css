@@ -59,14 +59,14 @@ body {
   @apply max-w-prose leading-snug;
 }
 
-.prose blockquote+p,
-.prose p+p {
+.prose blockquote + p,
+.prose p + p {
   @apply mt-4;
 }
 
-.prose p+ol,
-.prose ul+p,
-.prose ol+p {
+.prose p + ol,
+.prose ul + p,
+.prose ol + p {
   @apply mt-8;
 }
 
@@ -78,7 +78,7 @@ body {
   list-style-type: decimal;
 }
 
-.prose li+li {
+.prose li + li {
   @apply mt-2;
 }
 
@@ -115,7 +115,6 @@ body {
 }
 
 @keyframes colourwheel {
-
   0%,
   10% {
     color: oklch(0.637 0.237 25.331);

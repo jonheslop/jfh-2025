@@ -1,9 +1,6 @@
 // @ts-check
-import {
-  defineConfig,
-  fontProviders,
-} from "astro/config";
-import varlockAstroIntegration from '@varlock/astro-integration';
+import { defineConfig, fontProviders } from "astro/config";
+import varlockAstroIntegration from "@varlock/astro-integration";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";

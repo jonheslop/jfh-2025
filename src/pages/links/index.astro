@@ -4,7 +4,9 @@ import Layout from "../../components/Layout.astro";
 import LinkItem from "../../components/LinkItem.astro";
 
 const allLinks = await getCollection("links");
-const links = allLinks.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const links = allLinks.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
 ---
 
 <Layout title="Links">
