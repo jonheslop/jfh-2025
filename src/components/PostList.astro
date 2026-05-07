@@ -14,27 +14,23 @@ const posts = (await getCollection(type))
   .slice(recent ? 1 : 0, recent ? 10 : undefined);
 ---
 
-<ul>
+<ul class="space-y-12">
   {
     posts.map((post) => (
-      <li class="text-lg border-t border-white/20 last:border-b">
+      <li class="border-t border-white/20 last:border-b">
         <a
-          class="flex justify-start items-center gap-x-4 py-2 group hover:bg-white/10 transition-colors"
+          class="flex justify-start items-start gap-x-4 py-2 group hover:bg-white/10 transition-colors"
           href={`/${type}/${post.id}/`}
         >
-          {!recent && post.collection === "photos" && post.data.coverImage && (
-            <img
-              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${post.data.coverImage.id}/small`}
-              alt={post.data.title}
-              class="h-16 md:h-32 border-2 rounded-xs mix-blend-luminosity group-hover:mix-blend-normal"
-            />
-          )}
-          <span class="group-hover:underline flex-1 text-pretty">
-            {post.data.title}
-          </span>
-          <span class="text-white/70 ml-auto">
+          <div>
+            <h4 class="text-lg group-hover:underline flex-1 text-pretty">
+              {post.data.title}
+            </h4>
+            <p class="text-white/70 leading-snug text-pretty">{post.data.description}</p>
+          </div>
+          <datetime class="text-lg text-white/70 ml-auto shrink-0" datetime={new Date(post.data.date).toISOString()}>
             {new Date(post.data.date).toLocaleDateString("en-GB", dateOptions)}
-          </span>
+          </datetime>
         </a>
       </li>
     ))
