@@ -14,10 +14,10 @@ const posts = (await getCollection(type))
   .slice(recent ? 1 : 0, recent ? 10 : undefined);
 ---
 
-<ul class="space-y-12">
+<ul>
   {
     posts.map((post) => (
-      <li class="border-t border-white/20 last:border-b">
+      <li class={`border-t border-white/20 last:border-b ${post.data.description ? "mb-12" : ""}`}>
         <a
           class="flex justify-start items-start gap-x-4 py-2 group hover:bg-white/10 transition-colors"
           href={`/${type}/${post.id}/`}
