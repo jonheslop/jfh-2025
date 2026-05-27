@@ -18,7 +18,7 @@ export async function GET(context: { site: string }) {
     description: "Jon Heslop is a front end developer based in London.",
     site: context.site,
     items: combined.map((post) => {
-      let content = parser.render(post.body);
+      let content = parser.render(post.body ?? "");
       if (post.collection === "photos" && post.data.photos !== undefined) {
         post.data.photos.map(
           (cloudflareId) =>
