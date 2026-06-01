@@ -9,6 +9,12 @@
   --color-orange: oklch(64.6% 0.222 41.116);
 }
 
+@layer utilities {
+  .small-caps {
+    font-variant: all-small-caps;
+  }
+}
+
 body {
   font-feature-settings:
     "ss02" 1,

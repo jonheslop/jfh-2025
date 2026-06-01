@@ -1,0 +1,43 @@
+---
+title: Week 22
+date: 2026-06-01T22:18:02.322Z
+description: London heatwave, NIMBYs and ESP32
+---
+
+Been a hot couple of weeks here, lots of heat management necessary to keep the house cool but have also made the most of the good weather. Lots of BBQing in the garden and time spent down the allotment, the plants have started going into overdrive. Our house was getting so hot we put foil on the outside of our south facing bi-fold window and door to the garden. Looked sorta terrible (crack den vibes) but deffo helped keep the temp down. Removed it last night as temps more normal this coming week. 
+
+## House update
+
+Just before the bank holiday we finally broke the deadlock on the house and reached an agreement with the sellers on price considering the house is traditionally un-mortgage-able. So things are moving forward and we’re hoping to complete in mid-July. Exciting and scary.
+
+## Bank holiday weekend
+
+The bank holiday weekend was chill. Imagine if every week was a 4-day-week eh? Bec bought a sausage maker attachment for the Magimix and we spent Saturday making sausages. On Monday friends came over and we hot smoked on them on the BBQ, they were great.
+
+## Cycling (and <span className="small-caps">NIMBY</span>s)
+
+Been making the most of the fine weather and making time to get out into Essex on my bike. I haven’t ridden loads this year but the winter of Zwifting (mostly only just once a week) has deffo made a difference and I feel faster/fitter for it. It’s great how quick you can get out into what feels like proper countryside from here and I’m still finding new pretty lanes and views I haven’t seen before even after 10+ years riding in Essex. 
+
+On my routes recently I notice so many <abbr title="Not In My Backyard" className="small-caps">NIMBY</abbr> signs getting mad about: solar farms, pylons, new build estates and a new motorway services. It’s mad how much people get pent up about this stuff, I’m assuming it will all happen anyway. Is this just another symptom of social media radicalising people against stuff?
+
+## ESP32 devices
+
+[The Poem/1 clock](https://poem.town/) (excellent <span className="small-caps">TLD</span>) by [Matt Webb](https://interconnected.org/) arrived on Tuesday, it’s a nice object and it’s fun to look at it. The poems themselves are mostly silly and kinda cringe, but I that sorta feels like how it should be. You can press a button on the top of the clock to fave poems. Here’s a few I saved:
+
+> Ten seventeen, the cosmos gleams, / In vastness where we weave our dreams.
+
+Deep...
+
+> A raven caws at three oh three, / Its shadow whispers, ‘Come and see.’
+
+I like ravens! Although feels a bit dark
+
+> At five oh five, a sigh, / A leaf drifts down, goodbye.
+
+Is this melancholy?
+
+After I [read Matt’s blogpost](https://interconnected.org/home/2026/05/20/resident) about [Resident](https://resident.inanimate.tech/), I bought myself a [M5StickS3 from PiHut](https://thepihut.com/products/m5sticks3-esp32s3-mini-iot-dev-kit) and it arrived on Thursday. Whilst I was trying to set it up I inadvertently bricked the poem clock — it was also plugged into my Mac (via my screen) and I didn’t realise it was also a ESP32 device so when I ran the command line tool to flash the stick it actually flashed the clocks firmware, the clocks e ink display is now stuck showing 10:52 forever. I got in touch with Matt thinking I could reimage it myself, but he says it’s more complicated so I’m going to have to visit him at his lab. 
+
+After my error I did get the stick up and running. I’ve made it into a [PR notifier](https://github.com/jonheslop/pr-fanfare/). A Cloudflare worker polls GitHub every two minutes, sends out updates over websockets and the stick beeps out a little fanfare when there’s a new PR. It worked well today, GitHub doesn’t make this easy I find, and I like to keep my mac fairly notification free so this feels like a nice more ambient/calm way to keep up.
+
+[![A picture of the Stick in action](https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/ed6edc2e-74e2-4ad9-7629-4ac194f56800/medium)](https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/ed6edc2e-74e2-4ad9-7629-4ac194f56800/large)
