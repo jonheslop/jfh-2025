@@ -22,8 +22,39 @@ const lastSevenDays = (await getCollection("stream"))
 ---
 
 <Layout title="Hello">
+
+  <div class="sm:col-span-2 lg:col-start-3 lg:col-span-6 lg:row-start-1">
+    <h1
+      class="col-span-full lg:col-start-3 text-sm uppercase font-semibold text-white/70 mb-4"
+    >
+      Most recent link
+    </h1>
+    <ul>
+      {links.map((link) => <LinkItem link={link} />)}
+      <a href="/links" class="block text-white/70 hover mt-2">
+        See all links &raquo;
+      </a>
+    </ul>
+  </div>
+
+  <section class="lg:col-span-6 xl:col-span-4 xl:col-start-3 lg:row-start-2">
+    <h1 class="text-sm uppercase font-semibold mb-4 text-white/70">
+      Recent posts
+    </h1>
+    <LatestPost type="posts" />
+    <PostList type="posts" recent={true} />
+  </section>
+
+  <section class="lg:col-span-6 xl:col-span-4 xl:col-start-9 lg:row-start-2 flex flex-col">
+    <h1 class="text-sm uppercase font-semibold mb-4 text-white/70">
+      Recent photo posts
+    </h1>
+    <LatestPost type="photos" />
+    <PostList type="photos" recent={true} />
+  </section>
+
   <ul
-    class="grid grid-cols-2 sm:grid-cols-subgrid sm:col-span-2 lg:col-span-12 lg:row-start-2 gap-2 sm:gap-4 lg:gap-8"
+    class="grid grid-cols-2 sm:grid-cols-subgrid sm:col-span-2 lg:col-span-12 lg:row-start-3 gap-2 sm:gap-4 lg:gap-8"
   >
     <h1
       class="col-span-full lg:col-start-3 text-sm uppercase font-semibold text-white/70"
@@ -38,35 +69,4 @@ const lastSevenDays = (await getCollection("stream"))
       See the full stream &raquo;
     </a>
   </ul>
-
-  <div class="sm:col-span-2 lg:col-start-3 lg:col-span-6 lg:row-start-3">
-    <h1
-      class="col-span-full lg:col-start-3 text-sm uppercase font-semibold text-white/70 mb-4"
-    >
-      Most recent link
-    </h1>
-    <ul>
-      {links.map((link) => <LinkItem link={link} />)}
-      <a href="/links" class="block text-white/70 hover mt-2">
-        See all links &raquo;
-      </a>
-    </ul>
-  </div>
-
-  <section class="lg:col-span-6 xl:col-span-4 xl:col-start-3 lg:row-start-4">
-    <h1 class="text-sm uppercase font-semibold mb-4 text-white/70">
-      Recent posts
-    </h1>
-    <LatestPost type="posts" />
-    <PostList type="posts" recent={true} />
-  </section>
-  <section
-    class="lg:col-span-6 xl:col-span-4 xl:col-start-9 lg:row-start-4 flex flex-col"
-  >
-    <h1 class="text-sm uppercase font-semibold mb-4 text-white/70">
-      Recent photo posts
-    </h1>
-    <LatestPost type="photos" />
-    <PostList type="photos" recent={true} />
-  </section>
 </Layout>
