@@ -13,7 +13,7 @@
     "stream": "varlock run -- bun scripts/upload-images.js | bun scripts/create-stream-entries.js"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "13.7.0",
+    "@astrojs/cloudflare": "13.5.2",
     "@astrojs/mdx": "6.0.3",
     "@astrojs/rss": "4.0.18",
     "@tailwindcss/vite": "^4.3.0",
