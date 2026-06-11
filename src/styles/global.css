@@ -70,12 +70,6 @@ body {
   @apply mt-4;
 }
 
-.prose p + ol,
-.prose ul + p,
-.prose ol + p {
-  @apply mt-8;
-}
-
 .prose:not(.prose-no-decimal-list) ul {
   list-style-type: disc;
 }
@@ -84,13 +78,19 @@ body {
   list-style-type: decimal;
 }
 
-.prose li + li {
-  @apply mt-2;
-}
-
 .prose:not(.prose-no-decimal-list) ul,
 .prose ol {
   @apply ml-4;
+}
+
+.prose p + ol,
+.prose ul + p,
+.prose ol + p {
+  @apply mt-8;
+}
+
+.prose li + li {
+  @apply mt-2;
 }
 
 .prose h1,

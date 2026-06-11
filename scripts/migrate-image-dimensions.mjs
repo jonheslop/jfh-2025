@@ -7,9 +7,9 @@
  * Run with: node scripts/migrate-image-dimensions.mjs
  */
 
+import fs from "node:fs/promises";
+import path from "node:path";
 import sharp from "sharp";
-import fs from "fs/promises";
-import path from "path";
 
 const ACCOUNT_HASH = "tfgleCjJafHVtd2F4ngDnQ";
 const VARIANT = "large";
@@ -96,10 +96,10 @@ async function handleScalarField(content, fieldName) {
 async function handlePhotosArray(content) {
   // Already migrated: objects with id/width/height
   const migratedRegex =
-    /^photos:\n((?:  - id: .+\n    width: \d+\n    height: \d+\n?)+)/m;
+    /^photos:\n((?: {2}- id: .+\n {4}width: \d+\n {4}height: \d+\n?)+)/m;
   const migratedMatch = content.match(migratedRegex);
   if (migratedMatch) {
-    const ids = [...migratedMatch[1].matchAll(/  - id: (.+)/g)].map((m) =>
+    const ids = [...migratedMatch[1].matchAll(/ {2}- id: (.+)/g)].map((m) =>
       m[1].trim(),
     );
     const entries = [];
@@ -116,11 +116,11 @@ async function handlePhotosArray(content) {
   }
 
   // Unmigrated: bare string entries
-  const bareRegex = /^photos:\n((?:  - (?!id:).+\n?)+)/m;
+  const bareRegex = /^photos:\n((?: {2}- (?!id:).+\n?)+)/m;
   const bareMatch = content.match(bareRegex);
   if (!bareMatch) return content;
 
-  const ids = [...bareMatch[1].matchAll(/  - (.+)/g)].map((m) => m[1].trim());
+  const ids = [...bareMatch[1].matchAll(/ {2}- (.+)/g)].map((m) => m[1].trim());
   if (ids.length === 0) return content;
 
   const entries = [];

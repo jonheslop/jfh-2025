@@ -1,8 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
+import clsx from "clsx";
 import Layout from "../../components/Layout.astro";
 import { arrangeImagesInGrid } from "../../utils/gridLayoutArrange";
-import clsx from "clsx";
 import { dateOptions } from "../../utils/types";
 
 export async function getStaticPaths() {
@@ -48,6 +48,7 @@ const arrangedImages = arrangeImagesInGrid(imageData);
         <div class="md:col-start-2 md:col-span-3 w-full relative grid grid-cols-6 items-start bg-white p-0.5 sm:p-1 md:p-2 xl:p-4 gap-0.5 sm:gap-1 md:gap-2 xl:gap-4 rounded-xs">
           {arrangedImages.map((imageData) => (
             <img
+              alt=""
               class={clsx(
                 "self-stretch object-cover rounded-xs w-full h-full",
                 {
@@ -57,14 +58,13 @@ const arrangedImages = arrangeImagesInGrid(imageData);
                   "col-span-2": imageData.colSpan === 2,
                 },
               )}
-              alt=""
+              height={imageData.height}
               id={`image-${imageData.cloudflareId}`}
+              loading="lazy"
               src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/small`}
               srcset={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/small 400w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/medium 1024w, https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${imageData.cloudflareId}/large 2048w`}
               style={`aspect-ratio: ${imageData.aspectRatio}`}
               width={imageData.width}
-              height={imageData.height}
-              loading="lazy"
             />
           ))}
         </div>

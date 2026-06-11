@@ -1,5 +1,4 @@
 ---
-
 import { getCollection, render } from "astro:content";
 import clsx from "clsx";
 import Layout from "../../components/Layout.astro";
@@ -61,9 +60,9 @@ const aspectRatio = photo ? photo.width / photo.height : null;
             href={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.id}/large`}
           >
             <img
-              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.id}/large`}
               alt=""
               class="border-4 rounded-xs"
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.id}/large`}
             />
           </a>
         </figure>
@@ -75,8 +74,8 @@ const aspectRatio = photo ? photo.width / photo.height : null;
       newer && (
         <a
           class="text-white/70 hover:text-white transition-colors duration-200"
-          rel="next"
           href={`/stream/${newer.id}`}
+          rel="next"
         >
           &larr;{" "}
           {parseDateFromId(newer.id).toLocaleDateString("en-GB", dateMonthOptions)}
@@ -89,9 +88,9 @@ const aspectRatio = photo ? photo.width / photo.height : null;
     {
       older && (
         <a
-          rel="prev"
-          href={`/stream/${older.id}`}
           class=" text-white/70 hover:text-white transition-colors duration-200"
+          href={`/stream/${older.id}`}
+          rel="prev"
         >
           {parseDateFromId(older.id).toLocaleDateString("en-GB", dateMonthOptions)}
           {" "}&rarr;

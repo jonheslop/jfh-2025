@@ -22,12 +22,19 @@ const mostPlayedArtistCount = artists.topartists?.artist[0].playcount;
 
 {
   artists.topartists?.artist.map((artist) => (
-  <div class="text-balance flex justify-between gap-1 leading-tight text-sm">
-      <a href={artist.url} class="italic link">
-        {artist.name}
-      </a>
-      <span class="shrink-0">{artist.playcount} plays</span>
-    </div>
-    <div class="border-t-4 border-white/20 -mt-1 mb-3" style={{width: artist.playcount / mostPlayedArtistCount * 100 + '%'}} />
+    <>
+      <div class="text-balance flex justify-between gap-1 leading-tight text-sm">
+        <a class="italic link" href={artist.url}>
+          {artist.name}
+        </a>
+        <span class="shrink-0">{artist.playcount} plays</span>
+      </div>
+      <div
+        class="border-t-4 border-white/20 -mt-1 mb-3"
+        style={{
+          width: `${(artist.playcount / mostPlayedArtistCount) * 100}%`,
+        }}
+      />
+    </>
   ))
 }

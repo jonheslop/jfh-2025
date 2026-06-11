@@ -6,9 +6,9 @@
  *    or: pbpaste | bun scripts/create-stream-entries.js
  */
 
-const fs = require("fs");
-const { execSync } = require("child_process");
-const path = require("path");
+const fs = require("node:fs");
+const { execSync } = require("node:child_process");
+const path = require("node:path");
 
 const batchOutDir = "./batch-out";
 const batchInDir = "./batch-in";
@@ -31,8 +31,8 @@ for (let i = 0; i < lines.length; i++) {
     if (entry.id) {
       photos.push({
         id: entry.id,
-        width: parseInt(entry.width),
-        height: parseInt(entry.height),
+        width: parseInt(entry.width, 10),
+        height: parseInt(entry.height, 10),
       });
     }
   }
@@ -49,7 +49,7 @@ if (photos.length === 0) {
 console.log(`Found ${photos.length} photo(s)\n`);
 
 function formatCamera(raw) {
-  if (raw.startsWith("LEICA")) return "Leica" + raw.slice(5);
+  if (raw.startsWith("LEICA")) return `Leica${raw.slice(5)}`;
   return raw;
 }
 

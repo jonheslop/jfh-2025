@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
+import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
-import { glob, file } from "astro/loaders";
 
 const imageObject = z.object({
   id: z.string(),

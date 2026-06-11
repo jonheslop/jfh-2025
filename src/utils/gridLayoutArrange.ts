@@ -1,7 +1,7 @@
 import type {
+  ImageWithLayout,
   ImageWithOrientation,
   Orientation,
-  ImageWithLayout,
 } from "../utils/types";
 
 /**

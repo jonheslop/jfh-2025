@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("node:fs");
 const directoryPath = "./batch-out";
 const { CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID } = process.env;
 

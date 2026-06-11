@@ -1,7 +1,8 @@
-import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import sanitizeHtml from "sanitize-html";
+import rss from "@astrojs/rss";
 import MarkdownIt from "markdown-it";
+import sanitizeHtml from "sanitize-html";
+
 const parser = new MarkdownIt();
 
 export async function GET(context: { site: string }) {
@@ -29,7 +30,7 @@ export async function GET(context: { site: string }) {
         );
       }
 
-      content = content + `<hr/><p>Thanks for subscribing via RSS ᕕ( ᐛ )ᕗ</p>`;
+      content = `${content}<hr/><p>Thanks for subscribing via RSS ᕕ( ᐛ )ᕗ</p>`;
 
       return {
         title: post.data.title,

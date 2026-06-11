@@ -1,6 +1,6 @@
 ---
-import { clsx } from "clsx";
 import { getCollection } from "astro:content";
+import { clsx } from "clsx";
 import { dateOptions, parseDateFromId } from "../utils/types";
 
 interface Props {
@@ -50,11 +50,11 @@ if (preview) {
         >
           {photo && (
             <img
-              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.id}/medium`}
               alt={post.body}
               class={clsx("rounded-xs border-4", {
                 "self-stretch object-cover w-full h-full": aspectRatio > 1,
               })}
+              src={`https://imagedelivery.net/tfgleCjJafHVtd2F4ngDnQ/${photo.id}/medium`}
             />
           )}
           {!photo && (
