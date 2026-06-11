@@ -16,7 +16,14 @@ export async function GET(context: { site: string }) {
       "Links to things I’ve read/watched/seen around the web, saved here for posterity.",
     site: `${context.site}/links`,
     items: links.map((link) => {
-      const parsedContent = parser.render(link.body ?? "");
+      let parsedContent = parser.render(link.body ?? "");
+      const parsedVia = link.data.via
+        ? parser.render(`Via ${link.data.via}`)
+        : null;
+
+      if (parsedVia) {
+        parsedContent = `${parsedContent} <hr/>${parsedVia}`;
+      }
       return {
         title: link.data.title,
         pubDate: link.data.date,
