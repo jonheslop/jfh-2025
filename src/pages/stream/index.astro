@@ -1,14 +1,11 @@
 ---
-import Layout from "../../components/Layout.astro";
-import { getCollection } from "astro:content";
-import StreamList from "../../components/StreamList.astro";
 
-const stream = (await getCollection("stream")).sort((a, b) => {
-  const [yearA, dayA] = a.id.split("/").map(Number);
-  const [yearB, dayB] = b.id.split("/").map(Number);
-  if (yearB !== yearA) return yearB - yearA;
-  return dayB - dayA;
-});
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import StreamList from "../../components/StreamList.astro";
+import { sortStreamByDate } from "../../utils/types";
+
+const stream = sortStreamByDate(await getCollection("stream"));
 
 // Stats
 const totalPhotos = stream.filter((post) => post.data.photo).length;

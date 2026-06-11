@@ -1,24 +1,22 @@
 ---
+
 import { getCollection } from "astro:content";
 import LatestPost from "../components/LatestPost.astro";
 import Layout from "../components/Layout.astro";
 import LinkItem from "../components/LinkItem.astro";
 import PostList from "../components/PostList.astro";
 import StreamList from "../components/StreamList.astro";
+import { sortStreamByDate } from "../utils/types";
 
 const allLinks = await getCollection("links");
 const links = allLinks
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 1);
 
-const lastSevenDays = (await getCollection("stream"))
-  .sort((a, b) => {
-    const [yearA, dayA] = a.id.split("/").map(Number);
-    const [yearB, dayB] = b.id.split("/").map(Number);
-    if (yearB !== yearA) return yearB - yearA;
-    return dayB - dayA;
-  })
-  .slice(0, 6);
+const lastSevenDays = sortStreamByDate(await getCollection("stream")).slice(
+  0,
+  6,
+);
 ---
 
 <Layout title="Hello">

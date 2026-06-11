@@ -1,18 +1,28 @@
 ---
+
 import { getCollection, render } from "astro:content";
-import Layout from "../../components/Layout.astro";
-import { dateOptions, parseDateFromId } from "../../utils/types";
 import clsx from "clsx";
+import Layout from "../../components/Layout.astro";
+import {
+  dateMonthOptions,
+  dateOptions,
+  parseDateFromId,
+  sortStreamByDate,
+} from "../../utils/types";
 
 export async function getStaticPaths() {
-  const stream = await getCollection("stream");
-  return stream.map((post) => ({
+  const stream = sortStreamByDate(await getCollection("stream"));
+  return stream.map((post, i) => ({
     params: { slug: post.id },
-    props: { post },
+    props: {
+      post,
+      newer: stream[i - 1] ?? null,
+      older: stream[i + 1] ?? null,
+    },
   }));
 }
 
-const { post } = Astro.props;
+const { post, newer, older } = Astro.props;
 const { Content } = await render(post);
 
 const photo = post.data.photo ?? null;
@@ -22,7 +32,7 @@ const aspectRatio = photo ? photo.width / photo.height : null;
 <Layout
   title={`Stream - ${parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}`}
 >
-  <article class="grid grid-cols-subgrid lg:col-span-11 gap-8">
+  <article class="grid grid-cols-subgrid lg:col-span-10 gap-8">
     <div
       class={clsx({
         "lg:order-2 lg:col-span-4": !aspectRatio || aspectRatio < 1,
@@ -34,10 +44,10 @@ const aspectRatio = photo ? photo.width / photo.height : null;
           {parseDateFromId(post.id).toLocaleDateString("en-GB", dateOptions)}
         </h1>
         {post.data.camera && <h5 class="text-white/70">{post.data.camera}</h5>}
-        <div class="prose text-lg lg:text-xl text-pretty mt-8">
-          <Content />
-        </div>
       </header>
+      <div class="prose text-lg lg:text-xl text-pretty mt-8">
+        <Content />
+      </div>
     </div>
     {
       photo && (
@@ -60,4 +70,33 @@ const aspectRatio = photo ? photo.width / photo.height : null;
       )
     }
   </article>
+  <nav class="flex gap-2 col-span-2 leading-tight mt-1">
+    {
+      newer && (
+        <a
+          class="text-white/70 hover:text-white transition-colors duration-200"
+          rel="next"
+          href={`/stream/${newer.id}`}
+        >
+          &larr;{" "}
+          {parseDateFromId(newer.id).toLocaleDateString("en-GB", dateMonthOptions)}
+        </a>
+      )
+    }
+
+    {newer && older && <span class="text-white/70">|</span>}
+
+    {
+      older && (
+        <a
+          rel="prev"
+          href={`/stream/${older.id}`}
+          class=" text-white/70 hover:text-white transition-colors duration-200"
+        >
+          {parseDateFromId(older.id).toLocaleDateString("en-GB", dateMonthOptions)}
+          {" "}&rarr;
+        </a>
+      )
+    }
+  </nav>
 </Layout>

@@ -1,17 +1,18 @@
-import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import sanitizeHtml from "sanitize-html";
+import rss from "@astrojs/rss";
 import MarkdownIt from "markdown-it";
+import sanitizeHtml from "sanitize-html";
+
 const parser = new MarkdownIt();
-import { dateOptions, parseDateFromId } from "../../utils/types";
+
+import {
+  dateOptions,
+  parseDateFromId,
+  sortStreamByDate,
+} from "../../utils/types";
 
 export async function GET(context: { site: string }) {
-  const stream = (await getCollection("stream")).sort((a, b) => {
-    const [yearA, dayA] = a.id.split("/").map(Number);
-    const [yearB, dayB] = b.id.split("/").map(Number);
-    if (yearB !== yearA) return yearB - yearA;
-    return dayB - dayA;
-  });
+  const stream = sortStreamByDate(await getCollection("stream"));
 
   return rss({
     title: "Photo stream - Jon Heslop",
