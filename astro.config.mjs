@@ -1,6 +1,7 @@
 // @ts-check
 
 import cloudflare from "@astrojs/cloudflare";
+import { satteri } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 import varlockAstroIntegration from "@varlock/astro-integration";
@@ -41,5 +42,10 @@ export default defineConfig({
       },
     },
   ],
+  markdown: {
+    processor: satteri({
+      features: { directive: true },
+    }),
+  },
   integrations: [mdx(), varlockAstroIntegration()],
 });
