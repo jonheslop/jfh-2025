@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { type CollectionEntry, render } from "astro:content";
 import MarkdownIt from "markdown-it";
 import { prettifyUrl } from "../utils/string";
 import { dateOptions, shortDateOptions } from "../utils/types";
@@ -12,6 +12,7 @@ interface Props {
 
 const { link } = Astro.props;
 const { data, id, body } = link;
+const { Content } = await render(link);
 ---
 
 <li
@@ -44,10 +45,9 @@ const { data, id, body } = link;
     </p>
     {
       body && (
-        <div
-          class="text-white text-base leading-snug mt-2 max-w-lg text-pretty mb-3 prose"
-          set:html={parser.render(body)}
-        />
+        <div class="text-white text-base leading-snug mt-2 max-w-lg text-pretty mb-3 prose">
+          <Content />
+        </div>
       )
     }
   <footer class="flex justify-between lg:items-center">
