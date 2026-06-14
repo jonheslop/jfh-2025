@@ -151,9 +151,9 @@ async function migrateFile(filePath) {
 }
 
 async function main() {
-  const srcDir = path.resolve(process.cwd(), "src");
+  const contentDir = path.resolve(process.cwd(), "content");
 
-  const dirs = ["stream", "photos"].map((d) => path.join(srcDir, d));
+  const dirs = ["stream", "photos"].map((d) => path.join(contentDir, d));
   const allFiles = [];
 
   for (const dir of dirs) {
