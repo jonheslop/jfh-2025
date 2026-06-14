@@ -9,7 +9,7 @@ const imageObject = z.object({
 });
 
 const stream = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/stream" }),
+  loader: glob({ pattern: "**/*.mdx", base: "./content/stream" }),
   schema: z.object({
     photo: imageObject.optional(),
     camera: z.string().optional(),
@@ -17,7 +17,7 @@ const stream = defineCollection({
 });
 
 const posts = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/posts" }),
+  loader: glob({ pattern: "**/*.mdx", base: "./content/posts" }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -27,7 +27,7 @@ const posts = defineCollection({
 });
 
 const photos = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/photos" }),
+  loader: glob({ pattern: "**/*.mdx", base: "./content/photos" }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -38,7 +38,7 @@ const photos = defineCollection({
 });
 
 const links = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/links" }),
+  loader: glob({ pattern: "**/*.mdx", base: "./content/links" }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -50,7 +50,7 @@ const links = defineCollection({
 });
 
 const jobs = defineCollection({
-  loader: file("src/jobs.json", {
+  loader: file("content/jobs.json", {
     parser: (text) => JSON.parse(text).jobs,
   }),
   schema: z.object({

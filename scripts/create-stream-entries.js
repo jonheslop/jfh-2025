@@ -12,7 +12,7 @@ const path = require("node:path");
 
 const batchOutDir = "./batch-out";
 const batchInDir = "./batch-in";
-const streamBaseDir = "./src/stream";
+const streamBaseDir = "./content/stream";
 
 const input = await Bun.stdin.text();
 
