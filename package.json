@@ -10,7 +10,8 @@
     "astro": "astro",
     "lint": "biome lint --write .",
     "format": "biome check --write .",
-    "stream": "varlock run -- bun scripts/upload-images.js | bun scripts/create-stream-entries.js"
+    "stream": "varlock run -- bun scripts/upload-images.js | bun scripts/create-stream-entries.js",
+    "upload": "varlock run -- bun scripts/upload-images.js"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.0.0",
