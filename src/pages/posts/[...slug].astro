@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../components/Layout.astro";
+import PostImage from "../../components/PostImage.astro";
 import { dateOptions } from "../../utils/types";
 
 export async function getStaticPaths() {
@@ -31,7 +32,7 @@ const { Content } = await render(post);
       </span>
     </header>
     <div class="prose text-lg lg:text-xl text-pretty">
-      <Content />
+      <Content components={{ img: PostImage }} />
     </div>
     <div class="mt-32 border-b-2 border-white/60"></div>
   </article>
