@@ -7,9 +7,11 @@ const parser = new MarkdownIt();
 
 export async function GET(context: { site: string }) {
   const allLinks = await getCollection("links");
-  const links = allLinks.sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-  );
+  const links = allLinks.sort((a, b) => {
+    const dateDiff = b.data.date.getTime() - a.data.date.getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return Number(b.id) - Number(a.id);
+  });
 
   return rss({
     title: "Links - Jon Heslop",
