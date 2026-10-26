@@ -8,13 +8,14 @@ import StreamList from "../components/StreamList.astro";
 import { sortStreamByDate } from "../utils/types";
 
 const allLinks = await getCollection("links");
-const links = allLinks
+const mostRecentLink = allLinks
   .sort((a, b) => {
     const dateDiff = b.data.date.getTime() - a.data.date.getTime();
     if (dateDiff !== 0) return dateDiff;
     return Number(b.id) - Number(a.id);
   })
-  .slice(0, 1);
+  .slice(0, 1)[0];
+const isLinkOlderThan30days = mostRecentLink.data.date.getTime() < Date.now() - 30 * 24 * 60 * 60 * 1000;
 
 const lastSevenDays = sortStreamByDate(await getCollection("stream")).slice(
   0,
@@ -24,19 +25,19 @@ const lastSevenDays = sortStreamByDate(await getCollection("stream")).slice(
 
 <Layout title="Hello">
 
-  <div class="sm:col-span-2 lg:col-start-3 lg:col-span-6 lg:row-start-1">
+  {!isLinkOlderThan30days && <div class="sm:col-span-2 lg:col-start-3 lg:col-span-6 lg:row-start-1">
     <h1
       class="col-span-full lg:col-start-3 text-sm uppercase font-semibold text-white/70 mb-4"
     >
       Most recent link
     </h1>
     <ul>
-      {links.map((link) => <LinkItem link={link} />)}
+      <LinkItem link={mostRecentLink} />
       <a href="/links" class="block text-white/70 hover mt-2">
         See all links &raquo;
       </a>
     </ul>
-  </div>
+  </div>}
 
   <section class="lg:col-span-6 xl:col-span-4 xl:col-start-3 lg:row-start-2">
     <h1 class="text-sm uppercase font-semibold mb-4 text-white/70">
